@@ -4,12 +4,10 @@ jQuery(document).ready(function($){
         $('.site-menu').toggleClass('down');
     });
 
-    $('ul#primary-menu > li.menu-item > a').mouseenter(function () {
+    $('ul#primary-menu > li.menu-item > a').on('click', function (e) {
+        e.preventDefault();
+        $('ul#primary-menu > li.menu-item').removeClass('expanded');
         $(this).parent('li.menu-item').addClass('expanded');
-    });
-
-    $('ul#primary-menu > li.menu-item').mouseleave(function () {
-        $(this).removeClass('expanded')
     });
 
     $('#primary-menu > li.menu-item:nth-child(1)').mouseenter(function () {

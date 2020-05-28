@@ -96,7 +96,7 @@ a:hover{
 }
 #burger-icon.open .burger-text{
     top: -10px;
-    opacity: .6;
+    opacity: 1;
 }
 #burger-icon.open span:nth-child(3) {
     width: 76px;
@@ -196,7 +196,7 @@ nav ul li{
         padding: 50px 0;
         border-top: 2px solid #FFFFFF;
         border-bottom: 2px solid #FFFFFF;
-        margin-top: 50px;
+        margin-top: 20px;
         -webkit-transition: all 0.5s ease-in-out;
         -moz-transition: all 0.5s ease-in-out;
         -o-transition: all 0.5s ease-in-out;
@@ -204,13 +204,16 @@ nav ul li{
     }
     .sub-menu li{
         margin-bottom: 1em;
+        text-align: left;
     }
     .sub-menu li:last-child{
         margin-bottom: 0;
     }
     .sub-menu li a{
         color: #FFFFFF;
-
+        font-size: 2.4rem;
+        font-weight: 100;
+        letter-spacing: .9px;
     }
     .sub-menu li a:hover{
 
@@ -237,6 +240,9 @@ nav ul li{
         -moz-transition: all 1s ease-in-out;
         -o-transition: all 1s ease-in-out;
         transition: all 1s ease-in-out;
+    }
+    ul#primary-menu > li.menu-item > a{
+        letter-spacing: 1.2px;
     }
     ul#primary-menu > li.menu-item.expanded{
         height: auto;
@@ -752,7 +758,7 @@ h3{
     background: rgba(0,0,0,.3);
 }
 .archive-description{
-    max-width: 550px;
+
 }
 .category-description:after{
     content: '';
@@ -775,12 +781,8 @@ h3{
     padding: .7em 0 1.5em;
     font-weight: 300;
     color: #333333;
-    letter-spacing: 3px;
-    margin-left: -265px;
+    letter-spacing: 1.6px;
     margin-bottom: 0;
-}
-.category-blogs{
-
 }
 .category-blogs article.post:after{
     content: '';
@@ -1037,6 +1039,40 @@ h3{
 .gallery-section ul li a > img{
     width: 100%;
 }
+/********************************************************************/
+/*************************   Curtain Start   **************************/
+/*************************   Curtain Start   **************************/
+/*******************************************************************/
+
+@media screen and (min-width: 1700px){
+    .page-template-page-curtains .site-content .container{
+        max-width: 1630px;
+    }
+}
+.page-template-page-curtains .category-description{
+    min-height: 680px;
+    margin-bottom: 200px;
+}
+.page-template-page-curtains .category-description .wrapper {
+    width: calc(100% - 830px);
+
+}
+.page-template-page-curtains .category-description h2.post-title{
+    padding-top: 100px;
+}
+.page-template-page-curtains .page-main-content ul.row{
+    list-style: none;
+    margin-bottom: 0;
+    padding: 0;
+}
+.page-template-page-curtains .page-main-content ul.row li.col-product{
+    margin-bottom: 135px;
+}
+/********************************************************************/
+/*************************   Curtain End   **************************/
+/*************************   Curtain End   **************************/
+/*******************************************************************/
+
 @media screen and (max-width: 1700px){
     .menu-menu-1-container{
         max-width: 1170px;
