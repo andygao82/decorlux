@@ -3,6 +3,7 @@
 get_header();
 
 ?>
+<div class="page-category-content">
 	<section class="page-banner category-banner curtain-banner">
 		<div class="page-banner-wrapper">
 			<h1 class="page-title">Curtains</h1>
@@ -21,7 +22,6 @@ get_header();
                             <?php echo category_description(6); ?>
 						</div>
 					</div>
-
 				</div>
 			</div>
 		</div>
@@ -29,7 +29,6 @@ get_header();
 	<section class="page-main-content">
 		<div class="container">
 			<ul class="row">
-
 					<?php
                         global $post;
 
@@ -80,6 +79,5 @@ get_header();
 			</ul>
 		</div>
 	</section>
-
-
+</div>
 <?php get_footer(); ?>

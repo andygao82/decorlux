@@ -1045,28 +1045,56 @@ h3{
 /*******************************************************************/
 
 @media screen and (min-width: 1700px){
-    .page-template-page-curtains .site-content .container{
+    .page-category-content .container{
         max-width: 1630px;
     }
 }
-.page-template-page-curtains .category-description{
+.page-category-content .category-description{
     min-height: 680px;
     margin-bottom: 200px;
 }
-.page-template-page-curtains .category-description .wrapper {
+.page-category-content .category-description .wrapper {
     width: calc(100% - 830px);
 
 }
-.page-template-page-curtains .category-description h2.post-title{
+.page-category-content .category-description h2.post-title{
     padding-top: 100px;
 }
-.page-template-page-curtains .page-main-content ul.row{
+.page-category-content .page-main-content ul.row{
     list-style: none;
     margin-bottom: 0;
     padding: 0;
 }
-.page-template-page-curtains .page-main-content ul.row li.col-product{
+.page-category-content .page-main-content ul.row li.col-product{
     margin-bottom: 135px;
+}
+.page-category-content .page-main-content ul.row li.col-product a{
+    color: #666;
+}
+.page-category-content .page-main-content ul.row li.col-product .post-thumbnail{
+    width: 400px;
+    height: 400px;
+    overflow: hidden;
+    float: left;
+}
+.page-category-content .page-main-content ul.row li.col-product .post-thumbnail img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+}
+.page-category-content .page-main-content ul.row li.col-product .wrapper{
+    width: 100%;
+    max-width: 325px;
+    float: left;
+    margin-left: 60px;
+    padding-top: 80px;
+}
+.page-category-content .page-main-content ul.row li.col-product .wrapper h2{
+    font-size: 40px;
+    color: #666666;
+    font-weight: 300;
+    margin-bottom: 25px;
 }
 /********************************************************************/
 /*************************   Curtain End   **************************/

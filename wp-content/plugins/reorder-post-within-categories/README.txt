@@ -3,7 +3,7 @@ Contributors: aurovrata, aurelien
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=36PNU5KYMP738
 Tags: order, reorder, re-order, order by category,order custom post type, order by categories, order category, order categories, order by taxonomy, order by taxonomies, manual order, order posts
 Requires at least: 3.4
-Tested up to: 5.4.0
+Tested up to: 5.4.1
 Requires PHP: 5.6
 Stable tag: trunk
 License: GPLv2
@@ -41,10 +41,11 @@ New enhanced **version 2.0** with grid-layout and multi-drag interface to ease s
 
 == Screenshots ==
 
-1. Plugin page settings, if you uninstall this plugin for good, delete all data using this settings page first before deactivating the plugin.
-2. Re-order your post through a drag & drop grid-layout interface with multi-select capabilities.  For large sets of posts, a range slider will appear allowing you to view your posts in sub-sets by moving the slider range accordingly and sorting posts in smaller more manageable groups.  You can also multi-select the posts and enter a rank value to which you want to send those selected posts too.  For example, if you are sorting posts between the ranks fo 100 and 150 and you want to send 3 posts to the beginning of the order, simply select them and enter 1 in the rank input field and press enter. A rest button is introduced in v2.1 so an order can be reset.  Using the filters described in faq #7 it is possible to reset the default ranking to various initial ordered lists.
-3. v2.1 introduced a reset button on the amdin reorder page. The checkbox enables the button which you can use to reset your posts ranking order for this term.  This in conjunction with the intial order filters (see FAQ 7) allows you to set a chronological or an alphabetical ranking for the initial order.
-4. the reset checkbox will enable the reset button.  If you upgraded from v1.x and you have not deteleted the custom table used in the previous versions, the reset button will reload your previously stored ranking for ther term if it exists in the table.  Otherwise the default post table ranking will be loaded which can be modified using the filters provided (see FAQ #7 for more info).
+1. (1) Plugin page settings, if you uninstall this plugin for good, delete all data using this settings page first before deactivating the plugin.
+2. (2) Re-order your post through a drag & drop grid-layout interface with multi-select capabilities.  For large sets of posts, a range slider will appear allowing you to view your posts in sub-sets by moving the slider range accordingly and sorting posts in smaller more manageable groups.  You can also multi-select the posts and enter a rank value to which you want to send those selected posts too.  For example, if you are sorting posts between the ranks fo 100 and 150 and you want to send 3 posts to the beginning of the order, simply select them and enter 1 in the rank input field and press enter. A rest button is introduced in v2.1 so an order can be reset.  Using the filters described in faq #7 it is possible to reset the default ranking to various initial ordered lists.
+3. (3) v2.1 introduced a reset button on the amdin reorder page. The checkbox enables the button which you can use to reset your posts ranking order for this term.  This in conjunction with the intial order filters (see FAQ 7) allows you to set a chronological or an alphabetical ranking for the initial order.
+4. (4) the reset checkbox will enable the reset button.  If you upgraded from v1.x and you have not deteleted the custom table used in the previous versions, the reset button will reload your previously stored ranking for ther term if it exists in the table.  Otherwise the default post table ranking will be loaded which can be modified using the filters provided (see FAQ #7 for more info).
+5. (5) in v2.6 you can now override `orderby` directives in queries.  Use with **caution** because this will override all `orderby` directives, and some WooCommerce themes allow sorting by price which will not work.  Read FAQ #10 for more details on how to have a finer control of this.
 
 == FAQ ==
 = 1.Retrieving ordered posts with custom get_posts query not working! =
@@ -168,24 +169,24 @@ function ranking_post_type($type, $wp_query){
 }
 `
 
-= 10. My posts are not being ranked on the front-end =
+= 10. My posts are not being ranked properly on the front-end =
 
 **There are several reasons why this might happen,**
 
 If you are displaying your posts using a **custom query with the function get_posts()** you should be aware that it sets the attribute 'suppress_filters' to false by default (see the [codex page](https://developer.wordpress.org/reference/functions/get_posts/#parameters)).  The ranked order is applied using filters on the query, hence you need to explictly set this attribute to true to get your results ranked properly.
 
-If you query explicitly sets the 'orderby' attribute, then the plugin will ignore your query.  However, you can disable this with the following hook,
+If you **query explicitly sets the 'orderby'** [attribute](https://developer.wordpress.org/reference/classes/wp_query/#order-orderby-parameters), and the override checkbox is checked (see [screenshot](https://wordpress.org/plugins/reorder-post-within-categories/#screenshots) #5), then the plugin will override your query and rank the results as per your manual order.  However, if you uncheck the ovverride setting (ie override is set to false), you can programmatically override the `orderby` directive with the following hook,
 
 `add_filter('rpwc2_allow_custom_sort_orderby_override', 'override_orderby_sorting', 10,2);
 function  override_orderby_sorting($override, $wp_query){
     //check this is the correct query
     if($wp_query....){
-      $override = false;
+      $override = true;
     }
     return $override;
 }`
 
-If your query is a **taxonomy archive query** for a given term, then WordPress core query does not specify the post type by default see this [bug](https://core.trac.wordpress.org/ticket/50070)).  This forces the plugin to seek which post type is associated with this taxonomy.  *In the event that the you are using this taxonomy to classify multiple post types* this will lead to the plugin choosing the first type it encounters with available posts for the queried term, and this may give spurious results.  A hook is provided for you to correctly filter the post_type and ensure the right results,
+If your query is a **taxonomy archive query** for a given term, then WordPress core query does not specify the `post_type` by default see this [bug](https://core.trac.wordpress.org/ticket/50070)).  This forces the plugin to seek which `post_type` is associated with this taxonomy.  **In the event that the you are using this taxonomy to classify multiple post types** this will lead to the plugin choosing the first type it encounters with available posts for the queried term, and this may give spurious results.  A hook is provided for you to correctly filter the `post_type` and ensure the right results,
 
 `
 add_filter('reorderpwc_filter_multiple_post_type', 'filter_my_ranked_post_type', 10, 4);
@@ -219,9 +220,21 @@ function custom_intial_order($ranking, $term_id, $taxonomy, $post_type){
   return $filtered_order;
 }`
 
+in version 2.6.1, an additional filter is introduced to allow different post status to appear in the initial rank,
+
+`add_filter('rpwc2_initial_rank_posts_status', 'allow_draft_in_initial_order',10,3);
+function allow_draft_in_initial_order($status, $post_type, $term_id){
+  //allow draft post to be ranked initially.  By default $status=array('private','publish','future').
+  if('post'==$post_type){
+    $status[]='draft';
+  }
+  return $status;
+}`
+this will only affect the posts in the admin dashboard reorder page.
+
 = 12. Can I rank draft posts? =
 
-Yes!  By default all posts moved to draft/pending status are removed from the manual rankign.  However, you can hook the following filter and control which draft or pending posts should appear in the manual ranking in the amdin dashboard,
+Yes!  By default all posts moved to draft/pending status are removed from the manual ranking.  However, you can hook the following filter and control which draft or pending posts should appear in the manual ranking in the amdin dashboard,
 
 `add_filter('rpwc2_rank_draft_posts', 'allow_draft_posts_in_ranking', 10, 5);
 function allow_draft_posts_in_ranking($allow, $new_status, $old_status, $term_id, $post){
@@ -235,11 +248,12 @@ function allow_draft_posts_in_ranking($allow, $new_status, $old_status, $term_id
   return $allow;
 }`
 NOTE:  this will only affect the admin dashboard queries.  Your draft posts will appear in the admin re-order pages but will not appear in the front-end queries, as only published posts will be retrieved by your queries.
+If you need to have draft/pending posts in the intial ranking, see FAQ #11.
 
 = 13. Can I remove private/future posts from the manual rank ? =
 
 Yes, there is a filter that allows you to control those too,
-`add_filter('rpwc2_rank_published_posts', 'allow_draft_posts_in_ranking', 10, 5);
+`add_filter('rpwc2_rank_published_posts', 'disable_future_posts_in_ranking', 10, 5);
 function allow_draft_posts_in_ranking($allow, $new_status, $old_status, $term_id, $post){
   //$new_status of the post being saved.
   //$old_status of the post being saved.
@@ -252,6 +266,17 @@ function allow_draft_posts_in_ranking($allow, $new_status, $old_status, $term_id
 }`
 NOTE: note that this will effect front-end mixed-queries trying to display both future (and/or private) and 'publish'ed posts.
 
+as of v2.6.1, the intial sorted posts includes future and provate posts which you can remove using,
+
+`add_filter('rpwc2_initial_rank_posts_status', 'disable_future_in_initial_order',10,3);
+function allow_draft_in_initial_order($status, $post_type, $term_id){
+  //allow draft post to be ranked initially.  By default $status=array('private','publish','future').
+  if('post'==$post_type){
+    $status=array('publish','private');
+  }
+  return $status;
+}`
+
 **NOTE**: in all 3 cases, you may use the reset button (see screenshot #3) on the reorder admin page to get the filters to change the order.
 
 = Thanks to =
@@ -259,6 +284,13 @@ NOTE: note that this will effect front-end mixed-queries trying to display both 
 @menard1965 for helping resolve `get_adjacent_post` prev/next ranked posts.
 
 == Changelog ==
+= 2.6.1 =
+* fixed sorting of private/future posts in dashboard.
+= 2.6.0 =
+* added settings for override orderby.
+* improved term tracking settings.
+* fixed WooCommerce spurious results when override orderby is true.
+
 = 2.5.9 =
 * enable default post type for multi-type taxonomy query.
 = 2.5.8 =

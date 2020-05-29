@@ -2,15 +2,22 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b1962744-f6bc-43b6-9d37-9e5ef47959d0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/wp-content/themes/decorlux/page-curtains.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/wp-content/uploads/2020/05/image_34-150x150.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/wp-content/uploads/2020/05/image_34-300x250.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/wp-content/uploads/2020/05/image_34-768x640.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/wp-content/uploads/2020/05/image_34.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/wp-content/themes/decorlux/page-featured-projects.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/wp-content/themes/decorlux/page-indoor-blinds.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/wp-content/themes/decorlux/page-outdoor-blinds.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/wp-content/themes/decorlux/page-previous-projects.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/wp-content/themes/decorlux/page-recent-projects.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wp-content/themes/decorlux/js/custom.js" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/themes/decorlux/js/custom.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/reorder-post-within-categories/README.txt" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/plugins/reorder-post-within-categories/README.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/reorder-post-within-categories/admin/class-reorder-post-within-categories-admin.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/plugins/reorder-post-within-categories/admin/class-reorder-post-within-categories-admin.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/reorder-post-within-categories/admin/css/reorder-post-within-categories-admin.css" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/plugins/reorder-post-within-categories/admin/css/reorder-post-within-categories-admin.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/reorder-post-within-categories/admin/js/reorder-post-within-categories-admin.js" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/plugins/reorder-post-within-categories/admin/js/reorder-post-within-categories-admin.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/reorder-post-within-categories/admin/partials/reorder-post-within-categories-admin-display.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/plugins/reorder-post-within-categories/admin/partials/reorder-post-within-categories-admin-display.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/reorder-post-within-categories/includes/class-reorder-post-within-categories.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/plugins/reorder-post-within-categories/includes/class-reorder-post-within-categories.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/reorder-post-within-categories/public/class-reorder-post-within-categories-public.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/plugins/reorder-post-within-categories/public/class-reorder-post-within-categories-public.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/reorder-post-within-categories/reorder-post-within-categories.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/plugins/reorder-post-within-categories/reorder-post-within-categories.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wp-content/themes/decorlux/local.css" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/themes/decorlux/local.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/themes/decorlux/page-curtains.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/themes/decorlux/page-curtains.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -41,23 +48,23 @@
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/wp-content/themes/decorlux" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="G:\xampp\htdocs\decorlux\wp-content\themes\decorlux\images" />
-      <recent name="D:\xampp\htdocs\decorlux\wp-content\themes\decorlux\images" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="G:\xampp\htdocs\decorlux\wp-content\themes\decorlux" />
       <recent name="D:\xampp\htdocs\decorlux\wp-content\themes\decorlux\fonts" />
       <recent name="D:\xampp\htdocs\decorlux\wp-content\themes\decorlux\css" />
       <recent name="D:\xampp\htdocs\decorlux\wp-content\themes\decorlux\js" />
       <recent name="G:\xampp\htdocs\decorlux\wp-content\themes\decorlux\images" />
-      <recent name="G:\xampp\htdocs\decorlux\wp-content\themes\decorlux" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="G:\xampp\htdocs\decorlux\wp-content\themes\decorlux\images" />
+      <recent name="D:\xampp\htdocs\decorlux\wp-content\themes\decorlux\images" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -94,6 +101,7 @@
       <workItem from="1590493378965" duration="1191000" />
       <workItem from="1590575186542" duration="5046000" />
       <workItem from="1590663692717" duration="4127000" />
+      <workItem from="1590749653873" duration="3112000" />
     </task>
     <servers />
   </component>
@@ -105,7 +113,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>

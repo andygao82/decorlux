@@ -39,10 +39,19 @@ class Reorder_Post_Within_Categories_Admin {
 	 * @var      string    $version    The current version of this plugin.
 	 */
 	private $version;
+	/**
+	*Options used to save the settings page, which taxonomy/post_type to be ordered.
+	*
+	*/
 	public $adminOptionsName = "deefuse_ReOrderSettingAdminOptions";
 
 	public $old_table_name = "reorder_post_rel";
+	/**
+	* Save plugin settings, to keep track of ugrades.
+	* @since 2.0.0
+	*/
 	public static $settings_option_name = "_rpwc2_settings";
+	public static $settings = null;
 
 	public $custom_cat = 0;
 	public $stop_join = false;
@@ -57,7 +66,11 @@ class Reorder_Post_Within_Categories_Admin {
 
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
+		//load settings.
+		self::$settings = get_option(self::$settings_option_name, array());
+
 		$this->_upgrade_to_v2();//if required.
+		$this->upgrade_options();
 	}
 
 	/**
@@ -137,25 +150,73 @@ class Reorder_Post_Within_Categories_Admin {
 		$key = $_POST['current_cat'];
 		$option=array();
 		if(isset($_POST['post_type'])){
-			$option[$_POST['current_cat']] = $_POST['valueForManualOrder'];
+			$option[$_POST['current_cat']] = array(
+        'order'=>('true' == $_POST['valueForManualOrder'])?1:0,
+        'override'=>('true' == $_POST['override'])?1:0 /** @since 2.6.0 override orderby */
+      );
 			$key = $_POST['post_type'];
 		}
-		$settings = get_option(RPWC_OPTIONS, array());
+		$settings = get_option(RPWC_OPTIONS_2, array());
 		// unset($settings[$key]);
 		if(isset($settings[$key]) && is_array($settings[$key])){
 			$option = array_replace($settings[$key], $option);
 		}
 		$settings[$key] = $option;
-		update_option(RPWC_OPTIONS, $settings);
+		update_option(RPWC_OPTIONS_2, $settings);
+
 		wp_die();
 	}
 	/**
 	 * Returns an array of admin options
 	 */
 	public function get_admin_options(){
-		return get_option($this->adminOptionsName, array());;
+		return get_option($this->adminOptionsName, array());
 	}
+	/**
+	* Upgrade plugin options.
+	*
+	*@since 2.6.0
+	*@param string $param text_description
+	*@return string text_description
+	*/
+	private function upgrade_options(){
+		// debug_msg(self::$settings);
+		if( !isset(self::$settings['options']) ){
+			self::$settings['options'] = $this->version;
+			update_option(self::$settings_option_name, self::$settings);
 
+			$old_options = get_option(RPWC_OPTIONS, array());
+			$new_options = array();
+			foreach($old_options as $key=>$item){
+				if(is_array($item)){ //updated options.
+					$new_options[$key] = array();
+					foreach($item as $term=>$flag){
+						$new_options[$key][$term] = array(
+							'order'=>('true' == $flag)?1:0,
+							'override'=>1
+						);
+					}
+				}else{ //v1.x options.
+					$admin_options=$this->get_admin_options();
+					foreach($admin_options['categories_checked'] as $pt=>$taxonomies){
+						foreach($taxonomies as $taxonomy){
+							$term = get_term_by('id',$key, $taxonomy);
+							if( !empty($term) ){
+								if( is_array($term) ) $term = $term[0];
+								if( !isset($new_options[$pt]) ) $new_options[$pt] = array();
+								$new_options[$pt][$key]=array(
+									'order'=>('true'==$item)?1:0,
+									'override'=>1
+								);
+							}
+						}
+					}
+				}
+			}
+			//save the new options;
+			update_option(RPWC_OPTIONS_2, $new_options);
+		}
+	}
 	/**
 	* Update to new process: extract order from old custom table and insert into postmeta table.
 	* @since 2.0.0
@@ -179,15 +240,15 @@ class Reorder_Post_Within_Categories_Admin {
 	* @since 2.0.0
 	*/
 	private function _upgrade(){
-		$settings = get_option(self::$settings_option_name, array());
+		//self::$settings = get_option(self::$settings_option_name, array());
 		// debug_msg($settings, 'upgrading...');
 		/** @since 2.0.1*/
 		$upgrade = false;
 		switch(true){
-			case empty($settings): //either first install or new upgrade.
+			case empty(self::$settings): //either first install or new upgrade.
 				$upgrade = true;
 				break;
-			case isset($settings['version']) &&  $settings['version']=="2.0.0": //reset order.
+			case isset(self::$settings['version']) &&  self::$settings['version']=="2.0.0": //reset order.
 				global $wpdb;
 				// debug_msg('deleting all ranks');
 				$wpdb->delete($wpdb->postmeta, array('meta_key'=>'_rpwc2'), array('%s'));
@@ -196,13 +257,13 @@ class Reorder_Post_Within_Categories_Admin {
 		}
 		switch($upgrade){
 		 	case false:
-				$settings['version']=$this->version;
-				if( !isset($settings['upgraded']) ) $settings['upgraded']=false;
+				self::$settings['version']=$this->version;
+				if( !isset(self::$settings['upgraded']) ) self::$settings['upgraded']=false;
 	 			break;
 			case true: //empty = new instal or old version update.
 				//update settings.
-				$settings['version']=$this->version;
-				$settings['upgraded']=false;
+				self::$settings['version']=$this->version;
+				self::$settings['upgraded']=false;
 				global $wpdb;
 				$table_name = $wpdb->prefix . $this->old_table_name;
 				$categories = array();
@@ -224,11 +285,11 @@ class Reorder_Post_Within_Categories_Admin {
 						$wpdb->query($sql);
             //debug_msg($values, 'stored existing order for cid: '.$cid);
 					}
-					$settings['upgraded']=true; //upgrade settings.
+					self::$settings['upgraded']=true; //upgrade settings.
 				}
 				break;
 		}
-		update_option(self::$settings_option_name, $settings);
+		update_option(self::$settings_option_name, self::$settings);
 	}
   /**
   * function called by admn ajax to load more posts.
@@ -267,9 +328,10 @@ class Reorder_Post_Within_Categories_Admin {
 		$results = array();
 		$ranking = $this->_get_order($post_type, $term_id, $start, $offset);
     $posts = get_posts(array(
+			'post_status'=>'any',
       'post_type' => $post_type,
       'post__in'=>$ranking,
-      'ignore_sticky_posts'=>true,
+      'ignore_sticky_posts'=>false,
       'posts_per_page'=>-1
     ));
 		$results = array_fill(0, count($ranking), '');
@@ -281,6 +343,7 @@ class Reorder_Post_Within_Categories_Admin {
 				'id'=>$post->ID,
         'link'=>admin_url('post.php?post='.$post->ID.'&action=edit'),
         'img'=> $img,
+				'status'=>$post->post_status,
         'title'=>apply_filters('reorder_posts_within_category_card_text',get_the_title($post), $post, $term_id)
       );
     }
@@ -298,16 +361,6 @@ class Reorder_Post_Within_Categories_Admin {
 		// debug_msg($_POST['order'], 'saving order ');
 		$this->_save_order($post_type, explode(",", $_POST['order']), $_POST['category'], $_POST['start']);
 
-		/** @since 2.5.0 save term status to ensure new posts are included properly */
-		$is_manual = $_POST['valueForManualOrder'];
-		$term_id = $_POST['category'];
-		//update the order options for this post_type.
-		$settings = get_option(RPWC_OPTIONS, array());
-		if(!isset($settings[$post_type])) $settings[$post_type] = array();
-		if(!isset($settings[$post_type][$term_id])){
-			$settings[$post_type][$term_id] = $is_manual;
-			update_option(RPWC_OPTIONS, $settings);
-		}
 		wp_die();
 	}
 	/**
@@ -327,8 +380,6 @@ class Reorder_Post_Within_Categories_Admin {
     $term_id = $_POST['category'];
 		$post_type = $_POST['post'];
 		$move = $_POST['move'];
-		/** @since 2.5.0 save term status to ensure new posts are included properly */
-		$is_manual = $_POST['valueForManualOrder'];
 		// debug_msg($_POST);
 		if(empty($items) || empty($start) ||
 			empty($end) || empty($term_id) ||
@@ -339,16 +390,6 @@ class Reorder_Post_Within_Categories_Admin {
 		// $items = explode(',',$items);
 		$order = $this->_get_order($post_type, $term_id, $start-1, $end-$start+1);
 
-		/** @since 2.5.0 save term status to ensure new posts are included properly */
-		//update the order options for this post_type.
-		$settings = get_option(RPWC_OPTIONS, array());
-		if(!isset($settings[$post_type])) $settings[$post_type] = array();
-		if(!isset($settings[$post_type][$term_id])){
-			$settings[$post_type][$term_id] = $is_manual;
-			update_option(RPWC_OPTIONS, $settings);
-		}
-		// debug_msg($order, ($start-1).'->'.($end-$start+1));
-		// debug_msg($items, 'items to move ');
 		foreach($items as $post_id){
 			if(false !== ($idx = array_search($post_id, $order))){
 				unset($order[$idx]); //remove from order.
@@ -393,6 +434,7 @@ class Reorder_Post_Within_Categories_Admin {
 			// debug_msg($wpdb->last_query);
 			// debug_msg($ranking, $term_id.':'.$start.'->'.$length);
 		if(empty($ranking)){ //retrieve the default ranking.
+			//check if v1.x table exists.
 			$table_name = $wpdb->prefix . $this->old_table_name;
 			/** @since 2.3.0 check for post_type properly */
 			if($wpdb->get_var("SHOW TABLES LIKE '$table_name'") == $table_name){ //cehck table exits.
@@ -410,14 +452,21 @@ class Reorder_Post_Within_Categories_Admin {
 				if(apply_filters('reorder_posts_within_category_initial_order', false, $post_type, $term_id)){
 					$order = 'ASC';
 				}
+				/** @since 2.6.1 allow for various post status to be filtered */
+				$status = array('publish','private','future');
+				$status = apply_filters('rpwc2_initial_rank_posts_status', $status, $post_type, $term_id);
+				if( !is_array($status) ) $status = array($status);
+				$status = array_intersect($status, array('publish','private','future', 'pending', 'draft'));
+				$status = "('".implode("','",$status)."')";
+
 				$sql = $wpdb->prepare("SELECT rpwc_p.ID FROM {$wpdb->posts} as rpwc_p
 					LEFT JOIN {$wpdb->term_relationships} AS rpwc_tr ON rpwc_p.ID=rpwc_tr.object_id
 					LEFT JOIN {$wpdb->term_taxonomy} AS rpwc_tt ON rpwc_tr.term_taxonomy_id = rpwc_tt.term_taxonomy_id
-					WHERE  rpwc_p.post_status='publish'
+					WHERE  rpwc_p.post_status IN {$status}
 					AND rpwc_p.post_type=%s
 					AND rpwc_tt.term_id=%d
 					ORDER BY {$orderby} {$order}", $post_type, $term_id);
-				/** @since 2.4.3 */
+				/** @since 2.4.3 filter the ranking query with the hook at the end of the queue.*/
 				$this->filter_query($sql, "SELECT rpwc_p.ID");
 				$ranking = $wpdb->get_col($sql);
         /** @since 2.4.0 enable programmatic default ranking */
@@ -448,10 +497,17 @@ class Reorder_Post_Within_Categories_Admin {
   */
   protected function count_posts_in_term($post_type, $term_id){
 		global $wpdb;
+		/** @since 2.6.1 allow for various post status to be filtered */
+		$status = array('publish','private','future');
+		$status = apply_filters('rpwc2_initial_rank_posts_status', $status, $post_type, $term_id);
+		if( !is_array($status) ) $status = array($status);
+		$status = array_intersect($status, array('publish','private','future', 'pending', 'draft'));
+		$status = "('".implode("','",$status)."')";
+
     $sql = $wpdb->prepare("SELECT COUNT(rpwc_p.ID) as total FROM {$wpdb->posts} as rpwc_p
 		  LEFT JOIN {$wpdb->term_relationships} AS rpwc_tr ON rpwc_p.ID=rpwc_tr.object_id
       LEFT JOIN {$wpdb->term_taxonomy} AS rpwc_tt ON rpwc_tr.term_taxonomy_id = rpwc_tt.term_taxonomy_id
-      WHERE  rpwc_p.post_status='publish'
+    WHERE  rpwc_p.post_status IN {$status}
       AND rpwc_p.post_type=%s
       AND rpwc_tt.term_id=%d", $post_type, $term_id);
     $count = $wpdb->get_results($sql);
@@ -561,9 +617,9 @@ class Reorder_Post_Within_Categories_Admin {
 		$wpdb->query($sqlDropTable);
 		require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
 		dbDelta($sqlDropTable);
-		$settings = get_option(self::$settings_option_name, array());
-		$settings['upgraded']=false; //switchoff table delete button.
-		update_option(self::$settings_option_name, $settings);
+		//$settings = get_option(self::$settings_option_name, array());
+		self::$settings['upgraded']=false; //switchoff table delete button.
+		update_option(self::$settings_option_name, self::$settings);
 	}
 	/**
 	* function to save options.
@@ -576,6 +632,7 @@ class Reorder_Post_Within_Categories_Admin {
 			if (isset($_POST['selection'])) {
 					$categories_checked = $_POST['selection'];
 			}
+
 			$settingsOptions['categories_checked'] = $categories_checked;
 			$this->save_admin_options($settingsOptions);
 		}
@@ -620,8 +677,9 @@ class Reorder_Post_Within_Categories_Admin {
 					$ranking = $this->_get_order($post_type_detail->name, $cat_to_retrieve_post, 0, 20);
 					// $total = $term->count;
 					$args = array('post_type' => $post_type_detail->name,
+					  'post_status'=>'any',
 						'post__in'=>$ranking,
-						'ignore_sticky_posts'=>true,
+						'ignore_sticky_posts'=>false,
 						'posts_per_page'=>-1
 					);
 					$posts_array = get_posts($args);
@@ -743,9 +801,10 @@ class Reorder_Post_Within_Categories_Admin {
 		if(empty($ranked_tax)) return;
 
 		//find if terms are currently being ranked.
-		$ranked_terms = get_option(RPWC_OPTIONS, array());
+		$ranked_terms = get_option(RPWC_OPTIONS_2, array());
 
 		if(!isset($ranked_terms[$post->post_type])) return; //no terms ranked for this post type.
+
 		$ranked_terms = array_keys( $ranked_terms[$post->post_type] );
 		$ranked_ids = array();
 		foreach($ranked_tax as $tax){
@@ -778,7 +837,7 @@ class Reorder_Post_Within_Categories_Admin {
 				//status->draft
 				foreach($ranked_ids as $term_id){
 					/** @since 2.5.0 give more control of which post status to rank */
-					$rank_post = apply_filters("rpwc2_rank_draft_posts", false, $new_status, $old_status,$term_id, $post);
+					$rank_post = apply_filters("rpwc2_rank_draft_posts", false, $new_status, $old_status,$term_id);
 
 					if(!in_array($term_id, $post_ranks) && $rank_post) $this->rank_post($post, $term_id);
 					else if(in_array($term_id, $post_ranks) && !$rank_post) $this->unrank_post($post->ID, $term_id);

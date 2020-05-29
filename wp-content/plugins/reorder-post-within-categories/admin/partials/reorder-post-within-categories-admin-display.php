@@ -83,36 +83,41 @@
 				<div id="catOrderedRadioBox">
           <?php
 					// on regarde si un des radio est cochÃ©
-					$checkedRadio1 = '';
-					$checkedRadio2 = ' checked = "checked"';
+					$checkedRadio1 = $override ='';
+					$disabled='disabled="disabled" ';
+					$checkedRadio2 = ' checked = "checked" ';
           $type = $post_type_detail->name;
-					$tax_options = get_option(RPWC_OPTIONS, array());
-					// debug_msg($tax_options, 'current settings '.$cat_to_retrieve_post);
+					$tax_options = get_option(RPWC_OPTIONS_2, array());
+
           if(isset($tax_options[$type]) && isset($tax_options[$type][$cat_to_retrieve_post])){
-            if($tax_options[$type][$cat_to_retrieve_post] == 'true'){
+            if($tax_options[$type][$cat_to_retrieve_post]['order']){
               $checkedRadio1 = $checkedRadio2;
 							$checkedRadio2 = '';
+							$disabled = '';
             }
-          }
-					else if (isset($tax_options[$cat_to_retrieve_post]) && $tax_options[$cat_to_retrieve_post] == 'true') {
-            /** @since 2.3.0 transfer options to new settings structure */
-						if(!isset($tax_options[$type])) $tax_options[$type]=array();
-            $tax_options[$type][$cat_to_retrieve_post] = $tax_options[$cat_to_retrieve_post];
-            unset($tax_options[$cat_to_retrieve_post]);
-            update_option(RPWC_OPTIONS, $tax_options);
-						// debug_msg($tax_options, 'new settings');
-						$checkedRadio1 = $checkedRadio2;
-						$checkedRadio2 = '';
-					}	?>
+						/** @since 2.6.0 enable override setting */
+						// debug_msg($tax_options[$type], 'override ');
+						if($tax_options[$type][$cat_to_retrieve_post]['override']){
+							$override ='checked="checked" ';
+						}
+          }	?>
 					<label for="yes">
-            <input type="radio"<?=$checkedRadio1?> class="option_order" id="yes" value="true" name="useForThisCat"/>
+            <input type="radio" <?=$checkedRadio1?>class="option_order settings" id="yes" value="true" name="useForThisCat"/>
             <span><?=__('Yes', 'reorder-post-within-categories')?></span>
           </label><br/>
 	        <!-- translators: Opposite of Yes -->
 					<label for="no">
-            <input type="radio"<?=$checkedRadio2?> class="option_order" id="no" value="false" name="useForThisCat"/>
+            <input type="radio" <?=$checkedRadio2?>class="option_order settings" id="no" value="false" name="useForThisCat"/>
             <span><?=__('No', 'reorder-post-within-categories')?></span>
+          </label><br/>
+          <label for="override-orderby">
+            <input type="checkbox" <?=$disabled?><?=$override?>id="override-orderby" class="settings"/>
+            <span><?=__('Override &apos;orderby&apos; query attribute, (more <a href="https://wordpress.org/plugins/reorder-post-within-categories/#%0A10.%20my%20posts%20are%20not%20being%20ranked%20on%20the%20front-end%0A">detail</a>)', 'reorder-post-within-categories')?></span>
           </label>
+					<p>
+						<?=__('<strong>Caution: </strong>Overriding &apos;orderby&apos; query attribute can have important consequences on WooCommerce listings where themes can display products ranked on various parameters such as price.  This option overrides all other sortings, read these <a href="https://wordpress.org/plugins/reorder-post-within-categories/#%0A10.%20my%20posts%20are%20not%20being%20ranked%20on%20the%20front-end%0A">details</a> to see how to gain a finer control over this.','reorder-post-within-categories')?>
+					</p>
+        </br/>
           <div id="reset-order">
 						<h4 style="margin:5px 0"><?=__('Reset the order!', 'reorder-post-within-categories')?></h4>
             <label for="reset-button">
@@ -151,7 +156,7 @@
 
 					<div data-id="<?=$post_id?>" class="sortable-items">
 						<img src="<?=$img?>">
-					 	<span class="title">
+					 	<span class="title <?=$post->post_status?>">
 						 	<a href="<?=admin_url('post.php?post='.$post_id.'&action=edit')?>">
 								<?=apply_filters('reorder_posts_within_category_card_text',get_the_title($post), $post, $cat_to_retrieve_post)?>
 							</a>
