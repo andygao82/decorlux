@@ -996,6 +996,7 @@ h3{
 .product-detail-image{
     position: absolute;
     left: 18%;
+    max-width: 536px;
 }
 .product-detail-description{
     position: absolute;
@@ -1035,15 +1036,30 @@ h3{
     display: block;
     width: 100%;
     height: 100%;
+    position: relative;
+    padding-bottom: 100%;
+    overflow: hidden;
 }
 .gallery-section ul li a > img{
     width: 100%;
+    height: 100%;
+    position: absolute;
+    object-position: center center;
+    object-fit: cover;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 /********************************************************************/
 /*************************   Curtain Start   **************************/
 /*************************   Curtain Start   **************************/
 /*******************************************************************/
 
+@media screen and (min-width: 1400px){
+    .page-category-content .container{
+        max-width: 1380px;
+    }
+}
 @media screen and (min-width: 1700px){
     .page-category-content .container{
         max-width: 1630px;
@@ -1102,8 +1118,9 @@ h3{
 /*******************************************************************/
 
 @media screen and (max-width: 1700px){
-    .menu-menu-1-container{
-        max-width: 1170px;
+    .menu-main-menu-container{
+        max-width: 1140px;
+        padding: 0 15px;
     }
     ul#primary-menu > li.menu-item > a{
         font-size: 28px;
@@ -1173,19 +1190,29 @@ h3{
         top: 155px;
     }
     .category-description .post-image{
-        width: 450px;
+        width: 600px;
     }
     .category-description h2.post-title{
         font-size: 38px;
     }
-    .category-description .wrapper {
+    .page-category-content .category-description{
+        min-height: 490px;
     }
-    .category-description h2.post-title{
-        margin-left: -170px;
+    .page-category-content .category-description .wrapper{
+        width: calc(100% - 650px);
     }
     .category-description{
         padding: 75px 0;
         margin-bottom: 68px;
+    }
+    .page-category-content .page-main-content ul.row li.col-product .post-thumbnail{
+        width: 350px;
+        height: 350px;
+    }
+    .page-category-content .page-main-content ul.row li.col-product .wrapper{
+        max-width: calc(100% - 380px);
+        margin-left: 30px;
+        padding-top: 60px;
     }
     .category-blogs article.post a.post-thumbnail{
         width: 450px;
@@ -1200,6 +1227,9 @@ h3{
     .category-blogs article.post:first-child .wrapper .inner-wrapper {
         padding-right: 9%;
         max-width: 535px;
+    }
+    .page-category-content .page-main-content ul.row li.col-product .wrapper h2{
+        font-size: 32px;
     }
     .category-blogs article.post h2.blog-title{
         padding-top: 80px;
@@ -1285,6 +1315,9 @@ h3{
         top: -2px;
         right: -2px;
     }
+    .blog-link a span{
+        font-size: 14px;
+    }
 }
 
 @media screen and (max-width: 1400px){
@@ -1298,9 +1331,66 @@ h3{
         background: linear-gradient(to right, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 10%, rgba(88,88,88,1) 10%, rgba(88,88,88,1) 100%);
         filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#585858', GradientType=1 );
     }
+    .page-category-content .page-main-content ul.row li.col-product .post-thumbnail{
+        width: 250px;
+        height: 250px;
+    }
+    .page-category-content .page-main-content ul.row li.col-product .wrapper{
+        max-width: calc(100% - 280px);
+        padding-top: 30px;
+    }
+    .blog-expert{
+        margin-bottom: 30px;
+        font-size: 13px;
+    }
+    .page-category-content .page-main-content ul.row li.col-product .wrapper h2{
+        font-size: 24px;
+    }
+    .category-description .post-image{
+        width: 450px;
+    }
+    .page-category-content .category-description{
+        min-height: 380px;
+        padding: 60px 0;
+    }
+    .page-category-content .category-description .wrapper{
+        width: calc(100% - 480px);
+    }
+    .page-category-content .category-description h2.post-title{
+        padding-top: 60px;
+    }
+    .category-description h2.post-title{
+        font-size: 28px;
+        padding-bottom: 1em;
+    }
 }
 
 @media screen and (max-width: 1199px){
+    .menu-main-menu-container{
+        position: absolute;
+        z-index: 2;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    .menu-main-menu-container li.menu-item.expanded .sub-menu{
+        display: block;
+    }
+    .menu-main-menu-container li.menu-item .sub-menu{
+        border-top: 1px solid #ffffff;
+        border-bottom: 1px solid #ffffff;
+        padding: 1em 0;
+        margin-top: 1em;
+    }
+    .menu-main-menu-container li.menu-item .sub-menu li{
+        margin-bottom: 1em;
+    }
+    .menu-main-menu-container li.menu-item .sub-menu li:last-child{
+        margin-bottom: 0;
+    }
+    ul#primary-menu > li.menu-item > a{
+        font-size: 22px;
+    }
     ul#primary-menu > li.menu-item:first-child{
         display: block;
         position: relative;
@@ -1362,8 +1452,21 @@ h3{
         top: 300px;
         width: 60%;
     }
+    .page-category-content .page-main-content ul.row li.col-product{
+        margin-bottom: 60px;
+    }
     .contact-banner, .page-template-page-contact .page-main-content{
         margin-bottom: 150px;
+    }
+    .page-category-content .page-main-content ul.row li.col-product .post-thumbnail{
+        width: 100%;
+        max-width: 350px;
+        height: 350px;
+    }
+    .page-category-content .page-main-content ul.row li.col-product .wrapper{
+        width: 100%;
+        max-width: 350px;
+        margin-left: 0;
     }
 }
 
@@ -1395,13 +1498,13 @@ h3{
 
     }
     .category-description .post-image{
-        width: 48%;
+        width: 100%;
         position: static;
-        float: left;
+        float: none;
     }
-    .category-description .wrapper{
-        width: 48%;
-        padding: 0 30px 0 30px;
+    .page-category-content .category-description .wrapper{
+        width: 100%;
+        padding: 0;
     }
     .category-description h2.post-title{
         margin-left: 0;
@@ -1412,11 +1515,12 @@ h3{
         margin-left: 0;
         height: auto;
     }
-
+    .page-category-content .category-description h2.post-title{
+        padding-top: 30px;
+    }
     .category-blogs article.post a.post-thumbnail{
         width: 48%;
         float: left;
-
     }
     .category-blogs article.post .wrapper{
         width: 48% !important;
@@ -1425,7 +1529,10 @@ h3{
     .category-blogs article.post h2.blog-title{
         font-size: 24px;
     }
-
+    .page-category-content .category-description{
+        padding: 30px 0;
+        margin-bottom: 60px;
+    }
     .category-blogs article.post .wrapper h2.blog-title{
         margin-left: 0 !important;
         padding: 0 !important;
@@ -1656,8 +1763,30 @@ h3{
     .contact-banner h2{
         font-size: 24px;
     }
+    .page-category-content .page-main-content ul.row li.col-product{
+        width: 100%;
+        max-width: 350px;
+        margin-left: auto;
+        margin-right: auto;
+    }
 }
 @media screen and (max-width: 575px){
+    .page-banner h1{
+        font-size: 28px;
+        letter-spacing: 8px;
+    }
+    .menu-main-menu-container{
+        width: 100%;
+    }
+    ul#primary-menu > li.menu-item > a{
+        font-size: 18px;
+    }
+    .menu-main-menu-container li.menu-item .sub-menu{
+        max-width: 150px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
     .product-detail-left{
         width: 100%;
         float: none;
@@ -1692,5 +1821,16 @@ h3{
     }
     .category-blogs article.post{
         margin-bottom: 40px !important;
+    }
+}
+@media screen and (max-width: 375px){
+    .page-category-content .page-main-content ul.row li.col-product{
+        width: 100%;
+        max-width: 280px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .page-category-content .page-main-content ul.row li.col-product .post-thumbnail{
+        height: 280px;
     }
 }

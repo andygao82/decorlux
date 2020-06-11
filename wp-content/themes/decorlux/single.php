@@ -16,6 +16,9 @@ $product_image_3 = get_field('product_image_3');
 $product_image_4 = get_field('product_image_4');
 $product_image_5 = get_field('product_image_5');
 $product_image_6 = get_field('product_image_6');
+$product_image_7 = get_field('product_image_7');
+$product_image_8 = get_field('product_image_8');
+$product_image_9 = get_field('product_image_9');
 $categories = get_the_category();
 
 ?>
@@ -42,9 +45,7 @@ $categories = get_the_category();
                                 <?php the_title() ?><br>Range
                             </div>
                             <?php $img_path = get_template_directory_uri('/'); ?>
-                            <div class="product-more">
-                                <a href="#"><span>More ranges</span><?php echo file_get_contents($img_path."/images/arrow.svg"); ?></a>
-                            </div>
+
 
                         </div>
 
@@ -63,7 +64,9 @@ $categories = get_the_category();
                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 	                        <?php }?>
-
+                            <div class="product-more">
+                                <a href="<?php echo esc_url( home_url( '/' ) ); ?>contact-us"><span>Book a FREE in-house measure and quote now</span><?php echo file_get_contents($img_path."/images/arrow.svg"); ?></a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -120,6 +123,27 @@ $categories = get_the_category();
                                 </a>
                             </li>
                             <?php }?>
+	                        <?php if($product_image_7) {?>
+                                <li>
+                                    <a rel="product-gallery-img" href="<?= $product_image_6?>">
+                                        <img src="<?= $product_image_7?>" alt="img1">
+                                    </a>
+                                </li>
+	                        <?php }?>
+	                        <?php if($product_image_8) {?>
+                                <li>
+                                    <a rel="product-gallery-img" href="<?= $product_image_6?>">
+                                        <img src="<?= $product_image_8?>" alt="img1">
+                                    </a>
+                                </li>
+	                        <?php }?>
+	                        <?php if($product_image_9) {?>
+                                <li>
+                                    <a rel="product-gallery-img" href="<?= $product_image_6?>">
+                                        <img src="<?= $product_image_9?>" alt="img1">
+                                    </a>
+                                </li>
+	                        <?php }?>
 
                         </ul>
                     </div>

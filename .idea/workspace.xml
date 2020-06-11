@@ -2,22 +2,50 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b1962744-f6bc-43b6-9d37-9e5ef47959d0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/wp-content/themes/decorlux/page-featured-projects.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/wp-content/themes/decorlux/page-indoor-blinds.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/wp-content/themes/decorlux/page-outdoor-blinds.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/wp-content/themes/decorlux/page-previous-projects.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/wp-content/themes/decorlux/page-recent-projects.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/wp-content/uploads/2020/06/before_20520190219636939649397784774-150x150.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/wp-content/uploads/2020/06/before_20520190219636939649397784774-240x300.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/wp-content/uploads/2020/06/before_20520190219636939649397784774-768x960.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/wp-content/uploads/2020/06/before_20520190219636939649397784774-819x1024.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/wp-content/uploads/2020/06/before_20520190219636939649397784774.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/wp-content/uploads/2020/06/before_20520190444636939650848722274-150x150.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/wp-content/uploads/2020/06/before_20520190444636939650848722274-240x300.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/wp-content/uploads/2020/06/before_20520190444636939650848722274-768x959.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/wp-content/uploads/2020/06/before_20520190444636939650848722274-820x1024.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/wp-content/uploads/2020/06/before_20520190444636939650848722274.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/wp-content/uploads/2020/06/before_205201905252636939643726556024-1024x1024.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/wp-content/uploads/2020/06/before_205201905252636939643726556024-150x150.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/wp-content/uploads/2020/06/before_205201905252636939643726556024-300x300.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/wp-content/uploads/2020/06/before_205201905252636939643726556024-768x768.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/wp-content/uploads/2020/06/before_205201905252636939643726556024.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/wp-content/uploads/2020/06/before_205201905314636939643946087274-1024x870.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/wp-content/uploads/2020/06/before_205201905314636939643946087274-150x150.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/wp-content/uploads/2020/06/before_205201905314636939643946087274-300x255.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/wp-content/uploads/2020/06/before_205201905314636939643946087274-768x653.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/wp-content/uploads/2020/06/before_205201905314636939643946087274.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/wp-content/uploads/2020/06/before_20520190555636939651554503524-150x150.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/wp-content/uploads/2020/06/before_20520190555636939651554503524-300x300.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/wp-content/uploads/2020/06/before_20520190555636939651554503524.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/wp-content/uploads/2020/06/before_205201905848636939647280453750-1024x811.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/wp-content/uploads/2020/06/before_205201905848636939647280453750-150x150.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/wp-content/uploads/2020/06/before_205201905848636939647280453750-300x238.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/wp-content/uploads/2020/06/before_205201905848636939647280453750-768x608.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/wp-content/uploads/2020/06/before_205201905848636939647280453750.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/wp-content/uploads/2020/06/image_21-150x150.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/wp-content/uploads/2020/06/image_21-248x300.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/wp-content/uploads/2020/06/image_21.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/wp-content/uploads/2020/06/image_34-150x150.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/wp-content/uploads/2020/06/image_34-300x250.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/wp-content/uploads/2020/06/image_34-768x640.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/wp-content/uploads/2020/06/image_34.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wp-content/plugins/reorder-post-within-categories/README.txt" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/plugins/reorder-post-within-categories/README.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wp-content/plugins/reorder-post-within-categories/admin/class-reorder-post-within-categories-admin.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/plugins/reorder-post-within-categories/admin/class-reorder-post-within-categories-admin.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wp-content/plugins/reorder-post-within-categories/admin/css/reorder-post-within-categories-admin.css" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/plugins/reorder-post-within-categories/admin/css/reorder-post-within-categories-admin.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wp-content/plugins/reorder-post-within-categories/admin/js/reorder-post-within-categories-admin.js" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/plugins/reorder-post-within-categories/admin/js/reorder-post-within-categories-admin.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wp-content/plugins/reorder-post-within-categories/admin/partials/reorder-post-within-categories-admin-display.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/plugins/reorder-post-within-categories/admin/partials/reorder-post-within-categories-admin-display.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wp-content/plugins/reorder-post-within-categories/includes/class-reorder-post-within-categories.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/plugins/reorder-post-within-categories/includes/class-reorder-post-within-categories.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wp-content/plugins/reorder-post-within-categories/public/class-reorder-post-within-categories-public.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/plugins/reorder-post-within-categories/public/class-reorder-post-within-categories-public.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wp-content/plugins/reorder-post-within-categories/reorder-post-within-categories.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/plugins/reorder-post-within-categories/reorder-post-within-categories.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/themes/decorlux/js/custom.js" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/themes/decorlux/js/custom.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wp-content/themes/decorlux/local.css" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/themes/decorlux/local.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wp-content/themes/decorlux/page-curtains.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/themes/decorlux/page-curtains.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/themes/decorlux/page-featured-projects.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/themes/decorlux/page-featured-projects.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/themes/decorlux/page-indoor-blinds.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/themes/decorlux/page-indoor-blinds.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/themes/decorlux/page-outdoor-blinds.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/themes/decorlux/page-outdoor-blinds.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/themes/decorlux/page-previous-projects.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/themes/decorlux/page-previous-projects.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/themes/decorlux/page-recent-projects.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/themes/decorlux/page-recent-projects.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/themes/decorlux/single.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/themes/decorlux/single.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -101,7 +129,11 @@
       <workItem from="1590493378965" duration="1191000" />
       <workItem from="1590575186542" duration="5046000" />
       <workItem from="1590663692717" duration="4127000" />
-      <workItem from="1590749653873" duration="3112000" />
+      <workItem from="1590749653873" duration="3123000" />
+      <workItem from="1590836647411" duration="3610000" />
+      <workItem from="1590905770082" duration="3020000" />
+      <workItem from="1591787675515" duration="1964000" />
+      <workItem from="1591872841219" duration="2529000" />
     </task>
     <servers />
   </component>

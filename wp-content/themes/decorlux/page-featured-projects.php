@@ -6,7 +6,7 @@ get_header();
 <div class="page-category-content">
 	<section class="page-banner category-banner featured-projects-banner">
 		<div class="page-banner-wrapper">
-			<h1 class="page-title">Curtains</h1>
+			<h1 class="page-title">Featured Projects</h1>
 		</div>
 	</section>
 	<section class="category-description">
@@ -57,7 +57,7 @@ get_header();
 											<?php the_excerpt(); ?>
 										<?php }else{?>
 											Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-											tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam
+                                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam
 										<?php } ?>
 									</div><!-- .entry-content -->
 									<?php $img_path = get_template_directory_uri('/'); ?>

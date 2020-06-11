@@ -6,7 +6,7 @@ get_header();
 <div class="page-category-content">
 	<section class="page-banner category-banner recent-projects-banner">
 		<div class="page-banner-wrapper">
-			<h1 class="page-title">Curtains</h1>
+			<h1 class="page-title">Recent Projects</h1>
 		</div>
 	</section>
 	<section class="category-description">

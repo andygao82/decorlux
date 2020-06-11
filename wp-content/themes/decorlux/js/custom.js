@@ -5,9 +5,16 @@ jQuery(document).ready(function($){
     });
 
     $('ul#primary-menu > li.menu-item > a').on('click', function (e) {
-        e.preventDefault();
+
         $('ul#primary-menu > li.menu-item').removeClass('expanded');
         $(this).parent('li.menu-item').addClass('expanded');
+    });
+
+    $('ul#primary-menu > li#menu-item-199 > a').on('click', function (e) {
+        e.preventDefault();
+    });
+    $('ul#primary-menu > li#menu-item-203 > a').on('click', function (e) {
+        e.preventDefault();
     });
 
     $('#primary-menu > li.menu-item:nth-child(1)').mouseenter(function () {
