@@ -10,23 +10,19 @@
 get_header();
 
 $product_description = get_field('product_description');
-$product_image_1 = get_field('product_image_1');
-$product_image_2 = get_field('product_image_2');
-$product_image_3 = get_field('product_image_3');
-$product_image_4 = get_field('product_image_4');
-$product_image_5 = get_field('product_image_5');
-$product_image_6 = get_field('product_image_6');
-$product_image_7 = get_field('product_image_7');
-$product_image_8 = get_field('product_image_8');
-$product_image_9 = get_field('product_image_9');
 $categories = get_the_category();
-
+$product_top_banner_image = get_field('product_top_banner_image');
+$product_top_banner_heading = get_field('product_top_banner_content');
 ?>
-
-
+<?php if($product_top_banner_image){?>
+    <section class="page-banner product-banner cat-<?php echo $categories[0]->cat_ID ?>" style="background-image: url('<?= esc_url($product_top_banner_image)?>')">
+<?php }else{?>
     <section class="page-banner product-banner cat-<?php echo $categories[0]->cat_ID ?>">
+<?php }?>
         <div class="page-banner-wrapper">
-            <h1 class="page-title"><?php the_title() ?></h1>
+            <?php if($product_top_banner_heading){?>
+            <h1 class="page-title"><?php echo $product_top_banner_heading ?></h1>
+            <?php } ?>
         </div>
     </section>
 
@@ -42,19 +38,17 @@ $categories = get_the_category();
                                 ?>
                             </div>
                             <div class="product-range">
-                                <?php the_title() ?><br>Range
+                                <?php the_title() ?>
                             </div>
                             <?php $img_path = get_template_directory_uri('/'); ?>
-
-
-                        </div>
-
-                        <div class="product-detail-image">
-                            <?php if(get_the_post_thumbnail_url()) {?>
-                                <img src="<?php echo get_the_post_thumbnail_url(); ?>" alt="<?php the_title() ?>">
-                            <?php }else{ ?>
-                                <img src="<?php echo get_template_directory_uri('/'); ?>/images/image_19.jpg" alt="Placeholder">
-                            <?php }?>
+                            <div class="product-more">
+                                <a href="javascript:;" onclick="goBack()"><span>Back</span><?php echo file_get_contents($img_path."/images/arrow.svg"); ?></a>
+                            </div>
+                            <script>
+                                function goBack() {
+                                    window.history.back();
+                                }
+                            </script>
                         </div>
 
                         <div class="product-detail-description">
@@ -79,72 +73,23 @@ $categories = get_the_category();
             <div class="row">
                 <div class="col">
                     <div class="wrapper">
-                        <h2><span>Image Gallery</span><?php echo file_get_contents($img_path."/images/arrow.svg"); ?></h2>
+                        <h2><span>Image Gallery</span></h2>
                         <ul>
-                            <?php if($product_image_1) {?>
-                            <li>
-                                <a rel="product-gallery-img" href="<?= $product_image_1?>">
-                                    <img src="<?= $product_image_1?>" alt="img1">
-                                </a>
-                            </li>
-                            <?php }?>
-                            <?php if($product_image_2) {?>
-                            <li>
-                                <a rel="product-gallery-img" href="<?= $product_image_2?>">
-                                    <img src="<?= $product_image_2?>" alt="img1">
-                                </a>
-                            </li>
-                            <?php }?>
-                            <?php if($product_image_3) {?>
-                            <li>
-                                <a rel="product-gallery-img" href="<?= $product_image_3?>">
-                                    <img src="<?= $product_image_3?>" alt="img1">
-                                </a>
-                            </li>
-                            <?php }?>
-                            <?php if($product_image_4) {?>
-                            <li>
-                                <a rel="product-gallery-img" href="<?= $product_image_4?>">
-                                    <img src="<?= $product_image_4?>" alt="img1">
-                                </a>
-                            </li>
-                            <?php }?>
-                            <?php if($product_image_5) {?>
-                            <li>
-                                <a rel="product-gallery-img" href="<?= $product_image_5?>">
-                                    <img src="<?= $product_image_5?>" alt="img1">
-                                </a>
-                            </li>
-                            <?php }?>
-                            <?php if($product_image_6) {?>
-                            <li>
-                                <a rel="product-gallery-img" href="<?= $product_image_6?>">
-                                    <img src="<?= $product_image_6?>" alt="img1">
-                                </a>
-                            </li>
-                            <?php }?>
-	                        <?php if($product_image_7) {?>
+                            <?php for($i = 1; $i <=9; $i++):?>
+                                <?php if(get_field('product_image_'.$i.'')) {?>
+                                    <?php ${"product_image_".$i} = get_field('product_image_'.$i.'') ?>
+                                    <?php if(isset(${"product_image_".$i}['description'])){
+                                        $product_image_description = ${"product_image_".$i}['description'];
+		                            }else{
+			                            $product_image_description = '';
+                                    }?>
                                 <li>
-                                    <a rel="product-gallery-img" href="<?= $product_image_6?>">
-                                        <img src="<?= $product_image_7?>" alt="img1">
+                                    <a rel="product-gallery-img" href="<?= esc_url(${"product_image_".$i}['sizes']['large'])?>" >
+                                        <img src="<?= esc_url(${"product_image_".$i}['sizes']['large'])?>" alt="<?= esc_attr($product_image_description)?>">
                                     </a>
                                 </li>
-	                        <?php }?>
-	                        <?php if($product_image_8) {?>
-                                <li>
-                                    <a rel="product-gallery-img" href="<?= $product_image_6?>">
-                                        <img src="<?= $product_image_8?>" alt="img1">
-                                    </a>
-                                </li>
-	                        <?php }?>
-	                        <?php if($product_image_9) {?>
-                                <li>
-                                    <a rel="product-gallery-img" href="<?= $product_image_6?>">
-                                        <img src="<?= $product_image_9?>" alt="img1">
-                                    </a>
-                                </li>
-	                        <?php }?>
-
+                                <?php }?>
+	                        <?php endfor?>
                         </ul>
                     </div>
 

@@ -1,12 +1,21 @@
 <?php
 /* Template Name: outdoor Blinds Page */
 get_header();
-
+$category_page_banner_title = get_field('category_page_banner_title');
 ?>
 <div class="page-category-content">
-	<section class="page-banner category-banner indoor-blinds-banner">
+	<?php
+	$featured_img_url = get_the_post_thumbnail_url(get_the_ID(),'full');
+	?>
+	<?php if($featured_img_url){?>
+    <section class="page-banner category-banner indoor-blinds-banner" style="background-image: url('<?= esc_url($featured_img_url)?>')">
+		<?php }else{ ?>
+        <section class="page-banner category-banner indoor-blinds-banner">
+			<?php } ?>
 		<div class="page-banner-wrapper">
-			<h1 class="page-title">Outdoor Blinds</h1>
+			<?php if($category_page_banner_title){?>
+                <h1 class="page-title"><?= $category_page_banner_title ?></h1>
+			<?php } ?>
 		</div>
 	</section>
 	<section class="category-description">
@@ -33,6 +42,7 @@ get_header();
 				global $post;
 
 				$myposts = get_posts( array(
+				    'numberposts'      => -1,
 					'category'       => 8
 				) );
 				if ( $myposts ) {
@@ -64,7 +74,7 @@ get_header();
 
 									<div class="blog-link">
 										<a href="<?php echo esc_url( get_permalink() )?>">
-											<span>Learn More</span>
+											<span>More</span>
 											<?php echo file_get_contents($img_path."/images/arrow.svg"); ?>
 										</a>
 									</div>

@@ -11,7 +11,7 @@ get_header();
                 Hello, How may I help you?
             </h2>
             <div class="page-banner-content">
-                <span>For assistance, or to arrange a </span><strong>FREE NO OBLIGATION</strong> <span>measure and quote, simply contact us on 03 9769 0474, or by simply completing the contact form below. We will endeavor to contact you within 24 hours or next business day.</span>
+                <span>For assistance, or to arrange a </span><strong>FREE NO OBLIGATION</strong> <span>measure and quote, simply contact us on <a style="color: #ffffff" href="tel:0397690474">03 9769 0474</a>, or by simply completing the contact form below. We will endeavor to contact you within 24 hours or next business day.</span>
             </div>
             <div class="cup-img">
                 <img src="<?php echo get_template_directory_uri('/'); ?>/images/cup-img.jpg" alt="Contact Us">

@@ -16,6 +16,9 @@ jQuery(document).ready(function($){
     $('ul#primary-menu > li#menu-item-203 > a').on('click', function (e) {
         e.preventDefault();
     });
+    $('ul#primary-menu > li#menu-item-207 > a').on('click', function (e) {
+        e.preventDefault();
+    });
 
     $('#primary-menu > li.menu-item:nth-child(1)').mouseenter(function () {
         $('.site-menu').css('background-image','url(http://decorlux.gtechsolution.com.au/wp-content/themes/decorlux/images/curtain.jpg)');
@@ -33,4 +36,5 @@ jQuery(document).ready(function($){
         $(this).siblings().removeClass('active');
         $(this).toggleClass('active');
     });
+
 });

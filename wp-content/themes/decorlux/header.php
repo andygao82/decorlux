@@ -16,17 +16,13 @@
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="profile" href="https://gmpg.org/xfn/11">
-
-	<?php wp_head(); ?>
-    <link rel="stylesheet" href="https://use.fontawesome.com/b41f34b2fc.css">
     <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="<?php echo get_template_directory_uri('/'); ?>/css/flexslider.css">
-    <link rel="stylesheet" type="text/css" href="<?php echo get_template_directory_uri('/'); ?>/local.css">
-
+    <link rel="stylesheet" href="https://use.fontawesome.com/b41f34b2fc.css">
+    <?php wp_head(); ?>
     <script type="text/javascript" src="<?php echo get_template_directory_uri('/'); ?>/js/jquery.flexslider-min.js"></script>
     <script type="text/javascript" src="<?php echo get_template_directory_uri('/'); ?>/js/custom.js"></script>
-
 </head>
 
 <body <?php body_class(); ?>>
@@ -43,7 +39,11 @@
                             <span>185 Cheltenham Rd, Keyborough Vic 3173</span>
                         </div>
 	                    <?php $img_path = get_template_directory_uri('/'); ?>
-                        <a class="decorlux-logo" href="<?php echo esc_url( home_url( '/' ) ); ?>" >
+                        <?php if ( is_home() || is_front_page() ){?>
+                            <a class="decorlux-logo" href="javascript:;" >
+                        <?php }else{?>
+                            <a class="decorlux-logo" href="<?php echo esc_url( home_url( '/' ) ); ?>" >
+                        <?php }?>
 		                    <?php echo file_get_contents($img_path."/images/logo.svg"); ?>
                         </a>
                         <div id="burger-icon">
