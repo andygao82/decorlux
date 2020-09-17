@@ -1,17 +1,18 @@
 <?php
-/* Template Name: Curtain Page */
+/* Template Name: Category Page */
 get_header();
 $category_page_banner_title = get_field('category_page_banner_title');
 
 ?>
 <div class="page-category-content">
-    <?php
-        $featured_img_url = get_the_post_thumbnail_url(get_the_ID(),'full');
+        <?php
+            $featured_img_url = get_the_post_thumbnail_url(get_the_ID(),'full');
+            $categoryID = get_field('category_id')
         ?>
     <?php if($featured_img_url){?>
-        <section class="page-banner category-banner curtain-banner" style="background-image: url('<?= esc_url($featured_img_url)?>')">
+        <section class="page-banner category-banner" style="background-image: url('<?= esc_url($featured_img_url)?>')">
     <?php }else{ ?>
-        <section class="page-banner category-banner curtain-banner">
+        <section class="page-banner category-banner">
     <?php } ?>
 		<div class="page-banner-wrapper">
 			<?php if($category_page_banner_title){?>
@@ -24,12 +25,12 @@ $category_page_banner_title = get_field('category_page_banner_title');
 			<div class="row">
 				<div class="col">
                     <div class="post-image">
-						<?php if (function_exists('z_taxonomy_image')) z_taxonomy_image(6); ?>
+						<?php if (function_exists('z_taxonomy_image')) z_taxonomy_image($categoryID); ?>
                     </div>
 					<div class="wrapper">
 						<h2 class="post-title"><?php the_title() ?></h2>
 						<div class="archive-description">
-                            <?php echo category_description(6); ?>
+                            <?php echo category_description($categoryID) ? category_description($categoryID) : ''; ?>
 						</div>
 					</div>
 				</div>
@@ -41,27 +42,25 @@ $category_page_banner_title = get_field('category_page_banner_title');
 			<ul class="row">
 					<?php
                         global $post;
-
                         $myposts = get_posts( array(
                             'numberposts'      => -1,
-                            'category'       => 6
+                            'category'       => $categoryID
                         ) );
                         if ( $myposts ) {
                             foreach ( $myposts as $post ) :
                                 setup_postdata( $post ); ?>
                                 <li class="col-12 col-md-6 col-product">
 	                                <?php $_thumbnail = get_the_post_thumbnail() ?>
-	                                <?php if($_thumbnail){ ?>
-		                                <?php decorlux_post_thumbnail(); ?>
-	                                <?php }else{?>
-                                        <a class="post-thumbnail" href="<?php echo esc_url( get_permalink() )?>">
-                                            <img src="<?php echo get_template_directory_uri('/'); ?>/images/image_20.jpg" alt="Placeholder">
-                                        </a>
-	                                <?php } ?>
+                                    <a class="post-thumbnail" href="<?php echo esc_url( get_permalink() )?>">
+                                        <?php if($_thumbnail){ ?>
+                                                <?= get_the_post_thumbnail()?>
+                                        <?php }else{?>
+                                                <img src="<?php echo get_template_directory_uri('/'); ?>/images/image_20.jpg" alt="Placeholder">
+                                        <?php } ?>
+                                    </a>
                                     <div class="wrapper">
                                         <div class="inner-wrapper">
                                             <h2 class="blog-title"><a href="<?php echo esc_url( get_permalink() )?>" rel="bookmark"><?php the_title() ?></a></h2>
-
                                             <div class="blog-expert">
 				                                <?php $_excerpt = get_the_excerpt() ?>
 				                                <?php if($_excerpt){ ?>
@@ -72,7 +71,6 @@ $category_page_banner_title = get_field('category_page_banner_title');
 				                                <?php } ?>
                                             </div><!-- .entry-content -->
 			                                <?php $img_path = get_template_directory_uri('/'); ?>
-
                                             <div class="blog-link">
                                                 <a href="<?php echo esc_url( get_permalink() )?>">
                                                     <span>More</span>

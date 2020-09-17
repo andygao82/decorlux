@@ -2,17 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b1962744-f6bc-43b6-9d37-9e5ef47959d0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/wp-content/themes/decorlux/sass/custom/_custom.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/wp-content/uploads/2020/06/dummy.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wp-content/themes/decorlux/custom/custom.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wp-content/themes/decorlux/js/custom.js" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/themes/decorlux/js/custom.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wp-content/themes/decorlux/legacy/local.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wp-content/themes/decorlux/sass/custom/custom.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wp-content/themes/decorlux/sass/legacy/local.scss" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/themes/decorlux/sass/legacy/_local.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wp-content/themes/decorlux/sass/mixins/_mixins-master.scss" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/themes/decorlux/sass/mixins/_mixins-master.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wp-content/themes/decorlux/single.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/themes/decorlux/single.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/themes/decorlux/page-beds.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/themes/decorlux/page-curtains.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/themes/decorlux/page-category.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/themes/decorlux/page-featured-projects.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/themes/decorlux/page-indoor-blinds.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/themes/decorlux/page-outdoor-blinds.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/themes/decorlux/page-previous-projects.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/themes/decorlux/page-recent-projects.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/themes/decorlux/page-sofa.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/themes/decorlux/sass/custom/_custom.scss" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/themes/decorlux/sass/custom/_custom.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/themes/decorlux/sass/legacy/_local.scss" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/themes/decorlux/sass/legacy/_local.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wp-content/themes/decorlux/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/themes/decorlux/style.css" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -45,26 +45,26 @@
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/wp-content" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/wp-content/themes/decorlux" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="G:\xampp\htdocs\decorlux\wp-content\themes\decorlux" />
-      <recent name="D:\xampp\htdocs\decorlux\wp-content\themes\decorlux\fonts" />
-      <recent name="D:\xampp\htdocs\decorlux\wp-content\themes\decorlux\css" />
-      <recent name="D:\xampp\htdocs\decorlux\wp-content\themes\decorlux\js" />
-      <recent name="G:\xampp\htdocs\decorlux\wp-content\themes\decorlux\images" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="G:\xampp\htdocs\decorlux\wp-content\themes\decorlux\sass\custom" />
       <recent name="G:\xampp\htdocs\decorlux\wp-content\themes\decorlux\sass" />
       <recent name="G:\xampp\htdocs\decorlux\wp-content\themes\decorlux\sass\legacy" />
       <recent name="G:\xampp\htdocs\decorlux\wp-content\themes\decorlux\images" />
       <recent name="D:\xampp\htdocs\decorlux\wp-content\themes\decorlux\images" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="G:\xampp\htdocs\decorlux\wp-content\themes\decorlux" />
+      <recent name="D:\xampp\htdocs\decorlux\wp-content\themes\decorlux\fonts" />
+      <recent name="D:\xampp\htdocs\decorlux\wp-content\themes\decorlux\css" />
+      <recent name="D:\xampp\htdocs\decorlux\wp-content\themes\decorlux\js" />
+      <recent name="G:\xampp\htdocs\decorlux\wp-content\themes\decorlux\images" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -108,7 +108,7 @@
       <workItem from="1591872841219" duration="3227000" />
       <workItem from="1597714607366" duration="1612000" />
       <workItem from="1600244082320" duration="3749000" />
-      <workItem from="1600334901153" duration="7096000" />
+      <workItem from="1600334901153" duration="10926000" />
     </task>
     <servers />
   </component>

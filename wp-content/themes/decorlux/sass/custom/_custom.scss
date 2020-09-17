@@ -6,7 +6,15 @@ body{
   overflow-x: hidden;
 }
 .page-banner{
+  position: relative;
+  background-image: url('images/cb-bg.jpg');
+}
+.product-banner{
   max-height: 550px;
+}
+.contact-banner  {
+  background-image: url("images/contatc-bg.jpg");
+  margin-bottom: 245px;
 }
 a{
   &:hover, &:visited, &:focus{
