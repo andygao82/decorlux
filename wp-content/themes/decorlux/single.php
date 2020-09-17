@@ -32,34 +32,22 @@ $product_top_banner_heading = get_field('product_top_banner_content');
                 <div class="col">
                     <div class="wrapper">
                         <div class="product-detail-left">
-                            <div class="product-cat">
-                                <?php
-                                    echo $categories[0]->name;
-                                ?>
-                            </div>
-                            <div class="product-range">
-                                <?php the_title() ?>
-                            </div>
+                            <div class="product-cat"><?php echo $categories[0]->name; ?></div>
+                            <div class="product-range"><?php the_title() ?></div>
                             <?php $img_path = get_template_directory_uri('/'); ?>
                             <div class="product-more">
-                                <a href="javascript:;" onclick="goBack()"><span>Back</span><?php echo file_get_contents($img_path."/images/arrow.svg"); ?></a>
+                                <a class="product-detail-button" href="javascript:;" onclick="goBack()"><span>Back</span></a>
                             </div>
-                            <script>
-                                function goBack() {
-                                    window.history.back();
-                                }
-                            </script>
+                            <?php if(get_field('pdf_upload'))?>
+                            <div class="product-details-file">
+                                <a class="product-detail-button" href="<?= get_field('pdf_upload')?>" target="_blank"><span>Details</span></a>
+                            </div>
                         </div>
-
-                        <div class="product-detail-description">
-	                        <?php if($product_description) {?>
-		                        <?= $product_description;  ?>
-	                        <?php }else{ ?>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-	                        <?php }?>
-                            <div class="product-more">
-                                <a href="<?php echo esc_url( home_url( '/' ) ); ?>contact-us"><span>Book a FREE in-house measure and quote now</span><?php echo file_get_contents($img_path."/images/arrow.svg"); ?></a>
+                        <div class="product-detail-right">
+                            <div class="product-detail-right-wrapper">
+	                            <?php if(get_field('main_image')): ?>
+                                    <img src="<?= get_field('main_image') ?>" alt="<?php the_title() ?>" title="<?php the_title() ?>">
+	                            <?php endif ?>
                             </div>
                         </div>
                     </div>
@@ -73,9 +61,11 @@ $product_top_banner_heading = get_field('product_top_banner_content');
             <div class="row">
                 <div class="col">
                     <div class="wrapper">
-                        <h2><span>Image Gallery</span></h2>
+                        <h2>
+                            <span><?= get_field('gallery_title') ? get_field('gallery_title') : 'Image Gallery'?></span>
+                        </h2>
                         <ul>
-                            <?php for($i = 1; $i <=9; $i++):?>
+                            <?php for($i = 1; $i <=30; $i++):?>
                                 <?php if(get_field('product_image_'.$i.'')) {?>
                                     <?php ${"product_image_".$i} = get_field('product_image_'.$i.'') ?>
                                     <?php if(isset(${"product_image_".$i}['description'])){
@@ -92,7 +82,6 @@ $product_top_banner_heading = get_field('product_top_banner_content');
 	                        <?php endfor?>
                         </ul>
                     </div>
-
                 </div>
             </div>
         </div>

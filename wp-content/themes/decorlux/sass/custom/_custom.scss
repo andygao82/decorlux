@@ -1,0 +1,82 @@
+body{
+  font-family: 'Rubik', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 300;
+  color: #666666;
+  overflow-x: hidden;
+}
+.page-banner{
+  max-height: 550px;
+}
+a{
+  &:hover, &:visited, &:focus{
+    color: #ffffff;
+  }
+}
+.product-more{
+  margin-bottom: 20px;
+}
+.product-details{
+  width: 100%;
+  background-color: #585858;
+  color: #ffffff;
+  margin-bottom: 115px;
+  @include clearfix();
+  .wrapper{
+    height: 100%;
+  }
+}
+.product-detail-button{
+  width: 120px;
+  padding: 3px 10px;
+  text-align: center;
+  display: block;
+  border: 1px solid #ffffff;
+  font-size: 1.6rem;
+  transition: .5s all ease-in-out;
+  color: #ffffff;
+  letter-spacing: .5px;
+  &:hover{
+    background: #ffffff;
+    color: #585858;
+  }
+}
+.product-detail-left{
+  float: left;
+  padding: 130px 0;
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 450px;
+  margin-right: 50px;
+  .product-range{
+    font-size: 5rem;
+    height: 12rem;
+    overflow: hidden;
+    font-weight: 300;
+    line-height: 1.2;
+    margin-bottom: 50px;
+    letter-spacing: 3px;
+  }
+}
+.product-detail-right{
+  width: 100%;
+  width: calc(100% - 500px);
+  float: left;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  &-wrapper{
+    width: 100%;
+    max-width: 580px;
+    max-height: 380px;
+    position: relative;
+    overflow: hidden;
+    &:after{
+      @include after-pb(66%);
+    }
+    img{
+      @include img-fit();
+    }
+  }
+}

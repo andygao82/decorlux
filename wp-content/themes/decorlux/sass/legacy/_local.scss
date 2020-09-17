@@ -925,10 +925,6 @@ h3{
 .category-blogs article.post:last-child{
     margin-bottom: 180px;
 }
-.product-banner{
-    position: relative;
-    max-height: 400px;
-}
 .product-banner:after{
     content: '';
     display: block;
@@ -945,22 +941,6 @@ h3{
 .product-banner.cat-2{
     background-image: url("images/cat-bg.jpg");
 }
-.product-details{
-    background-color: #585858;
-    color: #ffffff;
-    margin-bottom: 200px;
-}
-.product-details:after{
-    content: '';
-    display: table;
-    clear: both;
-}
-.product-detail-left{
-    float: left;
-    padding: 175px 0;
-    position: relative;
-    z-index: 2;
-}
 .product-detail-left .product-cat{
     font-size: 1.6rem;
     text-transform: uppercase;
@@ -969,79 +949,44 @@ h3{
     opacity: .8;
     margin-bottom: 40px;
 }
-.product-range{
-    font-size: 5rem;
-    font-weight: 300;
-    line-height: 1.2;
-    margin-bottom: 1.8em;
-    letter-spacing: 3px;
-}
-.product-more a span{
-    display: inline-block;
-    color: #FFFFFF;
-    letter-spacing: .5px;
-    margin-right: 20px;
-}
-.product-more a svg{
-    display: inline-block;
-    width: 50px;
-}
-.product-detail-image{
-    position: absolute;
-    left: 18%;
-    max-width: 536px;
-}
-.product-detail-description{
-    position: absolute;
-    width: 100%;
-    max-width: 475px;
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%);
-}
 .gallery-section{
     margin-bottom: 100px;
-}
-.gallery-section h2 span{
-    display: inline-block;
-    font-size: 5rem;
-    font-weight: 300;
-    line-height: 1.2;
-    margin-bottom: 1em;
-    letter-spacing: 3px;
-    margin-right: 40px;
-}
-.gallery-section h2 svg{
-    display: inline-block;
-    width: 50px;
-}
-.gallery-section ul{
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-.gallery-section ul li{
-    display: block;
-    float: left;
-    width: 33.3333%;
-}
-.gallery-section ul li a{
-    display: block;
-    width: 100%;
-    height: 100%;
-    position: relative;
-    padding-bottom: 100%;
-    overflow: hidden;
-}
-.gallery-section ul li a > img{
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    object-position: center center;
-    object-fit: cover;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    h2 span{
+        display: inline-block;
+        font-size: 4rem;
+        font-weight: 300;
+        line-height: 1.2;
+        margin-bottom: 1em;
+        letter-spacing: 3px;
+        margin-right: 40px;
+    }
+    ul{
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        li{
+            display: block;
+            width: calc((100% - 20px)/3);
+            border: 1px solid #efefef;
+            margin-bottom: 10px;
+            a{
+                display: block;
+                width: 100%;
+                height: 100%;
+                position: relative;
+                overflow: hidden;
+                &:after{
+                    @include after-pb(100%);
+                }
+                img {
+                    @include img-fit();
+                }
+            }
+        }
+    }
 }
 #fancybox-title{
     position: absolute;
