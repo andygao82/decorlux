@@ -1439,6 +1439,12 @@ h3{
         max-width: 350px;
         margin-left: 0;
     }
+    .fixed.home{
+        a.decorlux-logo{
+            top: 35px;
+            max-width: 140px;
+        }
+    }
 }
 
 @media screen and (max-width: 991px){
@@ -1466,7 +1472,6 @@ h3{
     }
     .home a.decorlux-logo{
         max-width: 235px;
-
     }
     .category-description .post-image{
         width: 100%;
