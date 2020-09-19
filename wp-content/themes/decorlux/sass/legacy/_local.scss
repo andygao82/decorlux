@@ -458,9 +458,6 @@ ul.social-media li a:hover{
     font-weight: 300;
     margin: 0;
 }
-.about-banner{
-    background-image: url("images/about-banner.jpg");
-}
 .about-banner h2{
     margin-bottom: 0;
     font-size: 46px;
@@ -1172,12 +1169,6 @@ h3{
     .page-template-page-contact .page-main-content .wrapper-2{
         padding: 100px 55px;
     }
-    .category-banner{
-        max-height: 335px;
-    }
-    .page-banner.category-banner h1{
-        top: 155px;
-    }
     .category-description .post-image{
         width: 600px;
     }
@@ -1257,12 +1248,6 @@ h3{
     }
     .category-blogs article.post:last-child{
         margin-bottom: 120px;
-    }
-    .product-banner.page-banner {
-        max-height: 335px;
-    }
-    .product-banner.page-banner h1{
-        top: 155px;
     }
     .product-range{
         font-size: 46px;
@@ -1760,10 +1745,6 @@ h3{
     }
 }
 @media screen and (max-width: 575px){
-    .page-banner h1{
-        font-size: 28px;
-        letter-spacing: 8px;
-    }
     .menu-main-menu-container{
         width: 100%;
     }
@@ -1777,25 +1758,10 @@ h3{
     }
 
     .product-detail-left{
-        width: 100%;
-        float: none;
         text-align: center;
     }
-    .product-detail-image{
-        width: 100%;
-        float: none;
-        text-align: center;
-        max-width: unset;
-        padding-top: 0;
-    }
-    .product-detail-image img{
+    .product-detail-button{
         margin: auto;
-    }
-    .product-detail-left .product-cat{
-        margin-bottom: 0;
-    }
-    .product-range{
-        margin: 1em 0;
     }
 }
 @media screen and (max-width: 414px){

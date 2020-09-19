@@ -2,17 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b1962744-f6bc-43b6-9d37-9e5ef47959d0" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/wp-content/themes/decorlux/single-alt.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wp-content/themes/decorlux/page-beds.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wp-content/themes/decorlux/page-curtains.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/themes/decorlux/page-category.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wp-content/themes/decorlux/page-featured-projects.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wp-content/themes/decorlux/page-indoor-blinds.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wp-content/themes/decorlux/page-outdoor-blinds.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wp-content/themes/decorlux/page-previous-projects.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wp-content/themes/decorlux/page-recent-projects.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wp-content/themes/decorlux/page-sofa.php" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/wp-content/themes/decorlux/sass/custom/_custom.scss" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/themes/decorlux/sass/custom/_custom.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wp-content/themes/decorlux/sass/legacy/_local.scss" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/themes/decorlux/sass/legacy/_local.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/themes/decorlux/single.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/themes/decorlux/single.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wp-content/themes/decorlux/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/themes/decorlux/style.css" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -108,7 +102,9 @@
       <workItem from="1591872841219" duration="3227000" />
       <workItem from="1597714607366" duration="1612000" />
       <workItem from="1600244082320" duration="3749000" />
-      <workItem from="1600334901153" duration="10926000" />
+      <workItem from="1600334901153" duration="11212000" />
+      <workItem from="1600413795287" duration="12973000" />
+      <workItem from="1600468614750" duration="6206000" />
     </task>
     <servers />
   </component>
