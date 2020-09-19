@@ -54,14 +54,17 @@ $product_top_banner_heading = get_field('product_top_banner_content');
             </div>
         </div>
     </section>
+
     <section class="gallery-section">
         <div class="container">
             <div class="row">
                 <div class="col">
                     <div class="wrapper">
+                        <?php if(!empty(get_field('gallery_title'))){ ?>
                         <h2>
-                            <span><?= get_field('gallery_title') ? get_field('gallery_title') : 'Image Gallery'?></span>
+                            <span><?= get_field('gallery_title') ? get_field('gallery_title') : ''?></span>
                         </h2>
+                        <?php }?>
                         <ul>
                             <?php for($i = 1; $i <=30; $i++):?>
                                 <?php if(get_field('product_image_'.$i.'')) {?>

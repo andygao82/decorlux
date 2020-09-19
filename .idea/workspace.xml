@@ -2,10 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b1962744-f6bc-43b6-9d37-9e5ef47959d0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/wp-content/themes/decorlux/single-alt.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/themes/decorlux.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/themes/decorlux/js/custom.js" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/themes/decorlux/js/custom.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wp-content/themes/decorlux/sass/custom/_custom.scss" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/themes/decorlux/sass/custom/_custom.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wp-content/themes/decorlux/sass/legacy/_local.scss" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/themes/decorlux/sass/legacy/_local.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/themes/decorlux/sass/mixins/_mixins-master.scss" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/themes/decorlux/sass/mixins/_mixins-master.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wp-content/themes/decorlux/single.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/themes/decorlux/single.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wp-content/themes/decorlux/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/themes/decorlux/style.css" afterDir="false" />
     </list>
@@ -104,7 +106,7 @@
       <workItem from="1600244082320" duration="3749000" />
       <workItem from="1600334901153" duration="11212000" />
       <workItem from="1600413795287" duration="12973000" />
-      <workItem from="1600468614750" duration="6206000" />
+      <workItem from="1600468614750" duration="15450000" />
     </task>
     <servers />
   </component>

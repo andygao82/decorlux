@@ -114,7 +114,7 @@ a:hover{
 .site-menu:before{
     position: absolute;
     z-index: 1;
-    background-color: rgba(136,136,136,.6);
+    background-color: rgba(136,136,136,.8);
     content: '';
     display: block;
     top: 0;
@@ -207,9 +207,6 @@ nav ul li{
         font-size: 2.4rem;
         font-weight: 100;
         letter-spacing: .9px;
-    }
-    .sub-menu li a:hover{
-
     }
     .menu-main-menu-container{
         z-index: 2;
@@ -1071,6 +1068,7 @@ h3{
                     overflow: hidden;
                     float: left;
                     overflow: hidden;
+                    border: 1px solid #ebebeb;
                     &:after{
                         @include after-pb(100%);
                     }
@@ -1340,12 +1338,14 @@ h3{
 }
 
 @media screen and (max-width: 1199px){
+    .down.site-menu{
+        padding-top: 85px;
+    }
     .menu-main-menu-container{
         position: absolute;
         z-index: 2;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+        height: calc(100% - 100px);
+        overflow-y: auto;
     }
     .menu-main-menu-container li.menu-item.expanded .sub-menu{
         display: block;
@@ -1371,9 +1371,6 @@ h3{
     }
     .header-address{
         z-index: 9;
-    }
-    nav.site-menu{
-        text-align: center;
     }
     nav .sub-menu{
         display: none;
@@ -1751,12 +1748,6 @@ h3{
     ul#primary-menu > li.menu-item > a{
         font-size: 18px;
     }
-    .menu-main-menu-container li.menu-item .sub-menu{
-        max-width: 150px;
-        margin-left: auto;
-        margin-right: auto;
-    }
-
     .product-detail-left{
         text-align: center;
     }

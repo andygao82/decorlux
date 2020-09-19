@@ -4,6 +4,10 @@ body{
   font-weight: 300;
   color: #666666;
   overflow-x: hidden;
+  &.fixed{
+    height: 100vh;
+    overflow-y: hidden;
+  }
 }
 #page{
   overflow-x: hidden;
@@ -247,6 +251,9 @@ a{
       }
     }
   }
+  .down.site-menu{
+
+  }
 }
 @media screen and (max-width: 991px) {
   .listing-section{
@@ -300,6 +307,12 @@ a{
   }
   .category-banner{
     max-height: 300px;
+  }
+  .contact-banner{
+    height: 100vh;
+  }
+  .page-banner.contact-banner h1,.page-banner.about-banner h1{
+    transform: unset;
   }
 }
 @media screen and (max-width: 767px) {
