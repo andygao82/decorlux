@@ -69,14 +69,17 @@ $product_top_banner_heading = get_field('product_top_banner_content');
                             <?php for($i = 1; $i <=30; $i++):?>
                                 <?php if(get_field('product_image_'.$i.'')) {?>
                                     <?php ${"product_image_".$i} = get_field('product_image_'.$i.'') ?>
-		                            <?php $product_image_description = ${"product_image_".$i}['description'] ?>
+		                            <?php $product_image_description = '' ?>
+		                            <?php if(!empty(${"product_image_".$i}['description'])) :?>
+		                                <?php $product_image_description = ${"product_image_".$i}['description'] ?>
+		                            <?php endif?>
                                     <?php if(!empty(${"product_image_".$i}['caption'])):?>
                                         <li>
                                             <a class="product-gallery-item" rel="product-gallery-img" href="<?= esc_url(${"product_image_".$i}['sizes']['large'])?>">
                                                 <?php if(!empty($product_image_description)) :?>
                                                     <span class="product-gallery-description"><?php echo $product_image_description ?></span>
                                                 <?php endif?>
-                                                <img src="<?= esc_url(${"product_image_".$i}['sizes']['large'])?>" alt="<?= esc_url(${"product_image_".$i}['title'])?>">
+                                                <img src="<?= esc_url(${"product_image_".$i}['sizes']['large'])?>" alt="image">
                                                 <i class="fa fa-expand" aria-hidden="true"></i>
                                             </a>
                                         </li>
@@ -86,7 +89,7 @@ $product_top_banner_heading = get_field('product_top_banner_content');
 	                                            <?php if(!empty($product_image_description)) :?>
                                                     <span class="product-gallery-description"><?php echo $product_image_description ?></span>
 	                                            <?php endif?>
-                                                <img src="<?= esc_url(${"product_image_".$i}['sizes']['large'])?>" alt="<?= esc_url(${"product_image_".$i}['title'])?>">
+                                                <img src="<?= ${'product_image_'.$i}['sizes']['large']?>" alt="image">
                                             </a>
                                         </li>
                                     <?php endif ?>
