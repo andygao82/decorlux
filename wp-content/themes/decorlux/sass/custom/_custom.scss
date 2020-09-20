@@ -18,6 +18,14 @@ body{
   .page-banner-wrapper{
     position: absolute;
     max-width: 100%;
+    #mouse{
+      position: absolute;
+      bottom: 15px;
+      left: 0;
+      right: 0;
+      margin: auto;
+      width: 19px;
+    }
   }
 }
 .category-banner{
@@ -370,5 +378,8 @@ a{
   }
   .category-banner{
     max-height: 250px;
+  }
+  #mouse{
+    display: none !important;
   }
 }

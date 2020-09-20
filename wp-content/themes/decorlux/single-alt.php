@@ -19,6 +19,7 @@ $product_top_banner_heading = get_field('product_top_banner_content');
 		<?php if($product_top_banner_heading){?>
 			<h1 class="page-title"><?php echo $product_top_banner_heading ?></h1>
 		<?php } ?>
+        <img src="<?php echo get_template_directory_uri('/'); ?>/images/mouse.svg" alt="mouse" id="mouse">
 	</div>
 	</section>
 	<section class="listing-section">

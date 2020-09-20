@@ -18,7 +18,9 @@ $category_page_banner_title = get_field('category_page_banner_title');
 			<?php if($category_page_banner_title){?>
                 <h1 class="page-title"><?= $category_page_banner_title ?></h1>
 			<?php } ?>
-		</div>
+            <img src="<?php echo get_template_directory_uri('/'); ?>/images/mouse.svg" alt="mouse" id="mouse">
+
+        </div>
 	</section>
 	<section class="category-description">
 		<div class="container">
