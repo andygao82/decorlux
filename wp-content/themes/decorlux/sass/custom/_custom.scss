@@ -382,4 +382,9 @@ a{
   #mouse{
     display: none !important;
   }
+  .page-template-page-category, .single{
+    .page-banner .page-banner-wrapper h1{
+      display: none;
+    }
+  }
 }
