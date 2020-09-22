@@ -4,7 +4,8 @@
     <list default="true" id="b1962744-f6bc-43b6-9d37-9e5ef47959d0" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wp-content/themes/decorlux/sass/custom/_custom.scss" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/themes/decorlux/sass/custom/_custom.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wp-content/themes/decorlux/sass/legacy/_local.scss" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/themes/decorlux/sass/legacy/_local.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/themes/decorlux/single-alt.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/themes/decorlux/single-alt.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/themes/decorlux/single.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/themes/decorlux/single.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wp-content/themes/decorlux/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/themes/decorlux/style.css" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -105,7 +106,8 @@
       <workItem from="1600468614750" duration="19254000" />
       <workItem from="1600586576158" duration="103000" />
       <workItem from="1600586733765" duration="706000" />
-      <workItem from="1600684383429" duration="722000" />
+      <workItem from="1600684383429" duration="992000" />
+      <workItem from="1600772235510" duration="425000" />
     </task>
     <servers />
   </component>
