@@ -38,10 +38,11 @@ $product_top_banner_heading = get_field('product_top_banner_content');
                             <div class="product-more">
                                 <a class="product-detail-button" href="javascript:;" onclick="goBack()"><span>Back</span></a>
                             </div>
-                            <?php if(get_field('pdf_upload'))?>
+                            <?php if(get_field('pdf_upload')):?>
                             <div class="product-details-file">
                                 <a class="product-detail-button" href="<?= get_field('pdf_upload')?>" target="_blank"><span>Details</span></a>
                             </div>
+                            <?php endif ?>
                         </div>
 	                    <?php if(get_field('main_image')): ?>
                         <div class="product-detail-right">
@@ -55,7 +56,6 @@ $product_top_banner_heading = get_field('product_top_banner_content');
             </div>
         </div>
     </section>
-
     <section class="gallery-section">
         <div class="container">
             <div class="row">

@@ -22,6 +22,36 @@ $product_top_banner_heading = get_field('product_top_banner_content');
         <img src="<?php echo get_template_directory_uri('/'); ?>/images/mouse.svg" alt="mouse" id="mouse">
 	</div>
 	</section>
+    <section class="product-details">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="wrapper">
+                        <div class="product-detail-left">
+                            <div class="product-cat"><?php echo $categories[0]->name; ?></div>
+                            <div class="product-range"><?php the_title() ?></div>
+							<?php $img_path = get_template_directory_uri('/'); ?>
+                            <div class="product-more">
+                                <a class="product-detail-button" href="javascript:;" onclick="goBack()"><span>Back</span></a>
+                            </div>
+							<?php if(get_field('pdf_upload')): ?>
+                            <div class="product-details-file">
+                                <a class="product-detail-button" href="<?= get_field('pdf_upload')?>" target="_blank"><span>Details</span></a>
+                            </div>
+                            <?php endif ?>
+                        </div>
+						<?php if(get_field('main_image')): ?>
+                            <div class="product-detail-right">
+                                <div class="product-detail-right-wrapper">
+                                    <img src="<?= get_field('main_image') ?>" alt="<?php the_title() ?>" title="<?php the_title() ?>">
+                                </div>
+                            </div>
+						<?php endif ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 	<section class="listing-section">
 			<div class="wrapper">
 				<ul>
