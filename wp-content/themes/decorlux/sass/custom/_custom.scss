@@ -9,6 +9,10 @@ body{
     overflow-y: hidden;
   }
 }
+
+#fancybox-title{
+  display: none !important;
+}
 #page{
   overflow-x: hidden;
 }
@@ -118,8 +122,17 @@ a{
   }
 }
 .product-gallery-item{
+  .inner-wrapper{
+    display: block;
+    position: absolute;
+    width: calc(100% - 30px);
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
   .product-gallery-description{
     display: flex;
+    flex-direction: column;
     padding: 15px;
     background-color: rgba(0, 0, 0, .8);
     width: 100%;
@@ -129,12 +142,15 @@ a{
     top: 0;
     color: #ffffff;
     z-index: 1;
-    text-align: center;
     font-size: 1.6rem;
     align-items: center;
     line-height: 1.75;
     opacity: 0;
     transition: .5s all ease-in-out;
+    h4{
+      font-size: 2rem;
+      margin-bottom: 15px;
+    }
   }
   i{
     position: absolute;
