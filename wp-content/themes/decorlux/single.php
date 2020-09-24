@@ -77,6 +77,7 @@ $product_top_banner_heading = get_field('product_top_banner_content');
                                     <?php if(!empty(${"product_image_".$i}['caption'])):?>
                                         <li>
                                             <a class="product-gallery-item" rel="product-gallery-img" href="<?= esc_url(${"product_image_".$i}['sizes']['large'])?>">
+			                                 <?php if(!empty($product_image_description)) :?>
                                                 <span class="product-gallery-description">
                                                     <span class="inner-wrapper">
                                                         <?php if(!empty(${"product_image_".$i}['title'])) :?>
@@ -87,6 +88,7 @@ $product_top_banner_heading = get_field('product_top_banner_content');
                                                         <?php endif?>
                                                     </span>
                                                 </span>
+			                                 <?php endif?>
                                                 <img src="<?= esc_url(${"product_image_".$i}['sizes']['large'])?>" alt="image">
                                                 <i class="fa fa-expand" aria-hidden="true"></i>
                                             </a>
@@ -94,6 +96,7 @@ $product_top_banner_heading = get_field('product_top_banner_content');
                                     <?php else: ?>
                                         <li>
                                             <a class="product-gallery-item"  href="javascript:;" >
+			                                <?php if(!empty($product_image_description)) :?>
                                                 <span class="product-gallery-description">
                                                     <span class="inner-wrapper">
                                                         <?php if(!empty(${"product_image_".$i}['title'])) :?>
@@ -104,6 +107,7 @@ $product_top_banner_heading = get_field('product_top_banner_content');
 	                                                    <?php endif?>
                                                     </span>
                                                 </span>
+                                            <?php endif?>
                                                 <img src="<?= ${'product_image_'.$i}['sizes']['large']?>" alt="image">
                                             </a>
                                         </li>
