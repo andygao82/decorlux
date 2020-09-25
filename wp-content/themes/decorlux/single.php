@@ -76,7 +76,7 @@ $product_top_banner_heading = get_field('product_top_banner_content');
 		                            <?php endif?>
                                     <?php if(!empty(${"product_image_".$i}['caption'])):?>
                                         <li>
-                                            <a class="product-gallery-item">
+                                            <a class="product-gallery-item" href="javascript:;">
 			                                 <?php if(!empty($product_image_description)) :?>
                                                 <span class="product-gallery-description">
                                                     <span class="inner-wrapper">

@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="b1962744-f6bc-43b6-9d37-9e5ef47959d0" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wp-content/themes/decorlux/sass/legacy/_local.scss" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/themes/decorlux/sass/legacy/_local.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wp-content/themes/decorlux/single.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/themes/decorlux/single.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -108,7 +107,7 @@
       <workItem from="1600772235510" duration="1022000" />
       <workItem from="1600933102200" duration="2459000" />
       <workItem from="1600943387517" duration="511000" />
-      <workItem from="1601019427305" duration="3961000" />
+      <workItem from="1601019427305" duration="4430000" />
     </task>
     <servers />
   </component>
