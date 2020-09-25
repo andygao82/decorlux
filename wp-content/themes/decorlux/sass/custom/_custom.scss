@@ -338,6 +338,14 @@ a{
   .page-banner.contact-banner h1,.page-banner.about-banner h1{
     transform: unset;
   }
+  .header-address{
+    top: 25px;
+    width: 165px;
+    background-position: 0 3px;
+    strong{
+      display: none;
+    }
+  }
 }
 @media screen and (max-width: 767px) {
   .product-details .wrapper {
@@ -402,6 +410,21 @@ a{
   .page-template-page-category, .single{
     .page-banner .page-banner-wrapper h1{
       display: none;
+    }
+  }
+  .page-template-page-about, .page-template-page-tc, .page-template-page-pw, .page-template-page-contact, .single {
+    .header-address{
+      display: none;
+    }
+  }
+  .page-template-page-category{
+    a.decorlux-logo{
+      top: 128px;
+    }
+    &.fixed{
+      a.decorlux-logo{
+        top: 39px;
+      }
     }
   }
 }

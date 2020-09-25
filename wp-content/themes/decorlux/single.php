@@ -76,7 +76,7 @@ $product_top_banner_heading = get_field('product_top_banner_content');
 		                            <?php endif?>
                                     <?php if(!empty(${"product_image_".$i}['caption'])):?>
                                         <li>
-                                            <a class="product-gallery-item" rel="product-gallery-img" href="<?= esc_url(${"product_image_".$i}['sizes']['large'])?>">
+                                            <span class="product-gallery-item" >
 			                                 <?php if(!empty($product_image_description)) :?>
                                                 <span class="product-gallery-description">
                                                     <span class="inner-wrapper">
@@ -90,12 +90,14 @@ $product_top_banner_heading = get_field('product_top_banner_content');
                                                 </span>
 			                                 <?php endif?>
                                                 <img src="<?= esc_url(${"product_image_".$i}['sizes']['large'])?>" alt="image">
-                                                <i class="fa fa-expand" aria-hidden="true"></i>
-                                            </a>
+                                                <a href="<?= esc_url(${"product_image_".$i}['sizes']['large'])?>">
+                                                    <i class="fa fa-expand" aria-hidden="true"></i>
+                                                </a>
+                                            </span>
                                         </li>
                                     <?php else: ?>
                                         <li>
-                                            <a class="product-gallery-item"  href="javascript:;" >
+                                            <a class="product-gallery-item"  href="javascript:;" rel="product-gallery-img" >
 			                                <?php if(!empty($product_image_description)) :?>
                                                 <span class="product-gallery-description">
                                                     <span class="inner-wrapper">
