@@ -122,6 +122,11 @@ a{
   }
 }
 .product-gallery-item{
+  &:hover{
+    .product-gallery-description{
+      opacity: 1;
+    }
+  }
   .inner-wrapper{
     display: block;
     position: absolute;
@@ -150,19 +155,6 @@ a{
     h4{
       font-size: 2rem;
       margin-bottom: 15px;
-    }
-  }
-  i{
-    position: absolute;
-    font-size: 2em;
-    color: #ffffff;
-    bottom: 15px;
-    right: 15px;
-    z-index: 2;
-  }
-  &:hover{
-    .product-gallery-description{
-      opacity: 1;
     }
   }
 }
