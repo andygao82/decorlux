@@ -76,7 +76,7 @@ $product_top_banner_heading = get_field('product_top_banner_content');
 		                            <?php endif?>
                                     <?php if(!empty(${"product_image_".$i}['caption'])):?>
                                         <li>
-                                            <span class="product-gallery-item" >
+                                            <a class="product-gallery-item" >
 			                                 <?php if(!empty($product_image_description)) :?>
                                                 <span class="product-gallery-description">
                                                     <span class="inner-wrapper">
@@ -93,7 +93,7 @@ $product_top_banner_heading = get_field('product_top_banner_content');
                                                 <a href="<?= esc_url(${"product_image_".$i}['sizes']['large'])?>">
                                                     <i class="fa fa-expand" aria-hidden="true"></i>
                                                 </a>
-                                            </span>
+                                            </a>
                                         </li>
                                     <?php else: ?>
                                         <li>
