@@ -36,35 +36,49 @@ get_header();
                             <li>
                                 <h3>Address</h3>
                                 <p>
-                                    <span>185 Cheltenham Rd,</span>
-                                    <span>Keysborough VIC 3133</span>
+                                    <?php if(!empty(get_field('address_line_1'))):?>
+                                        <span><?= get_field('address_line_1')?></span>
+                                    <?php endif ?>
+	                                <?php if(!empty(get_field('address_line_2'))):?>
+                                     <span><?= get_field('address_line_2')?></span>
+	                                <?php endif ?>
                                 </p>
                             </li>
                             <li>
                                 <h3>Phone</h3>
                                 <p>
-                                    <a href="tel:0397690474"><span>03 9769 0474</span></a>
-                                    <a href="tel:1800200668"><span>1800200668</span></a>
+	                                <?php if(!empty(get_field('phone'))):?>
+                                    <a href="tel:<?= get_field('phone')?><?= get_field('phone')?>"><span><?= get_field('phone')?></span></a>
+                                    <?php endif ?>
+	                                <?php if(!empty(get_field('mobile'))):?>
+                                    <a href="tel:<?= get_field('mobile')?>"><span><?= get_field('mobile')?></span></a>
+	                                <?php endif ?>
                                 </p>
                             </li>
+	                        <?php if(!empty(get_field('fax'))):?>
                             <li>
                                 <h3>Fax</h3>
                                 <p>
-                                    <a href="tel:0397691476"><span>03 9769 1476</span></a>
+                                    <a href="tel:<?= get_field('fax')?>"><span><?= get_field('fax')?></span></a>
                                 </p>
                             </li>
+	                        <?php endif ?>
+                            <?php if(!empty(get_field('email'))):?>
                             <li>
                                 <h3>Email</h3>
                                 <p>
-                                    <a href="mailto:info@decorlux.com.au">info@decorlux.com.au</a>
+                                    <a href="mailto:<?= get_field('email')?>"><?= get_field('email')?></a>
                                 </p>
                             </li>
+	                        <?php endif ?>
+                            <?php if(!empty(get_field('trading_hours'))):?>
                             <li>
                                 <h3>Trading Hours</h3>
                                 <p>
-                                    <span>Monday - Friday 9:00AM to 6:00PM</span>
+                                    <span><?= get_field('trading_hours')?></span>
                                 </p>
                             </li>
+	                        <?php endif ?>
                         </ul>
                     </div>
                 </div>
