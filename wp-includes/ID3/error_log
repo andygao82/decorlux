@@ -1,0 +1,2 @@
+[14-Oct-2021 21:48:30 UTC] PHP Fatal error:  Class 'getid3_handler' not found in /home/o39kbx2ergvt/public_html/decorluxnew/wp-includes/ID3/module.audio.ac3.php on line 18
+[15-Oct-2021 08:19:32 UTC] PHP Fatal error:  Class 'getid3_handler' not found in /home/o39kbx2ergvt/public_html/decorluxnew/wp-includes/ID3/module.audio.mp3.php on line 25

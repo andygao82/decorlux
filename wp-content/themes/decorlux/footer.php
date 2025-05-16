@@ -23,17 +23,13 @@
 	                    <?php $img_path = get_template_directory_uri('/'); ?>
                         <ul class="social-media">
                             <li>
-                                <a href="#" target="_blank">
+                                <a href="https://www.instagram.com/decorlux_homestaging/" target="_blank">
                                     <i class="fa fa-instagram" aria-hidden="true"></i>
                                 </a>
                             </li>
+                      
                             <li>
-                                <a href="#" target="_blank">
-                                    <i class="fa fa-linkedin" aria-hidden="true"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" target="_blank">
+                                <a href="https://www.facebook.com/decorlux.curtain" target="_blank">
                                     <i class="fa fa-facebook" aria-hidden="true"></i>
                                 </a>
                             </li>

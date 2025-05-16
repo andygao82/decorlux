@@ -3,8 +3,8 @@ Contributors: elzahlan
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=G8LC4VSYKYSGA
 Tags: Category Image, Category Images, Categories Images, taxonomy image, taxonomy images, taxonomies images, category icon, categories icons, category logo, categories logos, admin, wp-admin, category image plugin, categories images plugin, category featured image, categories featured images, feature image for category,term image, tag image, term images, tag images, media category
 Requires at least: 2.8
-Tested up to: 5.4
-Stable tag: 3.0.1
+Tested up to: 6.2.2
+Stable tag: 3.1.0
 License: GPLv2 or later
 
 The Categories Images Plugin allow you to add image with category or taxonomy.
@@ -57,6 +57,11 @@ Please check the documentation page:
 5. Now you can exclude any taxonomy from the plugin and save changes.
 
 == Changelog ==
+
+= 3.1.0 =
+* Added DE translation, thanks to denarie.
+* Start using imageId instead of imageUrl to solve any the CDN issues, thanks so alessandrocarrera.
+* Tested with the latest version of wordpress
 
 = 3.0.1 =
 * Disable options autoload to enhance wordpress queries performace

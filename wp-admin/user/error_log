@@ -1,0 +1,4 @@
+[30-Nov-2022 23:13:19 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function __() in /home/o39kbx2ergvt/public_html/decorluxnew/wp-admin/user/menu.php:10
+Stack trace:
+#0 {main}
+  thrown in /home/o39kbx2ergvt/public_html/decorluxnew/wp-admin/user/menu.php on line 10

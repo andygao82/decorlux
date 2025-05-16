@@ -1,0 +1,16 @@
+[03-Dec-2020 10:55:37 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function get_header() in /home/o39kbx2ergvt/public_html/decorluxnew/wp-content/themes/decorlux/index.php:15
+Stack trace:
+#0 {main}
+  thrown in /home/o39kbx2ergvt/public_html/decorluxnew/wp-content/themes/decorlux/index.php on line 15
+[22-May-2021 09:53:53 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function get_header() in /home/o39kbx2ergvt/public_html/decorluxnew/wp-content/themes/decorlux/404.php:10
+Stack trace:
+#0 {main}
+  thrown in /home/o39kbx2ergvt/public_html/decorluxnew/wp-content/themes/decorlux/404.php on line 10
+[22-May-2021 12:08:00 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function get_header() in /home/o39kbx2ergvt/public_html/decorluxnew/wp-content/themes/decorlux/404.php:10
+Stack trace:
+#0 {main}
+  thrown in /home/o39kbx2ergvt/public_html/decorluxnew/wp-content/themes/decorlux/404.php on line 10
+[30-Dec-2021 13:46:24 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function get_header() in /home/o39kbx2ergvt/public_html/decorluxnew/wp-content/themes/decorlux/index.php:15
+Stack trace:
+#0 {main}
+  thrown in /home/o39kbx2ergvt/public_html/decorluxnew/wp-content/themes/decorlux/index.php on line 15
