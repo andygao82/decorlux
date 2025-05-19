@@ -13,23 +13,13 @@ $i = rand(0,2);
 $bg = $imagesArray[$i];
 
 ?>
-    <section class="banner">
-        <div class="flexslider">
-            <ul class="slides">
-                <li style="background-image: url(<?php echo $slider_image_1?>)"></li>
-                <li style="background-image: url(<?php echo $slider_image_2?>)"></li>
-                <li style="background-image: url(<?php echo $slider_image_3?>)"></li>
-            </ul>
-        </div>
-    </section>
+
 <?php get_footer(); ?>
 
 
 <script>
     jQuery(document).ready(function($){
-        $('#burger-icon').click(function () {
-            $('body').toggleClass('menu-down');
-        });
+   
         $('.flexslider').flexslider({
             animation: "fade"
         });

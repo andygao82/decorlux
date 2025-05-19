@@ -1,0 +1,116 @@
+.page, .post {
+	margin: 0;
+}
+
+body {
+	color: #222;
+	background-color: #fcfcfc;
+}
+
+header.site-header {
+	position: sticky;
+	top: 0;
+
+	.wrapper {
+		display: flex;
+		justify-content: space-between;
+    align-items: center;
+	}
+
+}
+
+@media screen and (min-width: 1700px) {
+	.container {
+		max-width: 1840px;
+	}
+}
+
+a.decorlux-logo {
+	max-width: 135px;
+	padding: 40px 0;
+}
+
+.home { 
+	a.decorlux-logo {
+		max-width: 150px;
+		position: relative;
+		transform: unset;
+		left: unset;
+		top: unset;
+		margin: unset;
+	}
+	
+}
+
+@media screen and (min-width: 1200px) {
+
+	
+	#burger-icon {
+		display: none;
+	}
+
+	.site-menu {
+		background-image: none;
+		position: static;
+		width: auto;
+		height: auto;
+		&:before {
+			display: none;
+		}
+		.menu-main-menu-container {
+			display: flex;
+			align-items: center;
+			position: static;
+			width: auto;
+			transform: unset;
+			padding: 0;
+
+		}
+	}
+	
+	ul#primary-menu {
+		font-size: 1.4rem;
+		line-height: 1.5;
+		color: #222;
+		display: flex;
+		align-items: center;
+		gap: 90px;
+
+		.sub-menu {
+			display: none;
+		}
+
+		li.menu-item-211, li.menu-item-208, li.menu-item-210, li.menu-item-209 {
+			display: block !important;
+		}
+
+		li.menu-item {
+			position: static !important;
+			transform: unset !important;
+			a {
+				font-size: 1.4rem;
+				color: #222;
+				letter-spacing: 0;
+			}
+		}
+	}
+
+	
+}
+
+footer.site-footer {
+	background-color: #fff;
+	.wrapper {
+		display: flex;
+		justify-content: space-between;
+		padding: 75px 0 100px;
+
+		h3 {
+			font-size: 1.6rem;
+			font-weight: 400;
+			color: #222;
+			margin-bottom: 1.2em;
+		}
+
+	}
+}
