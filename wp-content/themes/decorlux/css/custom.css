@@ -5,6 +5,7 @@
 body {
 	color: #222;
 	background-color: #fcfcfc;
+	font-size: 1.8rem;
 }
 
 header.site-header {
@@ -26,13 +27,13 @@ header.site-header {
 }
 
 a.decorlux-logo {
-	max-width: 135px;
-	padding: 40px 0;
+	max-width: 175px;
+	padding: 60px 0;
 }
 
 .home { 
 	a.decorlux-logo {
-		max-width: 150px;
+		max-width: 175px;
 		position: relative;
 		transform: unset;
 		left: unset;
@@ -88,29 +89,125 @@ a.decorlux-logo {
 			position: static !important;
 			transform: unset !important;
 			a {
-				font-size: 1.4rem;
+				font-size: 1.8rem;
 				color: #222;
 				letter-spacing: 0;
 			}
 		}
 	}
-
-	
 }
 
 footer.site-footer {
 	background-color: #fff;
+	font-size: 1.6rem;
+	font-weight: 400;
+
 	.wrapper {
 		display: flex;
 		justify-content: space-between;
-		padding: 75px 0 100px;
 
-		h3 {
-			font-size: 1.6rem;
-			font-weight: 400;
-			color: #222;
-			margin-bottom: 1.2em;
+		&.footer-top-wrapper {
+			padding: 100px 0 130px;
+			border-bottom: 1px solid #222;
 		}
 
+		&.footer-bottom-wrapper {
+			padding: 30px 0 50px;
+		}
+
+		h3 {
+			font-size: 2.1rem;
+			font-weight: 400;
+			color: #222;
+			margin-bottom: 1.5em;
+		}
+
+		.footer-brief {
+			width: 100%;
+			max-width: 500px;
+		}
+
+		.footer-quick-links {
+			ul {
+				display: flex;
+				flex-direction: column;
+				gap: 15px;
+				padding: 0;
+				margin: 0;
+				list-style: none;
+				li {
+					a {
+						color: #222;
+						text-decoration: none;
+						&:hover {
+							text-decoration: underline;
+						}
+					}
+				}
+			}
+		}
+
+		.footer-social-media {
+			ul {
+				display: flex;
+				padding: 0;
+				gap: 15px;
+
+				li {
+					margin: 0;
+					a {
+						color: #222;
+						font-size: 20px;
+						text-decoration: none;
+						&:hover {
+							text-decoration: underline;
+						}
+					}
+				}
+			}
+		}
+
+		.footer-address {
+			.address-content {
+				display: flex;
+				gap: 10px;
+
+				.fa {
+					font-size: 20px;
+				}
+			}	
+		}
+
+		.footer-links {
+			ul {
+				display: flex;
+				flex-direction: row;
+				padding: 0;
+				margin: 0;
+				list-style: none;
+
+				li {
+					padding: 0 50px;
+					border-right: 1px solid #222;
+					&:first-child {
+						padding-left: 0;
+					}
+					&:last-child {
+						padding-right: 0;
+						border-right: 0;
+					}
+					&:hover {
+						text-decoration: underline;
+					}
+					a {
+						color: #222;
+						font-size: 1.6rem;
+						line-height: 1.5;
+						text-decoration: none;
+						font-weight: 400;
+					}
+				}
+			}
+		}
 	}
 }
