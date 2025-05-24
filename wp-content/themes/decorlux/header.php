@@ -19,6 +19,11 @@
 	<link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,700&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="<?php echo get_template_directory_uri('/'); ?>/css/flexslider.css">
+	<link
+		rel="stylesheet"
+		href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+	/>
+	<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 	<link rel="stylesheet" href="https://use.fontawesome.com/b41f34b2fc.css">
 	<?php wp_head(); ?>
 	<link rel="stylesheet" type="text/css" href="<?php echo get_template_directory_uri('/'); ?>/css/custom.css">

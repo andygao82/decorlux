@@ -8,16 +8,9 @@
   },
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "autoprefixer": "^10.0.0",
-    "browser-sync": "^2.26.12",
-    "gulp": "^4.0.2",
-    "gulp-group-css-media-queries": "^1.2.2",
-    "gulp-plumber": "^1.2.1",
-    "gulp-postcss": "^8.0.0",
-    "gulp-sass": "^4.1.0"
-  },
   "dependencies": {
-    "gulp-sourcemaps": "^2.6.5"
+    "@tailwindcss/vite": "^4.1.7",
+    "swiper": "^11.2.8",
+    "tailwindcss": "^4.1.7"
   }
 }
