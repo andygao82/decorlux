@@ -44,13 +44,17 @@ header.site-header {
 a.decorlux-logo {
 	max-width: 175px;
 	padding: 60px 0;
+	position: relative;
+	transform: unset;
+	left: unset;
+	top: unset;
+	margin: unset;
 }
 
 .home { 
 	overflow-y: auto;
 	height: unset;
 	a.decorlux-logo {
-		max-width: 175px;
 		position: relative;
 		transform: unset;
 		left: unset;
@@ -229,6 +233,13 @@ footer.site-footer {
 }
 
 .banner {
+	&:not(.home-banner) {
+		width: 100%;
+		aspect-ratio: 2/1;
+		background-repeat: no-repeat;
+		background-size: cover;
+		background-position: center center;
+	}
 	&.home-banner {
 		.banner-wrapper	{
 			width: 100%;
