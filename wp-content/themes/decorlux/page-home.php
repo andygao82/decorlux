@@ -46,7 +46,7 @@ get_header();
 	<?php
 		if (get_row_layout() == 'about_decorlux'):
 	?>
-		<div class="section home-content-section about-decorlux">
+		<div class="section content-section home-content-section about-decorlux">
 			<div class="section-wrapper">
 				<div class="section-content-container">
 					<div class="inner-wrapper">
@@ -67,7 +67,7 @@ get_header();
 		if (get_row_layout() == 'why_decorlux'):
 	?>
 
-		<div class="section home-content-section why-decorlux">
+		<div class="section content-section home-content-section why-decorlux">
 			<div class="section-wrapper">
 				<div class="section-content-container">
 					<div class="inner-wrapper">

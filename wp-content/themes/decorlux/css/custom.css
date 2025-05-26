@@ -57,6 +57,7 @@ a.decorlux-logo {
 	a.decorlux-logo {
 		position: relative;
 		transform: unset;
+		width: 175px;
 		left: unset;
 		top: unset;
 		margin: unset;
@@ -311,7 +312,7 @@ footer.site-footer {
 	}
 }
 
-.home-content-section {
+.content-section {
 	h2 {
 		margin-bottom: 30px;
 	}
@@ -339,25 +340,66 @@ footer.site-footer {
 		}
 	}
 
+	&.home-content-section {
+		.section-wrapper {
+			.section-image-container {
+				flex: 1;
+				max-width: 100%;
+				aspect-ratio: 95/100;
+			}
+
+			.section-content-container {
+				display: flex;
+				justify-content: flex-end;
+				flex: 1;
+				max-width: 100%;
+				padding: 120px 120px 120px 0;
+				border-top: 2px solid #dbdbdb;
+				border-bottom: 2px solid #dbdbdb;
+				margin-left: 80px;
+			}
+		}
+	}
+
+	&.about-content-section {
+		.section-wrapper {
+			flex-direction: row-reverse;
+
+			.section-image-container {
+				flex: 1;
+				max-width: 100%;
+				aspect-ratio: 1;
+			}
+
+			.section-content-container {
+				flex: 1;
+				max-width: 100%;
+				border-bottom: 2px solid #dbdbdb;
+			}
+
+			.section-content-container {
+				width: 100%;
+			}
+		}
+
+		&.why-decorlux {
+			.section-wrapper {
+				.section-image-container {
+					display: flex;
+					justify-content: flex-end;
+					& img {
+						width: auto;
+					}
+				}
+			}
+		}
+	}
+
 	.section-wrapper {
 		display: flex;
 		gap: 85px;
-
-		.section-content-container {
-			display: flex;
-			justify-content: flex-end;
-			flex: 1;
-			max-width: 100%;
-			padding: 120px 120px 120px 0;
-			border-top: 2px solid #dbdbdb;
-			border-bottom: 2px solid #dbdbdb;
-			margin-left: 80px;
-		}
-
+		
 		.section-image-container {
-			flex: 1;
-			max-width: 100%;
-			aspect-ratio: 95/100;
 			overflow: hidden;
 			position: relative;
 
@@ -393,3 +435,4 @@ footer.site-footer {
 
 	}
 }
+
