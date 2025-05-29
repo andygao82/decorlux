@@ -11,6 +11,21 @@ body {
 	font-size: 1.8rem;
 }
 
+a {
+	&:hover, &:visited, &:focus {
+		color: inherit
+	}
+}
+
+h1 {
+	&.post-title {
+		font-size: 5.3rem;
+		font-weight: 400;
+		margin-top: 0;
+		margin-bottom: 30px;
+	}	
+}
+
 h2 {
 	font-size: 5.3rem;
 	font-weight: 400;
@@ -32,7 +47,6 @@ header.site-header {
 		justify-content: space-between;
     align-items: center;
 	}
-
 }
 
 @media screen and (min-width: 1700px) {
@@ -436,3 +450,29 @@ footer.site-footer {
 	}
 }
 
+.back-button {
+	display: flex;
+	gap: 11px;
+	font-size: 2.1rem;
+	color: #222;
+	text-decoration: none;
+	margin-top: 15px;
+	align-items: center;
+	
+	.icon {
+		font-size: 13px;
+	}
+
+}
+
+.page-template-page-category {
+	.inner-wrapper {
+		display: flex;
+		align-items: flex-start;
+		gap: 116px;
+	}
+	.page-category-description {
+		width: 100%;
+		max-width: 1116px;
+	}
+}
