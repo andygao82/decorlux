@@ -33,9 +33,9 @@
 			</div>
 		</div>
 	</div>
-	<section class="page-main-content">
-		<div class="container">
-			<ul class="row">
+	<section class="page-main">
+		<div class="page-main-container">
+			<ul class="page-main-container-wrapper">
 					<?php
 						global $post;
 						$myposts = get_posts( array(
@@ -45,17 +45,17 @@
 						if ( $myposts ) {
 							foreach ( $myposts as $post ) :
 								setup_postdata( $post ); ?>
-								<li class="col-12 col-md-6 col-product">
+								<li class="page-category-item">
 									<?php $_thumbnail = get_the_post_thumbnail() ?>
-									<a class="post-thumbnail" href="<?php echo esc_url( get_permalink() )?>">
+									<a class="post-thumbnail image-wrapper" href="<?php echo esc_url( get_permalink() )?>">
 										<?php if($_thumbnail){ ?>
 												<?= get_the_post_thumbnail()?>
 										<?php }else{?>
 												<img src="<?php echo get_template_directory_uri('/'); ?>/images/image_20.jpg" alt="Placeholder">
 										<?php } ?>
 									</a>
-									<div class="wrapper">
-										<div class="inner-wrapper">
+									<div class="page-category-item-content">
+										<div class="page-category-item-content-wrapper">
 											<h2 class="blog-title"><a href="<?php echo esc_url( get_permalink() )?>" rel="bookmark"><?php the_title() ?></a></h2>
 											<div class="blog-expert">
 												<?php $_excerpt = get_the_excerpt() ?>
@@ -67,12 +67,7 @@
 												<?php } ?>
 											</div><!-- .entry-content -->
 											<?php $img_path = get_template_directory_uri('/'); ?>
-											<div class="blog-link">
-												<a href="<?php echo esc_url( get_permalink() )?>">
-													<span>More</span>
-													<?php echo file_get_contents($img_path."/images/arrow.svg"); ?>
-												</a>
-											</div>
+											<a class="button" href="<?php echo esc_url( get_permalink() )?>">More</a>
 										</div>
 									</div>
 								</li>

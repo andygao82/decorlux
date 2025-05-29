@@ -12,6 +12,7 @@ body {
 }
 
 a {
+	color: #222;
 	&:hover, &:visited, &:focus {
 		color: inherit
 	}
@@ -49,6 +50,21 @@ header.site-header {
 	}
 }
 
+.button {
+	background-color: #fdfdfd;
+	font-size: 1.6rem;
+	color: #222;
+	border: 1.333px solid rgba(34, 34, 34, 0.30);
+	padding: 12px 77px;
+	transition: all 0.3s ease-in-out;
+
+	&:hover {
+		background-color: #222;
+		color: #fdfdfd;
+		border: 1.333px solid rgba(34, 34, 34, 0.30);	
+	}
+}
+
 @media screen and (min-width: 1700px) {
 	.container {
 		max-width: 1680px;
@@ -63,6 +79,40 @@ a.decorlux-logo {
 	left: unset;
 	top: unset;
 	margin: unset;
+}
+
+.image-wrapper {
+	position: relative;
+	overflow: hidden;
+
+	&::after {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-color: rgba(0, 0, 0, 0.2);
+		transition: 0.3s ease-in-out;
+		opacity: 0;
+		visibility: hidden;
+	}
+
+	img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		transition: transform 1s ease-in-out;
+	}
+
+	&:hover img {
+		transform: scale(1.05);
+	}
+
+	&:hover::after {
+		opacity: 1;
+		visibility: visible;
+	}
 }
 
 .home { 
@@ -281,29 +331,7 @@ footer.site-footer {
 
 .home-categories {
 	.category-wrapper {
-		position: relative;
 		aspect-ratio: 4/5;
-		overflow: hidden;
-
-		&::after {
-			content: '';
-			position: absolute;
-			top: 0;
-			left: 0;
-			width: 100%;
-			height: 100%;
-			background-color: rgba(0, 0, 0, 0.5);
-			transition: 0.3s ease-in-out;
-			opacity: 0;
-			visibility: hidden;
-		}
-
-		& img {
-			width: 100%;
-			height: 100%;
-			object-fit: cover;
-			transition: transform 1s ease-in-out;
-		}
 
 		& h3 {
 			position: absolute;
@@ -313,15 +341,6 @@ footer.site-footer {
 			margin-bottom: 0;
 			width: 100%;
 			z-index: 1;
-		}
-
-		&:hover img {
-			transform: scale(1.05);
-		}
-
-		&:hover::after {
-			opacity: 1;
-			visibility: visible;
 		}
 	}
 }
@@ -416,35 +435,6 @@ footer.site-footer {
 		.section-image-container {
 			overflow: hidden;
 			position: relative;
-
-			&::after {
-				content: '';
-				position: absolute;
-				top: 0;
-				left: 0;
-				width: 100%;
-				height: 100%;
-				background-color: rgba(0, 0, 0, 0.5);
-				transition: 0.3s ease-in-out;
-				opacity: 0;
-				visibility: hidden;
-			}
-
-			img {
-				width: 100%;
-				height: 100%;
-				object-fit: cover;
-				transition: transform 1s ease-in-out;
-			}
-
-			&:hover img {
-				transform: scale(1.05);
-			}
-
-			&:hover::after {
-				opacity: 1;
-				visibility: visible;
-			}
 		}
 
 	}
@@ -474,5 +464,49 @@ footer.site-footer {
 	.page-category-description {
 		width: 100%;
 		max-width: 1116px;
+	}
+}
+
+.page-main {
+	.page-main-container {
+		display: flex;
+		flex-direction: column;
+		list-style: none;
+		padding: 0;
+		margin: 0;
+
+		.page-main-container-wrapper {
+			display: flex;
+			flex-direction: column;
+			gap: 90px;
+		}
+
+		.page-category-item {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			width: 100%;
+			
+			&:nth-child(even) {
+				flex-direction: row-reverse;
+			}
+		
+			.post-thumbnail {
+				width: 100%;
+				aspect-ratio: 10/7;
+			}
+
+			.page-category-item-content {
+				width: 100%;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+			}
+
+			.blog-title {
+				margin-bottom: 20px;
+			}
+		}
 	}
 }

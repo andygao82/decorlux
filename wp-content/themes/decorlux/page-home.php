@@ -30,7 +30,7 @@ get_header();
 					<?php foreach ($_categories as $_category): ?>
 						<div class="col-md-4">
 							<a href="<?= get_sub_field('category_' . $_category . '_link')['url'] ?>">
-								<div class="category-wrapper">
+								<div class="category-wrapper image-wrapper">
 									<img src="<?= get_sub_field('category_' . $_category . '_image') ?>" alt="<?= get_sub_field('category_' . $_category . '_link')['title'] ?>">
 									<h3><?= get_sub_field('category_' . $_category . '_link')['title'] ?></h3>
 								</div>
