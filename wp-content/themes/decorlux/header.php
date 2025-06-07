@@ -27,6 +27,7 @@
 	<link rel="stylesheet" href="https://use.fontawesome.com/b41f34b2fc.css">
 	<?php wp_head(); ?>
 	<link rel="stylesheet" type="text/css" href="<?php echo get_template_directory_uri('/'); ?>/css/custom.css">
+	<script type="text/javascript" src="<?php echo get_template_directory_uri('/'); ?>/js/masonry.pkgd.min.js"></script>
 	<script type="text/javascript" src="<?php echo get_template_directory_uri('/'); ?>/js/custom.js"></script>
 </head>
 

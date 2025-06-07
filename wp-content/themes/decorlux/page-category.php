@@ -33,7 +33,7 @@
 			</div>
 		</div>
 	</div>
-	<section class="page-main">
+	<div class="section page-main">
 		<div class="page-main-container">
 			<ul class="page-main-container-wrapper">
 					<?php
@@ -78,5 +78,5 @@
 					?>
 			</ul>
 		</div>
-	</section>
+	</div>
 <?php get_footer(); ?>

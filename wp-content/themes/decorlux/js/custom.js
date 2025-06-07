@@ -5,10 +5,13 @@ jQuery(document).ready(function($){
         $('body').toggleClass('fixed')
     });
 
-    // $('#primary-menu > li.menu-item').click(function () {
-    //     $(this).siblings().removeClass('active');
-    //     $(this).toggleClass('active');
-    // });
+    $('.grid').masonry({
+        itemSelector: '.grid-item',
+        columnWidth: '.grid-sizer',
+        percentPosition: true
+    });
+
+    
 
 });
 function goBack() {
