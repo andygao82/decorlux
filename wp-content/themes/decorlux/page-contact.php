@@ -59,7 +59,7 @@ get_header();
 								<?php if (get_sub_field('email')): ?>
 									<div class="contact-item">
 										<h4>Email</h4>
-										<a href="mailto:<?= get_sub_field('email') ?>"><?= get_sub_field('email') ?></a>
+										<a class="email" href="mailto:<?= get_sub_field('email') ?>"><?= get_sub_field('email') ?></a>
 									</div>
 								<?php endif; ?>
 								<?php if (get_sub_field('trading_hours')): ?>

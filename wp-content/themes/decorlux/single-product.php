@@ -18,7 +18,7 @@ if (have_rows('selecting_product')):
 			<div class="row">
 				<div class="col">
 					<div class="inner-wrapper">
-						<a class="back-button" href="javascript:;">
+						<a class="back-button" href="javascript:;" onclick="goBack()">
 							<span class="material-symbols-outlined icon">arrow_back_ios</span> 
 							<span>Back</span>
 						</a>

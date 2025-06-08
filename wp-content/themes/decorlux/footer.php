@@ -74,9 +74,9 @@
 						<div class="copyright">Copyright &copy; <?= date('Y') ?> DecorLUX. All Rights Reserved</div>
 						<div class="footer-links">
 							<ul>
-								<li><a href="<?php echo esc_url( home_url( '/' ) ); ?>privacy-policy">Contact us</a></li>
-								<li><a href="<?php echo esc_url( home_url( '/' ) ); ?>terms-and-conditions">Terms & Conditions</a></li>
-								<li><a href="<?php echo esc_url( home_url( '/' ) ); ?>privacy-policy">Privacy Warranty</a></li>
+								<li><a href="<?php echo esc_url( home_url( '/' ) ); ?>contact-us">Contact us</a></li>
+								<li><a href="<?php echo esc_url( home_url( '/' ) ); ?>terms-conditions">Terms & Conditions</a></li>
+								<li><a href="<?php echo esc_url( home_url( '/' ) ); ?>product-warranty">Product Warranty</a></li>
 							</ul>
 						</div>
 					</div>
