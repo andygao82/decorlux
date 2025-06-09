@@ -71,7 +71,7 @@ $product_top_banner_heading = get_field('product_top_banner_content');
 									<?php if(get_field('product_image_'.$i.'')) :?>
 										<?php ${"product_image_".$i} = get_field('product_image_'.$i.'') ?>
 										<?php $product_image_description = ${"product_image_".$i}['description'] ?>
-										<li class="grid-item">
+										<li class="grid-item fade-up">
 											<div class="image-wrapper">
 												<img src="<?= esc_url(${"product_image_".$i}['url']) ?>" alt="<?php echo esc_attr($product_image_description) ?>" title="<?php echo esc_attr($product_image_description) ?>">
 											

@@ -5,7 +5,6 @@ get_header();
 ?>
 <style>
     .trio-banner {
-        background-image: url(https://www.decorlux.com.au/wp-content/themes/decorlux/images/about-banner.jpg);
         height: 400px;
     }
     .page-main-content .inner-wrapper {
@@ -21,13 +20,8 @@ get_header();
     }
     }
 </style>
-    <section class="page-banner trio-banner">
-        <div class="page-banner-wrapper">
-            <h1 class="page-title"><?php the_title() ?></h1>
-            <img src="<?php echo get_template_directory_uri('/'); ?>/images/mouse.svg" alt="mouse" id="mouse">
-
-        </div>
-    </section>
+    <div class="section banner trio-banner" style="background-image: url('<?php echo get_the_post_thumbnail_url( get_the_ID(), 'full' ); ?>');">
+    </div>
 
     <section class="page-main-content">
         <div class="container">

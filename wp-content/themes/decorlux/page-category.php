@@ -5,7 +5,7 @@
 ?>
 		<?php
 			$featured_img_url = get_the_post_thumbnail_url(get_the_ID(),'full');
-			$categoryID = get_field('category_id')
+			$categoryID = get_field('category_id');
 		?>
 	<?php if($featured_img_url){?>
 		<div class="section banner page-category-banner" style="background-image: url('<?= esc_url($featured_img_url)?>')">
@@ -17,7 +17,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col">
-					<div class="inner-wrapper">
+					<div class="inner-wrapper fade-up">
 						<a class="back-button" href="javascript:;" onclick="goBack()">
 							<span class="material-symbols-outlined icon">arrow_back_ios</span> 
 							<span>Back</span>
@@ -43,18 +43,18 @@
 							'category'       => $categoryID
 						) );
 						if ( $myposts ) {
-							foreach ( $myposts as $post ) :
+							foreach ( $myposts as $index => $post ) :
 								setup_postdata( $post ); ?>
-								<li class="page-category-item">
+								<li class="page-category-item page-category-item-<?php echo $index + 1; ?>">
 									<?php $_thumbnail = get_the_post_thumbnail() ?>
-									<a class="post-thumbnail image-wrapper" href="<?php echo esc_url( get_permalink() )?>">
+									<a class="post-thumbnail image-wrapper <?php echo ($index % 2 === 0) ? 'fade-left' : 'fade-right'; ?>" href="<?php echo esc_url( get_permalink() )?>">
 										<?php if($_thumbnail){ ?>
 												<?= get_the_post_thumbnail()?>
 										<?php }else{?>
 												<img src="<?php echo get_template_directory_uri('/'); ?>/images/image_20.jpg" alt="Placeholder">
 										<?php } ?>
 									</a>
-									<div class="page-category-item-content">
+									<div class="page-category-item-content <?php echo ($index % 2 === 0) ? 'fade-right' : 'fade-left'; ?>">
 										<div class="page-category-item-content-wrapper">
 											<h2 class="blog-title"><a href="<?php echo esc_url( get_permalink() )?>" rel="bookmark"><?php the_title() ?></a></h2>
 											<div class="blog-expert">

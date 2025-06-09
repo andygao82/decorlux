@@ -28,7 +28,7 @@ get_header();
 			<div class="container">
 				<div class="row">
 					<?php foreach ($_categories as $_category): ?>
-						<div class="col-md-4">
+						<div class="col-md-4 fade-up">
 							<a href="<?= get_sub_field('category_' . $_category . '_link')['url'] ?>">
 								<div class="category-wrapper image-wrapper">
 									<img src="<?= get_sub_field('category_' . $_category . '_image') ?>" alt="<?= get_sub_field('category_' . $_category . '_link')['title'] ?>">
@@ -49,15 +49,15 @@ get_header();
 		<div class="section content-section home-content-section about-decorlux">
 			<div class="section-wrapper">
 				<div class="section-content-container">
-					<div class="inner-wrapper">
+					<div class="inner-wrapper fade-left">
 						<h2><?= get_sub_field('heading') ?></h2>
-						<div class="home-section-content">
+						<div class="home-section-content ">
 							<?= get_sub_field('content') ?>
 						</div>
 					</div>
 				</div>
 				<div class="section-image-container">
-					<img src="<?= get_sub_field('image') ?>" alt="<?= get_sub_field('heading') ?>">
+					<img class="fade-right" src="<?= get_sub_field('image') ?>" alt="<?= get_sub_field('heading') ?>">
 				</div>
 			</div>
 		</div>
@@ -70,14 +70,14 @@ get_header();
 		<div class="section content-section home-content-section why-decorlux">
 			<div class="section-wrapper">
 				<div class="section-content-container">
-					<div class="inner-wrapper">
+					<div class="inner-wrapper fade-right">
 						<h2><?= get_sub_field('heading') ?></h2>
 						<div class="home-section-content">
 							<?= get_sub_field('content') ?>
 						</div>
 					</div>
 				</div>
-				<div class="section-image-container">
+				<div class="section-image-container fade-left">
 					<img src="<?= get_sub_field('image') ?>" alt="<?= get_sub_field('heading') ?>">
 				</div>
 			</div>

@@ -17,7 +17,7 @@ if (have_rows('selecting_product')):
 		<div class="container">
 			<div class="row">
 				<div class="col">
-					<div class="inner-wrapper">
+					<div class="inner-wrapper fade-up">
 						<a class="back-button" href="javascript:;" onclick="goBack()">
 							<span class="material-symbols-outlined icon">arrow_back_ios</span> 
 							<span>Back</span>
@@ -41,7 +41,7 @@ if (have_rows('selecting_product')):
 		<div class="section selecting-section">
 			<div class="selecting-section-wrapper">
 				<div class="selecting-section-content">
-					<div class="selecting-selecting-content-wrapper">
+					<div class="selecting-selecting-content-wrapper fade-left">
 						<div class="caption"><?= get_sub_field('selecting_section_caption') ?></div>
 						<h2><?= get_sub_field('selecting_section_title') ?></h2>
 						<div class="selecting-section-content-text">
@@ -49,7 +49,7 @@ if (have_rows('selecting_product')):
 						</div>
 					</div>
 					<?php if (get_sub_field('selecting_section_image_3')): ?>
-						<div class="selecting-section-image">
+						<div class="selecting-section-image fade-left delay-1">
 							<div class="image-wrapper">
 								<img src="<?= get_sub_field('selecting_section_image_3') ?>" alt="<?= get_sub_field('selecting_section_title') ?>">	
 							</div>
@@ -57,11 +57,11 @@ if (have_rows('selecting_product')):
 					<?php endif; ?>
 				</div>
 				<div class="selecting-section-images">
-					<div class="image-wrapper design-image">
+					<div class="image-wrapper design-image fade-right">
 						<img src="<?= get_sub_field('selecting_section_image_1') ?>" alt="<?= get_sub_field('selecting_section_title') ?>">
 					</div>
 					<?php if (get_sub_field('selecting_section_image_2')): ?>
-						<div class="image-wrapper">	
+						<div class="image-wrapper fade-right delay-1">	
 							<img src="<?= get_sub_field('selecting_section_image_2') ?>" alt="<?= get_sub_field('selecting_section_title') ?>">
 						</div>
 					<?php endif; ?>

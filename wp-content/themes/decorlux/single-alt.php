@@ -20,7 +20,7 @@ $product_top_banner_heading = get_field('product_top_banner_content');
 							<span class="material-symbols-outlined icon">arrow_back_ios</span> 
 							<span>Back</span>
 						</a>
-						<div class="page-category-description">
+						<div class="page-category-description fade-up">
 							<h1 class="post-title"><?php the_title() ?></h1>
 							<div class="archive-description">
 								<?php echo get_field('product_description') ?>
@@ -60,13 +60,13 @@ $product_top_banner_heading = get_field('product_top_banner_content');
 			<?php $product_image_description = ${"product_image_".$i}['description'] ?>
 			<div class="section selecting-section">
 				<div class="selecting-section-wrapper">
-					<div class="selecting-section-content">
+					<div class="selecting-section-content <?= ($i % 2 === 0) ? 'fade-right' : 'fade-left' ?>">
 						<div class="selecting-selecting-content-wrapper">
 							<h2><?php echo ${"product_image_".$i}['title'] ?></h2>
 							<div class="selecting-section-content-text"><?php echo $product_image_description ?></div>
 						</div>
 					</div>
-					<div class="selecting-section-images">
+					<div class="selecting-section-images <?= ($i % 2 === 0) ? 'fade-left' : 'fade-right' ?>">
 						<div class="image-wrapper design-image">
 							<img src="<?= esc_url(${"product_image_".$i}['sizes']['large'])?>" alt="<?= esc_url(${"product_image_".$i}['title'])?>">
 						</div>

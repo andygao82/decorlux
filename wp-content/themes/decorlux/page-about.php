@@ -18,7 +18,7 @@ get_header();
 				<div class="row">
 					<div class="col">
 						<div class="section-wrapper">
-							<div class="section-content-container">
+							<div class="section-content-container fade-right">
 								<div class="inner-wrapper">
 									<h2><?= get_sub_field('heading') ?></h2>
 									<div class="about-section-content">
@@ -26,7 +26,7 @@ get_header();
 									</div>
 								</div>
 							</div>
-							<div class="section-image-container">
+							<div class="section-image-container fade-left">
 								<img src="<?= get_sub_field('image') ?>" alt="<?= get_sub_field('heading') ?>">
 							</div>
 						</div>
@@ -44,7 +44,7 @@ get_header();
 				<div class="row">
 					<div class="col">
 						<div class="section-wrapper">
-							<div class="section-content-container">
+							<div class="section-content-container fade-right">
 								<div class="inner-wrapper">
 									<h2><?= get_sub_field('heading') ?></h2>
 									<div class="about-section-content">
@@ -52,7 +52,7 @@ get_header();
 									</div>
 								</div>
 							</div>
-							<div class="section-image-container">
+							<div class="section-image-container fade-left">
 								<img src="<?= get_sub_field('image') ?>" alt="<?= get_sub_field('heading') ?>">
 							</div>
 						</div>
