@@ -1,8 +1,13 @@
 jQuery(document).ready(function($){
 	$('#burger-icon').click(function () {
-		$(this).toggleClass('open');
-		$('.site-menu').toggleClass('down');
-		$('body').toggleClass('fixed')
+		$(this).toggleClass('active');
+		$('.site-menu').toggleClass('active');
+	});
+
+	$('.menu-item-has-children > a').click(function (e) {
+		e.preventDefault();
+		$(this).parent().toggleClass('active');
+		$(this).siblings('.sub-menu').slideToggle();
 	});
 
 	$('.grid').masonry({

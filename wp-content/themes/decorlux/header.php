@@ -19,6 +19,8 @@
 	<link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,700&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=arrow_back_ios" />
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
 	<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 	<link rel="stylesheet" href="https://use.fontawesome.com/b41f34b2fc.css">
 	<?php wp_head(); ?>
@@ -45,7 +47,6 @@
 							<span class="burger-icon-bar burger-icon-first-bar"></span>
 							<span class="burger-icon-bar burger-icon-second-bar"></span>
 							<span class="burger-icon-bar burger-icon-third-bar"></span>
-							<div class="burger-text">Close</div>
 						</div>
 
 						<nav id="site-nav" class="site-menu">

@@ -44,7 +44,7 @@ a {
 
 h1 {
 	&.post-title {
-		font-size: 5.3rem;
+		font-size: 3.6rem;
 		font-weight: 400;
 		margin-top: 0;
 		margin-bottom: 30px;
@@ -56,13 +56,13 @@ h1 {
 }
 
 h2 {
-	font-size: 4.3rem;
+	font-size: 3rem;
 	font-weight: 400;
 	margin-bottom: 0;
 }
 
 h3 {
-	font-size: 2rem;
+	font-size: 1.8rem;
 	font-weight: 400;
 	margin-bottom: 0;
 }
@@ -126,6 +126,7 @@ p {
 	transition: all 0.3s ease-in-out;
 	cursor: pointer;
 	border-radius: 0;
+	display: inline-block;
 
 	&:hover {
 		background-color: #222;
@@ -133,6 +134,10 @@ p {
 		border: 1.333px solid rgba(34, 34, 34, 0.30);	
 		text-decoration: none;
 	}
+}
+
+.container {
+	max-width: 100%;
 }
 
 @media screen and (min-width: 1500px) {
@@ -147,25 +152,37 @@ p {
 	}
 }
 
+.home { 
+	overflow-y: auto;
+	height: unset;
+	a.decorlux-logo {
+		position: relative;
+		transform: unset;
+		left: unset;
+		top: unset;
+		margin: unset;
+	}
+}
+
 a.decorlux-logo {
-	max-width: 135px;
+	max-width: 135px !important;
 	padding: 20px 0;   
 	position: relative;
 	transform: unset;
 	left: unset;
-	top: unset;
+	top: unset !important;
 	margin: unset;
 }
 
 @media screen and (min-width: 1500px) {
 	a.decorlux-logo {
-		max-width: 150px;
+		max-width: 150px !important;
 	}
 }
 
 @media screen and (min-width: 1700px) {
 	a.decorlux-logo {
-		max-width: 175px;
+		max-width: 175px !important;
 	}
 }
 
@@ -203,18 +220,118 @@ a.decorlux-logo {
 	}
 }
 
-.home { 
-	overflow-y: auto;
-	height: unset;
-	a.decorlux-logo {
-		position: relative;
-		transform: unset;
-		width: 175px;
-		left: unset;
-		top: unset;
-		margin: unset;
+#burger-icon {
+	display: block;
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	right: 20px;
+	height: 20px;
+	cursor: pointer;
+	width: 30px;
+
+	span {
+		background-color: #222;
+		height: 1px;
+		width: 100% !important; 
+
+		&:nth-child(2) {
+			top: 9px;
+		}
 	}
-	
+
+	&.active {
+		span:nth-child(1) {
+			transform: rotate(45deg);
+			top: 50%;
+			left: 0;
+		}
+
+		span:nth-child(2) {
+			opacity: 0;
+		}
+
+		span:nth-child(3) {
+			transform: rotate(-45deg);
+			top: 50%;
+			left: 0;
+		}
+	}
+}
+
+@media screen and (max-width: 1199px) {
+	.site-menu {
+		background-image: none;
+		background-color: rgba(34, 34, 34, 0.8);
+		top: 69px;
+		left: unset;
+		right: -110%;
+		width: 300px;
+		height: calc(100dvh - 69px);
+
+		&.active {
+			right: 0;
+		}
+	}
+	.menu-main-menu-container {
+		width: 100%;
+		position: relative;
+		height: auto;
+		padding: 40px 0;
+	}
+
+	ul#primary-menu {
+		> li.menu-item {
+			margin-bottom: 0;
+
+			&.menu-item-has-children {
+				> a {
+
+					&::after {
+						content: '\e5cc';
+						font-family: 'Material Icons';
+						position: absolute;
+						top: 50%;
+						right: 30px;
+						font-size: 2rem;
+						transform: translateY(-50%);
+						display: block;
+						transition: all 0.3s ease-in-out;
+					}
+				}
+			}
+			> a {
+				display: block;
+				font-size: 1.8rem;
+				width: 100%;
+				padding: 10px 30px;
+				position: relative;
+				text-align: left;
+			}
+
+			.sub-menu {
+				margin-top: 0;
+				border-top: 0;
+				border-bottom: 0;
+
+				li.menu-item {
+					margin-bottom: 0;
+					a {
+						padding: 10px 40px;
+						font-size: 1.4rem;
+						white-space: nowrap;
+						text-align: left;
+						width: 100%;
+						display: block;
+
+						&:hover {
+							text-decoration: underline;
+						}
+					}
+				}
+			}
+		}
+	}
 }
 
 @media screen and (min-width: 1200px) {
@@ -223,15 +340,15 @@ a.decorlux-logo {
 	}
 
 	.site-menu {
-		background-image: none;
 		position: static;
 		width: auto;
 		height: auto;
-
+		background-image: none;
 
 		&:before {
 			display: none;
 		}
+
 		.menu-main-menu-container {
 			display: flex;
 			align-items: center;
@@ -239,7 +356,6 @@ a.decorlux-logo {
 			width: auto;
 			transform: unset;
 			padding: 0;
-
 		}
 	}
 	
@@ -292,6 +408,10 @@ a.decorlux-logo {
 
 		li.menu-item-211, li.menu-item-208, li.menu-item-210, li.menu-item-209 {
 			display: block !important;
+		}
+
+		li.menu-item-2777, li.menu-item-2778 {
+			display: none !important;
 		}
 
 		> li.menu-item {
@@ -386,14 +506,28 @@ footer.site-footer {
 	.wrapper {
 		display: flex;
 		justify-content: space-between;
+		flex-direction: column;
+
+		@media screen and (min-width: 1200px) {
+			justify-content: space-between;
+			flex-direction: row;
+		}
 
 		&.footer-top-wrapper {
-			padding: 100px 0 130px;
+			padding: 60px 0 60px;
 			border-bottom: 1px solid #222;
+
+			@media screen and (min-width: 1200px) {
+				padding: 100px 0 130px;
+			}
+
 		}
 
 		&.footer-bottom-wrapper {
-			padding: 30px 0 50px;
+			padding: 30px 0 30px;
+			@media screen and (min-width: 1200px) {
+				padding: 30px 0 50px;
+			}
 		}
 
 		h3 {
@@ -406,9 +540,15 @@ footer.site-footer {
 		.footer-brief {
 			width: 100%;
 			max-width: 500px;
+			@media screen and (max-width: 1199px) {
+				margin: 0 auto 60px;
+			}
 		}
 
 		.footer-quick-links {
+			@media screen and (max-width: 1199px) {
+				margin: 0 auto 60px;
+			}
 			ul {
 				display: flex;
 				flex-direction: column;
@@ -429,11 +569,17 @@ footer.site-footer {
 		}
 
 		.footer-social-media {
+			@media screen and (max-width: 1199px) {
+				margin: 0 auto 60px;
+			}
 			ul {
 				display: flex;
 				padding: 0;
 				gap: 15px;
-
+				@media screen and (max-width: 1199px) {
+					align-items: center;
+					justify-content: center;
+				}
 				li {
 					margin: 0;
 					a {
@@ -452,7 +598,10 @@ footer.site-footer {
 			.address-content {
 				display: flex;
 				gap: 10px;
-
+				@media screen and (max-width: 1199px) {
+					align-items: center;
+					justify-content: center;
+				}
 				.fa {
 					font-size: 20px;
 				}
@@ -460,6 +609,10 @@ footer.site-footer {
 		}
 
 		.footer-links {
+			display: none;
+			@media screen and (min-width: 1200px) {
+				display: block;
+			}
 			ul {
 				display: flex;
 				flex-direction: row;
@@ -547,10 +700,35 @@ footer.site-footer {
 }
 
 .section {
-	margin-bottom: 120px;
+	margin-bottom: 60px;
 }
 
+@media screen and (min-width: 1200px) {
+	.section {
+		margin-bottom: 80px;
+	}
+}
+
+@media screen and (min-width: 1500px) {
+	.section {
+		margin-bottom: 120px;
+	}
+}
+@media screen and (max-width: 991px) {
+	.contact-banner {
+		height: auto;
+	}
+}
 .home-categories {
+	
+	.row {
+		.col-md-4 {
+			margin-bottom: 30px;
+			@media screen and (min-width: 1200px) {
+				margin-bottom: 0;
+			}
+		}
+	}
 	.category-wrapper {
 		aspect-ratio: 4/5;
 
@@ -562,6 +740,11 @@ footer.site-footer {
 			margin-bottom: 0;
 			width: 100%;
 			z-index: 1;
+
+			@media screen and (max-width: 991px) {
+				font-size: 2.4rem;
+				font-weight: 300;
+			}
 		}
 	}
 }
@@ -595,7 +778,17 @@ footer.site-footer {
 	}
 
 	&.home-content-section {
+		flex-direction: column;
+
+		@media screen and (min-width: 991px) {
+			flex-direction: row;
+		}
+
 		.section-wrapper {
+			flex-direction: column;
+			@media screen and (min-width: 991px) {
+				flex-direction: row;
+			}
 			.section-image-container {
 				flex: 1;
 				max-width: 100%;
@@ -604,20 +797,36 @@ footer.site-footer {
 
 			.section-content-container {
 				display: flex;
-				justify-content: flex-end;
 				flex: 1;
 				max-width: 100%;
-				padding: 120px 120px 120px 0;
+				margin: 0 15px;
+				padding: 60px 30px 60px;
 				border-top: 2px solid #dbdbdb;
 				border-bottom: 2px solid #dbdbdb;
-				margin-left: 80px;
+
+				@media screen and (min-width: 991px) {
+					padding: 60px 60px 60px 0;
+					justify-content: flex-end;
+					margin-left: 80px;
+				}
+			
+
+				@media screen and (min-width: 1200px) {
+					padding: 80px 80px 80px 0;
+				}
+
+				@media screen and (min-width: 1500px) {
+					padding: 120px 120px 120px 0;
+				}
 			}
 		}
 
 		&.why-decorlux {
 			.section-wrapper {
 				.section-content-container {
-					border-top: 0;
+					@media screen and (min-width: 991px) {
+						border-top: 0;
+					}
 				}
 			}
 		}
@@ -625,7 +834,13 @@ footer.site-footer {
 
 	&.about-content-section {
 		.section-wrapper {
-			flex-direction: row-reverse;
+			flex-direction: column;
+			padding: 0 15px;
+
+			@media screen and (min-width: 991px) {
+				flex-direction: row-reverse;
+				padding: 0;
+			}
 
 			.section-image-container {
 				flex: 1;
@@ -636,7 +851,9 @@ footer.site-footer {
 			.section-content-container {
 				flex: 1;
 				max-width: 100%;
-				border-bottom: 2px solid #dbdbdb;
+				@media screen and (min-width: 991px) {
+					border-bottom: 2px solid #dbdbdb;
+				}
 			}
 
 			.section-content-container {
@@ -648,9 +865,12 @@ footer.site-footer {
 			.section-wrapper {
 				.section-image-container {
 					display: flex;
-					justify-content: flex-end;
-					& img {
-						width: auto;
+					@media screen and (min-width: 991px) {
+						justify-content: flex-end;
+
+						& img {
+							width: auto;
+						}
 					}
 				}
 			}
@@ -659,7 +879,11 @@ footer.site-footer {
 
 	.section-wrapper {
 		display: flex;
-		gap: 85px;
+		gap: 30px;
+
+		@media screen and (min-width: 991px) {
+			gap: 85px;
+		}
 		
 		.section-image-container {
 			overflow: hidden;
@@ -694,7 +918,14 @@ footer.site-footer {
 		display: flex;
 		align-items: flex-start;
 		gap: 116px;
+
+		@media screen and (max-width: 1199px) {
+			flex-direction: column;
+			gap: 30px;
+			padding: 0 15px;
+		}
 	}
+
 
 	.page-category-description {
 		width: 100%;
@@ -715,7 +946,10 @@ footer.site-footer {
 		}
 
 		&:has(.product-item) {
-			margin-top: 150px;
+			margin-top: 30px;
+			@media screen and (min-width: 1200px) {
+				margin-top: 150px;
+			}
 		}
 	}
 }
@@ -739,11 +973,14 @@ footer.site-footer {
 			justify-content: space-between;
 			align-items: center;
 			width: 100%;
-			
-			&:nth-child(even) {
-				flex-direction: row-reverse;
+			flex-direction: column-reverse;
+
+			@media screen and (min-width: 1200px) {
+				flex-direction: row;
+				&:nth-child(even) {
+					flex-direction: row-reverse;
+				}
 			}
-		
 			.post-thumbnail {
 				width: 100%;
 				aspect-ratio: 10/7;
@@ -754,7 +991,13 @@ footer.site-footer {
 				display: flex;
 				flex-direction: column;
 				justify-content: center;
-				align-items: center;
+				margin-bottom: 30px;
+				padding: 0 30px;
+
+				@media screen and (min-width: 1200px) {
+					margin-bottom: 0;
+					align-items: center;
+				}
 			}
 
 			.blog-title {
@@ -763,8 +1006,6 @@ footer.site-footer {
 		}
 	}
 }
-
-
 
 .selecting-section {
 	.postid-241 & {
@@ -780,16 +1021,25 @@ footer.site-footer {
 
 	&:nth-child(even) {
 		.selecting-section-wrapper {
-			flex-direction: row-reverse;
+
+			@media screen and (min-width: 1200px) {
+				flex-direction: row-reverse;
+			}
 
 			.selecting-selecting-content-wrapper {
 				margin-left: 0;
 				margin-right: auto;
 				padding-right: 30px;
+
+				@media screen and (min-width: 1200px) {
+				}
 			}
 
 			.selecting-section-image {
-				padding: 0 115px 0 0;
+			
+				@media screen and (min-width: 1200px) {
+					padding: 0 115px 0 0;
+				}		
 			}
 		}
 	}
@@ -802,14 +1052,24 @@ footer.site-footer {
 
 	.selecting-section-wrapper {
 		display: flex;
-		gap: 145px;
 		width: 100%;
+		gap: 30px;
+		flex-direction: column;
+
+		@media screen and (min-width: 1200px) {
+			gap: 145px;
+			flex-direction: row;
+		}
 
 		.selecting-section-content {
 			width: 100%;
 			display: flex;
 			flex-direction: column;
-			gap: 150px;
+			gap: 60px;
+
+			@media screen and (min-width: 1200px) {
+				gap: 150px;
+			}
 		}
 
 		@media screen and (min-width: 1200px) {
@@ -827,22 +1087,33 @@ footer.site-footer {
 		.selecting-section-images {
 			display: flex;
 			flex-direction: column;
-			gap: 180px;
+			gap: 30px;
+
+			@media screen and (min-width: 1200px) {
+				gap: 180px;
+			}
 		}
 
 		.selecting-selecting-content-wrapper {
 			display: flex;
 			flex-direction: column;
 			width: 100%;
-			max-width: 550px;
-			margin-left: auto;
-			padding-left: 30px;
+			padding: 0 30px;
+			
+			@media screen and (min-width: 1200px) {
+				max-width: 550px;
+				margin-left: auto;
+				padding-right: 0;
+			}
 		}
 
 		.caption {
 			color: rgba(34, 34, 34, 0.30);
 			font-weight: 300;
-			margin-bottom: 100px;
+			margin-bottom: 30px;
+			@media screen and (min-width: 1200px) {
+				margin-bottom: 100px;
+			}
 		}
 
 		h2 {
@@ -850,13 +1121,19 @@ footer.site-footer {
 		}
 
 		.selecting-section-image {
-			padding: 0 0 0 115px;
+			@media screen and (min-width: 1200px) {
+				padding: 0 0 0 115px;
+			}
 		}
 	}
 
 	.break-line {
 		border-bottom: 1px solid rgba(34, 34, 34, 0.30);
-		padding-top: 120px;
+		padding-top: 60px;
+
+		@media screen and (min-width: 1200px) {
+			padding-top: 120px;
+		}
 	}
 }
 
@@ -870,11 +1147,19 @@ footer.site-footer {
 }
 .gallery {
 	.grid-sizer {
-		width: 50%;
+		width: 100%;
+
+		@media screen and (min-width: 768px) {
+			width: 50%;
+		}
 	}
 	.grid-item {
-		width: 50%;
+		width: 100%;
 		padding: 10px;
+
+		@media screen and (min-width: 768px) {
+			width: 50%;
+		}
 	}
 }
 
@@ -889,7 +1174,11 @@ footer.site-footer {
 
 	.quote-field {
 		width: 100%;
-		margin-bottom: 60px;
+		margin-bottom: 30px;
+
+		@media screen and (min-width: 1200px) {
+			margin-bottom: 60px;
+		}
 
 		&.message-field {
 			margin-bottom: 30px;
@@ -924,13 +1213,27 @@ footer.site-footer {
 	}
 
 	.section-wrapper {
-		justify-content: space-between;
+		flex-direction: column;
+		gap: 60px;
+		padding: 0 15px;
 
+		@media screen and (min-width: 1200px) {
+			flex-direction: row;
+			justify-content: space-between;
+			padding: 0;
+		}
 	}
 
 	.contact-form {
 		width: 100%;
-		max-width: calc(100% - 700px);
+
+		@media screen and (min-width: 1200px) {
+			max-width: calc(100% - 200px);
+		}
+
+		@media screen and (min-width: 1500px) {
+			max-width: calc(100% - 700px);
+		}
 	}
 
 	.contact-details {
@@ -940,28 +1243,47 @@ footer.site-footer {
 
 	.quote-fieldset {
 		display: flex;
-		gap: 30px;
+		flex-direction: column;
+		@media screen and (min-width: 1200px) {
+			gap: 30px;
+			flex-direction: row;
+		}
 	}
 }
 
 .map-section {
-	margin: 80px 0 120px;
+	margin: 60px 0;
+	@media screen and (min-width: 1200px) {
+		margin: 80px 0 120px;
+	}
 }
 
 .header-section {
 	& h2 {
 		max-width: 1570px;
 		margin: 0 auto 30px;
+		padding: 0 15px;
+		@media screen and (min-width: 1200px) {
+			padding: 0;
+		}
 	}
 
 	.break-line {
 		border-bottom: 1px solid rgba(34, 34, 34, 0.30);
-		margin-bottom: 120px;
+		margin: 0 auto 60px;
+		@media screen and (min-width: 1200px) {
+			margin: 0 0 120px;
+		}
 	}
 
 	.header-content {
 		max-width: 1570px;
 		margin: 0 auto;
+		padding: 0 15px;
+
+		@media screen and (min-width: 1200px) {
+			padding: 0;
+		}
 
 		.header-content-wrapper {
 			max-width: 600px;
@@ -979,7 +1301,10 @@ footer.site-footer {
 
 	.break-line {
 		border-bottom: 1px solid rgba(34, 34, 34, 0.30);
-		margin: 0 0 120px;
+		margin: 0 auto 60px;
+		@media screen and (min-width: 1200px) {
+			margin: 0 0 120px;
+		}
 	}
 
 	.main-content {
