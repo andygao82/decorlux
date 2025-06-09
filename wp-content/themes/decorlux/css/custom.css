@@ -3,6 +3,7 @@
 	width: 100%;
 	max-width: 1920px;
 	margin: auto;
+	overflow-x: hidden;
 }
 
 #page {
@@ -12,7 +13,13 @@
 body {
 	color: #222;
 	background-color: #fcfcfc;
-	font-size: 1.8rem;
+	font-size: 1.6rem;
+}
+
+@media screen and (min-width: 1700px) {
+	body {
+		font-size: 1.8rem;
+	}
 }
 
 ul {
@@ -55,9 +62,41 @@ h2 {
 }
 
 h3 {
-	font-size: 3.3rem;
+	font-size: 2rem;
 	font-weight: 400;
 	margin-bottom: 0;
+}
+
+@media screen and (min-width: 1200px) {
+	h1 {
+		&.post-title {
+			font-size: 4rem;
+		}
+	}
+
+	h2 {
+		font-size: 4rem;
+	}
+
+	h3 {
+		font-size: 2rem;
+	}
+}
+
+@media screen and (min-width: 1700px) {
+	h1 {
+		&.post-title {
+			font-size: 5.3rem;
+		}
+	}
+
+	h2 {
+		font-size: 4.3rem;
+	}
+
+	h3 {
+		font-size: 3.3rem;
+	}
 }
 
 header.site-header {
@@ -96,6 +135,12 @@ p {
 	}
 }
 
+@media screen and (min-width: 1500px) {
+	.container {
+		max-width: 1440px;
+	}
+}
+
 @media screen and (min-width: 1700px) {
 	.container {
 		max-width: 1680px;
@@ -103,13 +148,25 @@ p {
 }
 
 a.decorlux-logo {
-	max-width: 175px;
-	padding: 20px 0;
+	max-width: 135px;
+	padding: 20px 0;   
 	position: relative;
 	transform: unset;
 	left: unset;
 	top: unset;
 	margin: unset;
+}
+
+@media screen and (min-width: 1500px) {
+	a.decorlux-logo {
+		max-width: 150px;
+	}
+}
+
+@media screen and (min-width: 1700px) {
+	a.decorlux-logo {
+		max-width: 175px;
+	}
 }
 
 .image-wrapper {
@@ -192,7 +249,7 @@ a.decorlux-logo {
 		color: #222;
 		display: flex;
 		align-items: center;
-		gap: 90px;
+		gap: 60px;
 
 		.sub-menu {
 			display: flex;
@@ -259,11 +316,11 @@ a.decorlux-logo {
 			}
 
 			> a {
-				font-size: 1.8rem;
+				font-size: 1.4rem;
 				color: #222;
 				letter-spacing: 0;
 				display: inline-block;
-				padding: 60px 0;
+				padding: 30px 0;
 				position: relative;
 
 				&::after {
@@ -294,10 +351,36 @@ a.decorlux-logo {
 	}
 }
 
+@media screen and (min-width: 1500px) {
+	ul#primary-menu {
+		gap: 90px;
+		& > li.menu-item {
+			> a {
+				font-size: 1.4rem;
+				padding: 45px 0;
+			}
+		}
+	}
+	
+}
+
+@media screen and (min-width: 1700px) {
+	ul#primary-menu {
+	
+		& > li.menu-item {
+			> a {
+				font-size: 1.8rem;
+				padding: 60px 0;
+			}
+		}
+	}
+	
+}
+
 footer.site-footer {
 	background-color: #fff;
-	font-size: 1.6rem;
-	font-weight: 400;
+	font-size: 1.4rem;
+	font-weight: 300;
 	position: static !important;
 
 	.wrapper {
@@ -314,7 +397,7 @@ footer.site-footer {
 		}
 
 		h3 {
-			font-size: 2.1rem;
+			font-size: 1.6rem;
 			font-weight: 400;
 			color: #222;
 			margin-bottom: 1.5em;
@@ -399,10 +482,31 @@ footer.site-footer {
 					}
 					a {
 						color: #222;
-						font-size: 1.6rem;
+						font-size: 1.4rem;
 						line-height: 1.5;
 						text-decoration: none;
-						font-weight: 400;
+						font-weight: 300;
+					}
+				}
+			}
+		}
+	}
+}
+
+@media screen and (min-width: 1500px) {
+	footer.site-footer {
+		font-size: 1.6rem;
+		& .wrapper {
+			h3 {
+				font-size: 2.1rem;
+			}
+
+			.footer-links {
+				& ul {
+					& li {
+						& a {
+							font-size: 1.6rem;
+						}
 					}
 				}
 			}
@@ -568,7 +672,7 @@ footer.site-footer {
 .back-button {
 	display: flex;
 	gap: 11px;
-	font-size: 2.1rem;
+	font-size: 1.6rem;
 	color: #222;
 	text-decoration: none;
 	margin-top: 15px;
@@ -577,7 +681,12 @@ footer.site-footer {
 	.icon {
 		font-size: 13px;
 	}
+}
 
+@media screen and (min-width: 1500px) {
+	.back-button {
+		font-size: 2.1rem;
+	}
 }
 
 .page-category-top {
@@ -676,6 +785,7 @@ footer.site-footer {
 			.selecting-selecting-content-wrapper {
 				margin-left: 0;
 				margin-right: auto;
+				padding-right: 30px;
 			}
 
 			.selecting-section-image {
@@ -697,10 +807,21 @@ footer.site-footer {
 
 		.selecting-section-content {
 			width: 100%;
-			max-width: calc(100% - 1090px);
 			display: flex;
 			flex-direction: column;
 			gap: 150px;
+		}
+
+		@media screen and (min-width: 1200px) {
+			.selecting-section-content {
+				max-width: calc(100% - 800px);
+			}
+		}
+
+		@media screen and (min-width: 1500px) {
+			.selecting-section-content {
+				max-width: calc(100% - 1090px);
+			}
 		}
 
 		.selecting-section-images {
@@ -715,6 +836,7 @@ footer.site-footer {
 			width: 100%;
 			max-width: 550px;
 			margin-left: auto;
+			padding-left: 30px;
 		}
 
 		.caption {
