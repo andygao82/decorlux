@@ -1372,3 +1372,44 @@ footer.site-footer {
 		transform: translateX(0);
 	}
 }
+
+.error-404-section {
+	margin: 60px 0;
+
+	@media screen and (min-width: 1200px) {
+		margin: 80px 0 120px;
+	}
+
+	.header-content-wrapper {
+		p {
+			margin-bottom: 40px;
+		}
+	}
+
+	.error-404-code {
+		font-size: 8rem;
+		font-weight: 300;
+		line-height: 1;
+		color: rgba(34, 34, 34, 0.30);
+		margin-bottom: 30px;
+
+		@media screen and (min-width: 1200px) {
+			font-size: 12rem;
+		}
+	}
+
+	.error-404-actions {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 20px;
+
+		.button {
+			text-align: center;
+			padding: 12px 40px;
+
+			@media screen and (min-width: 1200px) {
+				padding: 12px 60px;
+			}
+		}
+	}
+}
