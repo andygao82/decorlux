@@ -1,4 +1,28 @@
 $(document).ready(function($){
+	// Expose the sticky header height so the home banner video can fill the rest of the screen
+	function setHeaderHeight() {
+		var header = document.getElementById('masthead');
+		if (header) {
+			document.documentElement.style.setProperty('--header-h', header.offsetHeight + 'px');
+		}
+	}
+	setHeaderHeight();
+	$(window).on('resize', setHeaderHeight);
+
+	// Read the banner video's real aspect ratio from Vimeo so the CSS can make it cover the screen without side bars
+	var bannerVideo = document.querySelector('.home-banner iframe');
+	var bannerVideoId = bannerVideo && (bannerVideo.src.match(/video\/(\d+)/) || [])[1];
+	if (bannerVideoId) {
+		fetch('https://vimeo.com/api/oembed.json?url=https://vimeo.com/' + bannerVideoId)
+			.then(function (res) { return res.json(); })
+			.then(function (data) {
+				if (data.width && data.height) {
+					bannerVideo.style.setProperty('--video-ar', data.width / data.height);
+				}
+			})
+			.catch(function () {});
+	}
+
 	$('#burger-icon').click(function () {
 		$(this).toggleClass('active');
 		$('.site-menu').toggleClass('active');

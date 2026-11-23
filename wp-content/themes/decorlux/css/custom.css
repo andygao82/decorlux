@@ -682,18 +682,66 @@ footer.site-footer {
 
 	&.home-banner {
 		.banner-wrapper	{
+			/* Fill the screen below the sticky header; --header-h is set in js/custom.js */
 			width: 100%;
-			padding-bottom: 56.25%; /* 16:9 aspect ratio */
+			height: calc(100svh - var(--header-h, 0px));
+			min-height: 320px;
 			position: relative;
 			overflow: hidden;
 
-		& iframe {
+			/*
+			 * Vimeo iframes can't use object-fit, so size the frame to the video's own ratio
+			 * (--video-ar, set in js/custom.js) and make it always cover the box, centre-cropped.
+			 */
+			& iframe {
 				position: absolute;
-				width: 100dvw;
-				height: 100%;
+				top: 50%;
+				left: 50%;
+				width: max(100%, calc((100svh - var(--header-h, 0px)) * var(--video-ar, 1.7778)));
+				max-width: none;
+				height: auto;
+				aspect-ratio: var(--video-ar, 16 / 9);
+				transform: translate(-50%, -50%) scale(1.01);
 				border: none;
-				top: 0;
-				left: 0;
+				z-index: 0;
+			}
+
+			/* Logo + tagline overlaid on the video, with a soft gradient so white text stays readable */
+			.banner-content {
+				position: absolute;
+				inset: 0;
+				z-index: 2;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				gap: 1.5rem;
+				padding: 0 5%;
+				text-align: center;
+				color: #fff;
+				pointer-events: none;
+				background: linear-gradient(to bottom, rgba(0, 0, 0, 0.15) 0%, rgba(0, 0, 0, 0.35) 100%);
+			}
+
+			.banner-image-wrapper {
+				width: 100%;
+				max-width: 1200px;
+
+				& img {
+					display: block;
+					width: 100%;
+					height: auto;
+				}
+			}
+
+			.banner-text-wrapper {
+				& p {
+					margin: 0;
+					font-size: clamp(16px, 1.6vw, 30px);
+					font-weight: 300;
+					letter-spacing: 0.08em;
+					text-shadow: 0 1px 8px rgba(0, 0, 0, 0.35);
+				}
 			}
 		}
 	}
