@@ -6,7 +6,9 @@
  * @package automattic/jetpack
  */
 
-// phpcs:disable VariableAnalysis.CodeAnalysis.VariableAnalysis.UndefinedVariable -- HTML template, let Phan handle it.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit( 0 );
+}
 
 ?>
 <div class='jetpack-simple-payments-disabled-error'>

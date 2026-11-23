@@ -1,4 +1,4 @@
-<?php // phpcs:ignore WordPress.Files.FileName.InvalidClassFileName
+<?php
 /**
  * Module Name: Secure Sign On
  * Module Description: Let users log in with their WordPress.com account for quick, secure access.
@@ -16,6 +16,10 @@
  */
 
 use Automattic\Jetpack\Connection\SSO;
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit( 0 );
+}
 
 SSO::get_instance();
 

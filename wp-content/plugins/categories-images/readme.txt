@@ -1,62 +1,98 @@
 === Categories Images ===
 Contributors: elzahlan
-Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=G8LC4VSYKYSGA
-Tags: Category Image, Category Images, Categories Images, taxonomy image, taxonomy images, taxonomies images, category icon, categories icons, category logo, categories logos, admin, wp-admin, category image plugin, categories images plugin, category featured image, categories featured images, feature image for category,term image, tag image, term images, tag images, media category
-Requires at least: 2.8
-Tested up to: 6.2.2
-Stable tag: 3.1.0
-License: GPLv2 or later
+Tags: category image, taxonomy image, tag image, categories images, category thumb
+Requires at least: 4.0
+Tested up to: 6.9.4
+Stable tag: 3.3.4
+License: GPLv3 or later
+License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-The Categories Images Plugin allow you to add image with category or taxonomy.
+The Categories Images is a Wordpress plugin allow you to add image to category, tag or custom taxonomy.
 
 == Description ==
 
-The Categories Images Plugin allow you to add image with category or taxonomy.
+The Categories Images is a Wordpress plugin allow you to add image to category, tag or custom taxonomy.
 
-Use `<?php if (function_exists('z_taxonomy_image_url')) echo z_taxonomy_image_url(); ?>` to get the url and put it in any img tag or simply use `<?php if (function_exists('z_taxonomy_image')) z_taxonomy_image(); ?>` in (category or taxonomy) template.
+Use `<?php if (function_exists('z_taxonomy_image_url')) echo esc_url(z_taxonomy_image_url()); ?>` to get the url and put it in any img tag.
+Or simply use `<?php if (function_exists('z_taxonomy_image')) z_taxonomy_image(); ?>` in (category or taxonomy) template.
 
-Also from settings menu you can exclude any taxonomies from the plugin to avoid conflicting with another plugins like WooCommerce!
+= REST API Support =
+Access term images via the WP REST API. The field `z_taxonomy_image_url` is automatically added to term objects.
 
-= More documentation =
+= Enhanced Shortcodes =
+* `[z_taxonomy_image term_id="123" size="medium" link="yes"]` - Display a specific term image with a link.
+* `[z_taxonomy_list taxonomy="category" style="grid" columns="4" show_name="yes"]` - Display a beautiful grid of terms with their images.
 
-Go to [http://zahlan.net/blog/2012/06/categories-images/](http://zahlan.net/blog/2012/06/categories-images/)
+= Elementor Integration =
+Use term images dynamically in Elementor via the native Dynamic Tags system.
+
+= Settings =
+Categories Images settings menu is now under Settings > Categories Images to avoid cluttering the main WordPress menu, the settings now is more organized with a dedicated documentation page that includes usage examples and shortcodes.
+
+From the settings menu, you can exclude any taxonomies from the plugin to avoid conflicts with other plugins like WooCommerce!
+
+== Documentation ==
+Documentation is now available inside the plugin settings menu. for more information please visit the [Categories Images](https://zahlan.net/blog/2012/06/categories-images/).
 
 == Installation ==
 
 You can install Categories Images directly from the WordPress admin panel:
 
-	1. Visit the Plugins > Add New and search for 'Categories Images'.
-	2. Click to install.
-	3. Once installed, activate and it is functional.
-	
+1. Visit the Plugins > Add New and search for 'Categories Images'.
+2. Click to install.
+3. Once installed, activate and it is functional.
+
 OR
 
 Manual Installation:
 
-	1. Download the plugin, then extract it.
-	2. Upload `categories-images` extracted folder to the `/wp-content/plugins/` directory
-	3. Activate the plugin through the 'Plugins' menu in WordPress
-	
-You're done! The Plugin ready to use, for more please check the plugin description.
+1. Download the plugin, then extract it.
+2. Upload `categories-images` extracted folder to the `/wp-content/plugins/` directory
+3. Activate the plugin through the 'Plugins' menu in WordPress
 
-= More documentation =
-
-Go to [http://zahlan.net/blog/2012/06/categories-images/](http://zahlan.net/blog/2012/06/categories-images/)
+You're done! The plugin is ready to use, for more information please check the plugin description or settings page.
 
 == Frequently Asked Questions ==
 
 Please check the documentation page:
-[http://zahlan.net/blog/2012/06/categories-images/](http://zahlan.net/blog/2012/06/categories-images/)
-
-== Screenshots ==
-
-1. Image preview and new image field in add/edit category or taxonomy with upload button which allow you to select current or upload a new image.
-2. New image field with (upload/remove) buttons to allow you to edit category or taxonomy image in quick edit.
-3. When you click the upload button the wordpress upload box will popup, upload or select image then press use this image.
-4. New menu (Categories Images) for the plugin settings.
-5. Now you can exclude any taxonomy from the plugin and save changes.
+https://zahlan.net/blog/2012/06/categories-images/
 
 == Changelog ==
+
+= 3.3.4 =
+* Security: Fixed stored XSS in the `[z_taxonomy_image]` shortcode by escaping fallback and stored image URLs when `format="url"`.
+* Security hardening: Escaped taxonomy-list diagnostic output so term data is displayed as text.
+* Documentation: Added context-appropriate escaping to PHP usage examples.
+
+= 3.3.3 =
+* Performance Optimization: Reordered attachment lookup to prioritize stored IDs, significantly reducing database load on large sites by avoiding expensive attachment_url_to_postid() calls.
+* Bug Fix: Fixed "Remove Image" button to ensure the Attachment ID is also cleared upon deletion.
+* UX: Implemented event delegation in admin scripts to support AJAX-updated table rows during Quick Edit.
+
+= 3.3.2 =
+* Security release: Fixed an authenticated Stored XSS vulnerability in the `[z_taxonomy_image]` shortcode (CVE-2026-2505).
+* General security hardening: Implemented strict "Escape on Output" for all dynamic strings to comply with WordPress.org coding standards.
+* Refactor: Replaced direct database queries with core WordPress functions to resolve Plugin Check warnings.
+* Maintenance: Verified compatibility to WordPress 6.9.4 and aligned with strict WordPress.org plugin directory standards.
+
+= 3.3.1 =
+* Fixed a potential fatal error during REST API initialization.
+
+= 3.3.0 =
+* Added native Elementor Dynamic Tag support for taxonomy images.
+* Integrated with WordPress REST API (adds `z_taxonomy_image_url` to term responses).
+* Major shortcode overhaul:
+    * Enhanced `[z_taxonomy_image]` with custom links, placeholders, and size support.
+    * Enhanced `[z_taxonomy_list]` with grid/list layouts, column control, and conditional name/count display.
+* Performance: Modern PHP array syntax refactor and optimized asset versioning.
+* Fixed frontend CSS loading for shortcode grids.
+* Categories Images settings menu is now under Settings > Categories Images to avoid cluttering the main WordPress menu, the settings now is more organized with a dedicated documentation page that includes usage examples and shortcodes.
+
+= 3.2.0 =
+* Fix wp_options bloat issues by migrating to Term Meta API (wp_termmeta) for WP 4.4+.
+* Backward compatibility for WP < 4.4 maintained via wp_options fallback.
+* Improved performance by implementing Singleton pattern to reduce class instantiation overhead.
+* Security enhancements (nonce verification, input sanitization).
 
 = 3.1.0 =
 * Added DE translation, thanks to denarie.
@@ -85,23 +121,23 @@ Please check the documentation page:
 
 = 2.5.1 =
 * Adding language support for Russian.
-* Adding language support for Serbian. Thanks to Andrijana Nikolic [http://webhostinggeeks.com/].
-* Adding language support for Catalan. Thanks to Marc Queralt i Bassa [http://www.demomentsomtres.com/].
+* Adding language support for Serbian. Thanks to Andrijana Nikolic.
+* Adding language support for Catalan. Thanks to Marc Queralt.
 * Change the plugin text domain from zci to categories-images to match the plugin slug as requested by Wordpress.
 
 = 2.5 =
-* Adding language support for Ukrainian. Thanks to Michael Yunat [http://getvoip.com].
+* Adding language support for Ukrainian. Thanks to Michael Yunat.
 * Adding new function z_taxonomy_image() to display category or taxonomy image directly with support for size, alt and other attributes, for and how to use it please check the documentations.
 * Some code enhancements.
 
 = 2.4.2 =
-* Update code to reduce db queries. Thanks to fburatti [http://profiles.wordpress.org/fburatti/].
+* Update code to reduce db queries. Thanks to fburatti.
 
 = 2.4.1 =
 * Fix placeholder bug in backend.
 
 = 2.4 =
-* Adding language support for Spanish (Thansk so much to Maria Ramos [http://webhostinghub.com]).
+* Adding language support for Spanish (Thansk so much to Maria Ramos).
 * Adding support for resizing categories images (Thanks so much to Rahil Wazir).
 * Some code enhancements.
 
@@ -119,7 +155,7 @@ Please check the documentation page:
 * Added new settings for excluding any taxonomies from the plugin.
 * Added new placeholder image.
 
-Thanks to Patrick http://www.patrickbos.nl and Hassan http://profiles.wordpress.org/hassanhamm/ for the new ideas.
+Thanks to Patrick and Hassan for the new ideas.
 
 = 2.2.4 =
 * java script bug fixed, reported about conflicting with WooCommerce plugin. Thanks to Marty McGee.
@@ -148,13 +184,14 @@ Thanks to Patrick http://www.patrickbos.nl and Hassan http://profiles.wordpress.
 * Added default image placeholder.
 * Added thumbnail in categories or taxonomies list.
 * Added image thumbnail, image text box, upload button and remove button in quick edit.
-Thank so much to Joe Tse http://tkjune.com :)
+
+Thank so much to Joe Tse
 
 = 1.2 =
-Adding some screenshots
+* Adding some screenshots
 
 = 1.1 =
-Fix javascript bug with wordpress 3.4
+* Fix javascript bug with wordpress 3.4
 
 = 1.0 =
-The First Release
+* The First Release

@@ -11,6 +11,10 @@ namespace Automattic\Jetpack\Extensions\Paywall;
 
 use Automattic\Jetpack\Blocks;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit( 0 );
+}
+
 const FEATURE_NAME      = 'paywall';
 const BLOCK_NAME        = 'jetpack/' . FEATURE_NAME;
 const BLOCK_HTML        = '<!-- wp:' . BLOCK_NAME . ' /-->';
@@ -23,6 +27,7 @@ const THE_EXCERPT_BLOCK = '[[[[[' . BLOCK_NAME . ']]]]]';
  */
 function register_block() {
 	if ( ! \Jetpack::is_module_active( 'subscriptions' ) ) {
+		\Jetpack_Gutenberg::set_extension_unavailable( 'paywall', 'missing_module', array( 'module' => 'subscriptions' ) );
 		return;
 	}
 	if ( ! class_exists( '\Jetpack_Memberships' ) ) {

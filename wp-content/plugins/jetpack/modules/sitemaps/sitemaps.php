@@ -31,6 +31,10 @@
  * @author Automattic
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit( 0 );
+}
+
 /* Include all of the sitemap subclasses. */
 require_once __DIR__ . '/sitemap-constants.php';
 require_once __DIR__ . '/sitemap-buffer.php';
@@ -603,3 +607,7 @@ function jetpack_sitemap_uri( $filename = 'sitemap.xml' ) {
 	 */
 	return apply_filters( 'jetpack_sitemap_location', $sitemap_url );
 }
+
+// Register Jetpack Sitemaps abilities (WordPress Abilities API, WP 6.9+).
+require_once __DIR__ . '/abilities/class-sitemaps-abilities.php';
+\Automattic\Jetpack\Plugin\Abilities\Sitemaps_Abilities::init();

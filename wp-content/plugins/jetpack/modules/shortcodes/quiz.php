@@ -2,6 +2,10 @@
 
 use Automattic\Jetpack\Assets;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit( 0 );
+}
+
 /**
  * Quiz shortcode.
  *
@@ -202,7 +206,7 @@ class Quiz_Shortcode {
 			}
 		}
 
-		$quiz         = self::do_shortcode( $content );
+		$quiz         = self::apply_shortcodes( $content );
 		$quiz_options = '';
 
 		if ( self::$quiz_wrapper ) {
@@ -232,7 +236,7 @@ class Quiz_Shortcode {
 	 */
 	public static function shortcode_wrapper( $atts, $content = null ) {
 		self::$quiz_wrapper = true;
-		return '<div class="jetpack-quiz-wrapper">' . self::do_shortcode( $content ) . '</div>';
+		return '<div class="jetpack-quiz-wrapper">' . self::apply_shortcodes( $content ) . '</div>';
 	}
 
 	/**
@@ -244,13 +248,13 @@ class Quiz_Shortcode {
 	 *
 	 * @return mixed|string
 	 */
-	private static function do_shortcode( $content ) {
+	private static function apply_shortcodes( $content ) {
 		// strip autoinserted line breaks.
 		$content = preg_replace( '#(<(?:br /|/?p)>\n?)*(\[/?[a-z]+\])(<(?:br /|/?p)>\n?)*#', '$2', $content );
 
 		// Add internal parameter so it's only rendered when it has it.
 		$content = preg_replace( '/\[(question|answer|wrong|explanation)\]/i', '[$1 quiz_item="true"]', $content );
-		$content = do_shortcode( $content );
+		$content = apply_shortcodes( $content );
 		$content = wp_kses(
 			$content,
 			array(
@@ -296,7 +300,7 @@ class Quiz_Shortcode {
 	 */
 	public static function question_shortcode( $atts, $content = null ) {
 		return isset( $atts['quiz_item'] )
-			? '<div class="jetpack-quiz-question question" tabindex="-1">' . self::do_shortcode( $content ) . '</div>'
+			? '<div class="jetpack-quiz-question question" tabindex="-1">' . self::apply_shortcodes( $content ) . '</div>'
 			: '';
 	}
 
@@ -316,7 +320,7 @@ class Quiz_Shortcode {
 		}
 
 		return isset( $atts['quiz_item'] )
-			? '<div class="jetpack-quiz-answer answer" data-correct="1">' . self::do_shortcode( $content ) . '</div>'
+			? '<div class="jetpack-quiz-answer answer" data-correct="1">' . self::apply_shortcodes( $content ) . '</div>'
 			: '';
 	}
 
@@ -336,7 +340,7 @@ class Quiz_Shortcode {
 		}
 
 		return isset( $atts['quiz_item'] )
-			? '<div class="jetpack-quiz-answer answer">' . self::do_shortcode( $content ) . '</div>'
+			? '<div class="jetpack-quiz-answer answer">' . self::apply_shortcodes( $content ) . '</div>'
 			: '';
 	}
 
@@ -356,7 +360,7 @@ class Quiz_Shortcode {
 		}
 
 		return isset( $atts['quiz_item'] )
-			? '<div class="jetpack-quiz-explanation explanation">' . self::do_shortcode( $content ) . '</div>'
+			? '<div class="jetpack-quiz-explanation explanation">' . self::apply_shortcodes( $content ) . '</div>'
 			: '';
 	}
 }

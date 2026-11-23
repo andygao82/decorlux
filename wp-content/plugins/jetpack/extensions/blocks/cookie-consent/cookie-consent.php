@@ -106,11 +106,13 @@ function load_assets( $attr, $content ) {
 	 */
 	Jetpack_Gutenberg::load_assets_as_required( __DIR__ );
 
-	return sprintf(
-		'<div class="%1$s">%2$s</div>',
-		esc_attr( Blocks::classes( Blocks::get_block_feature( __DIR__ ), $attr ) ),
-		$content
-	);
+	/*
+	 * Add a fallback color to block styles.
+	 */
+	$content = add_css_fallback_values( $content );
+
+	// The saved markup already carries the block classes; a wrapper would take core's Custom CSS class instead of the banner.
+	return $content;
 }
 
 /**
@@ -150,10 +152,52 @@ function render_cookie_consent_template() {
 	$parsed = parse_blocks( $template );
 	if ( ! empty( $parsed[0] ) ) {
 		$parsed[0]['attrs']['render_from_template'] = true;
-		echo render_block( $parsed[0] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+
+		$custom_css_before = get_custom_css_rules();
+		$banner            = render_block( $parsed[0] );
+		if ( '' !== $banner ) {
+			print_late_custom_css_rules( $custom_css_before );
+			echo $banner; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		}
 	}
 }
 add_action( 'wp_footer', __NAMESPACE__ . '\render_cookie_consent_template' );
+
+/**
+ * Get the block Custom CSS rules queued so far.
+ *
+ * @since 16.4
+ *
+ * @return string[] Rules, empty when the core handle is not in use.
+ */
+function get_custom_css_rules() {
+	$rules = wp_styles()->get_data( 'wp-block-custom-css', 'after' );
+	return is_array( $rules ) ? $rules : array();
+}
+
+/**
+ * Print Custom CSS rules queued since the snapshot, if the core handle already printed in the head.
+ *
+ * The banner renders in the footer, too late for rules it queues to print on their own.
+ *
+ * @since 16.4
+ *
+ * @param string[] $rules_before Rules from get_custom_css_rules() before the render.
+ */
+function print_late_custom_css_rules( $rules_before ) {
+	if ( ! wp_style_is( 'wp-block-custom-css', 'done' ) ) {
+		return;
+	}
+
+	$new_rules = array_diff( get_custom_css_rules(), $rules_before );
+	if ( $new_rules ) {
+		$processor = new \WP_HTML_Tag_Processor( '<style></style>' );
+		$processor->next_tag();
+		$processor->set_attribute( 'id', 'jetpack-cookie-consent-custom-css' );
+		$processor->set_modifiable_text( implode( '', $new_rules ) );
+		echo $processor->get_updated_html(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+	}
+}
 
 /**
  * Register cookie_consent_template setting
@@ -172,3 +216,26 @@ function cookie_consent_register_settings() {
 }
 
 add_action( 'rest_api_init', __NAMESPACE__ . '\cookie_consent_register_settings' );
+
+/**
+ * Add a fallback color to block styles.
+ *
+ * @since 15.1
+ *
+ * @param string $content The block content.
+ * @return string The content with fallback values added to CSS custom properties.
+ */
+function add_css_fallback_values( $content ) {
+	// Define the CSS custom properties and their fallback values.
+	$css_fallbacks = array(
+		'var(--wp--preset--color--contrast)' => 'var(--wp--preset--color--contrast, #000000)',
+		'var(--wp--preset--color--tertiary)' => 'var(--wp--preset--color--tertiary, #f0f0f0)',
+	);
+
+	// Replace CSS custom properties with their fallback versions.
+	foreach ( $css_fallbacks as $original => $with_fallback ) {
+		$content = str_replace( $original, $with_fallback, $content );
+	}
+
+	return $content;
+}

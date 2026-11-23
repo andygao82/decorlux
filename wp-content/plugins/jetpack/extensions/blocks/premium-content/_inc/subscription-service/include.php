@@ -7,6 +7,15 @@
 
 namespace Automattic\Jetpack\Extensions\Premium_Content;
 
+use Automattic\Jetpack\Extensions\Premium_Content\Subscription_Service\Jetpack_Token_Subscription_Service;
+use Automattic\Jetpack\Extensions\Premium_Content\Subscription_Service\Subscription_Service;
+use Automattic\Jetpack\Extensions\Premium_Content\Subscription_Service\Unconfigured_Subscription_Service;
+use Automattic\Jetpack\Extensions\Premium_Content\Subscription_Service\WPCOM_Online_Subscription_Service;
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit( 0 );
+}
+
 require_once __DIR__ . '/class-jwt.php';
 require_once __DIR__ . '/interface-subscription-service.php';
 require_once __DIR__ . '/class-abstract-token-subscription-service.php';
@@ -14,11 +23,6 @@ require_once __DIR__ . '/class-jetpack-token-subscription-service.php';
 require_once __DIR__ . '/class-wpcom-online-subscription-service.php';
 require_once __DIR__ . '/class-wpcom-offline-subscription-service.php';
 require_once __DIR__ . '/class-unconfigured-subscription-service.php';
-
-use Automattic\Jetpack\Extensions\Premium_Content\Subscription_Service\Jetpack_Token_Subscription_Service;
-use Automattic\Jetpack\Extensions\Premium_Content\Subscription_Service\Subscription_Service;
-use Automattic\Jetpack\Extensions\Premium_Content\Subscription_Service\Unconfigured_Subscription_Service;
-use Automattic\Jetpack\Extensions\Premium_Content\Subscription_Service\WPCOM_Online_Subscription_Service;
 
 const PAYWALL_FILTER = 'earn_premium_content_subscription_service';
 
@@ -52,6 +56,19 @@ function subscription_service( $user_id = null ) {
 		_doing_it_wrong( __FUNCTION__, 'No Subscription_Service registered for the ' . esc_html( PAYWALL_FILTER ) . ' filter', 'jetpack' );
 	}
 	return $interface;
+}
+
+/**
+ * Whether content is being rendered for ActivityPub, where it is published to everyone.
+ *
+ * Access checks must then ignore the request's own user and subscriber token.
+ *
+ * @since 16.4
+ *
+ * @return bool
+ */
+function is_rendering_for_activitypub() {
+	return function_exists( '\Activitypub\is_activitypub_request' ) && \Activitypub\is_activitypub_request();
 }
 
 /**

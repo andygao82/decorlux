@@ -20,6 +20,11 @@ class wfWAFStorageMySQL implements wfWAFStorageInterface {
 	private $data = array();
 	private $dataToSave = array();
 	private $shutdownRegistry = null;
+	
+	/**
+	 * @var array Represents the in-memory serialization status of a value in $data. When $serializedStatus contains a truthy value for a key, it means the value associated with that key in $data is deserialized. Only applicable to keys in `getSerializedParams()`
+	 */
+	private $serializedStatus = array();
 
 	public $installing = false;
 
@@ -218,8 +223,8 @@ class wfWAFStorageMySQL implements wfWAFStorageInterface {
 
 		$attackData = array(
 				'failedRules'     => $failedRulesString,
-				'paramKey'        => base64_encode($failedParamKey),
-				'paramValue'      => base64_encode($failedParamValue),
+				'paramKey'        => base64_encode((string) $failedParamKey),
+				'paramValue'      => base64_encode((string) $failedParamValue),
 				'path'            => base64_encode($request->getPath()),
 				'fullRequest'     => base64_encode($request),
 				'requestMetadata' => $request->getMetadata(),
@@ -278,7 +283,17 @@ class wfWAFStorageMySQL implements wfWAFStorageInterface {
 		if (!$blockedIPs) {
 			$blockedIPs = array();
 		}
-		return array_key_exists($ip, $blockedIPs) && is_array($blockedIPs[$ip]) && $blockedIPs[$ip][0] >= time();
+		if (!is_array($blockedIPs)) {
+			throw new wfWAFStorageEngineMySQLiException('Invalid WAF IP block configuration.');
+		}
+		if (!array_key_exists($ip, $blockedIPs)) {
+			return false;
+		}
+		$block = $blockedIPs[$ip];
+		if (!is_array($block) || !isset($block[0]) || !is_numeric($block[0])) {
+			throw new wfWAFStorageEngineMySQLiException('Invalid WAF IP block record.');
+		}
+		return $block[0] >= time();
 	}
 
 	/**
@@ -318,6 +333,12 @@ class wfWAFStorageMySQL implements wfWAFStorageInterface {
 		}
 
 		if (array_key_exists($category, $this->data) && array_key_exists($key, $this->data[$category])) {
+			if (!isset($this->serializedStatus[$key]) && in_array($key, $this->getSerializedParams())) { //Value is still serialized from the autoload, finish deserializing
+				// Missing autoloaded values are null; preserve the historical false result.
+				$value = $this->data[$category][$key] === null ? false : unserialize($this->data[$category][$key]);
+				$this->data[$category][$key] = $value;
+				$this->serializedStatus[$key] = true;
+			}
 			return $this->data[$category][$key];
 		}
 
@@ -327,8 +348,9 @@ class wfWAFStorageMySQL implements wfWAFStorageInterface {
 		));
 		if ($val !== null) {
 			if (in_array($key, $this->getSerializedParams())) {
-				$value = @unserialize($val);
+				$value = unserialize($val);
 				$this->data[$category][$key] = $value;
+				$this->serializedStatus[$key] = true;
 				return $value;
 			}
 			$this->data[$category][$key] = $val;
@@ -361,6 +383,9 @@ class wfWAFStorageMySQL implements wfWAFStorageInterface {
 		}
 
 		$this->data[$category][$key] = $value;
+		if (in_array($key, $this->getSerializedParams())) {
+			$this->serializedStatus[$key] = true;
+		}
 	}
 
 	/**
@@ -378,18 +403,23 @@ class wfWAFStorageMySQL implements wfWAFStorageInterface {
 	}
 
 	/**
+	 * Persist pending configuration.
 	 *
+	 * @return bool|null Whether all writes succeeded, or null when uninstalled.
 	 */
 	public function saveConfig() {
 		if ($this->uninstalled) {
-			return;
+			// An uninstalled engine intentionally skips its registered shutdown save.
+			return null;
 		}
 
 		try {
 			foreach ($this->dataToSave as $category => $data) {
 				foreach ($data as $key => $value) {
 					if (in_array($key, $this->getSerializedParams())) {
-						$value = serialize($value);
+						if (isset($this->serializedStatus[$key])) {
+							$value = serialize($value);
+						}
 					}
 					$table = $this->getStorageTable($category);
 					$this->db->query("INSERT INTO {$table} (name, val, autoload) values (?, ?, 'no') ON DUPLICATE KEY UPDATE val = ?", array(
@@ -403,7 +433,11 @@ class wfWAFStorageMySQL implements wfWAFStorageInterface {
 			if (WFWAF_DEBUG) {
 				error_log($e);
 			}
+			return false;
 		}
+		// An explicit save must not replay the same writes again at shutdown.
+		$this->dataToSave = array();
+		return true;
 	}
 
 	/**
@@ -595,13 +629,8 @@ class wfWAFStorageMySQL implements wfWAFStorageInterface {
 			$table = $this->getStorageTable($category);
 			$whereIn = str_repeat('?,', count($autoloadParams) - 1) . '?';
 			$results = $this->db->get_results('SELECT * FROM ' . $table . ' WHERE name IN (' . $whereIn . ')', $autoloadParams);
-			$serializedParams = $this->getSerializedParams();
 			foreach ($results as $row) {
-				if (in_array($row['name'], $serializedParams)) {
-					$this->data[$category][$row['name']] = @unserialize($row['val']);
-				} else {
-					$this->data[$category][$row['name']] = $row['val'];
-				}
+				$this->data[$category][$row['name']] = $row['val'];
 			}
 		}
 	}

@@ -14,6 +14,10 @@
 use Automattic\Jetpack\Current_Plan as Jetpack_Plan;
 use Automattic\Jetpack\Stats\Options as Stats_Options;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit( 0 );
+}
+
 /**
  * Jetpack-specific elements of Infinite Scroll
  */
@@ -212,11 +216,6 @@ class Jetpack_Infinite_Scroll_Extras {
 		global $videopress;
 		if ( ! empty( $videopress ) && The_Neverending_Home_Page::archive_supports_infinity() && is_a( $videopress, 'VideoPress' ) && method_exists( $videopress, 'enqueue_scripts' ) ) {
 			$videopress->enqueue_scripts();
-		}
-
-		// VideoPress Jetpack module
-		if ( Jetpack::is_module_active( 'videopress' ) ) {
-			wp_enqueue_script( 'videopress' );
 		}
 
 		// Fire the post_gallery action early so Carousel scripts are present.

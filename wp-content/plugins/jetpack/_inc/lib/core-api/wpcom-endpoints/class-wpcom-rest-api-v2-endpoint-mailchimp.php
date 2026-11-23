@@ -7,7 +7,12 @@
  */
 
 use Automattic\Jetpack\Connection\Client;
-use Automattic\Jetpack\Redirect;
+use Automattic\Jetpack\Connection\Manager as Connection_Manager;
+use Automattic\Jetpack\Status\Host;
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit( 0 );
+}
 
 /**
  * Mailchimp: Get Mailchimp Status.
@@ -54,6 +59,33 @@ class WPCOM_REST_API_V2_Endpoint_Mailchimp extends WP_REST_Controller {
 				),
 			)
 		);
+		register_rest_route(
+			$this->namespace,
+			$this->rest_base . '/settings',
+			array(
+				array(
+					'methods'             => WP_REST_Server::READABLE,
+					'callback'            => array( $this, 'get_mailchimp_settings' ),
+					'permission_callback' => function () {
+						return current_user_can( 'manage_options' );
+					},
+				),
+				array(
+					'methods'             => WP_REST_Server::EDITABLE,
+					'callback'            => array( $this, 'update_mailchimp_settings' ),
+					'permission_callback' => function () {
+						return current_user_can( 'manage_options' );
+					},
+					'args'                => array(
+						'follower_list_id' => array(
+							'type'              => 'string',
+							'required'          => true,
+							'sanitize_callback' => 'sanitize_text_field',
+						),
+					),
+				),
+			)
+		);
 	}
 
 	/**
@@ -91,13 +123,7 @@ class WPCOM_REST_API_V2_Endpoint_Mailchimp extends WP_REST_Controller {
 				403
 			);
 		}
-		$connect_url = Redirect::get_url(
-			'calypso-marketing-connections',
-			array(
-				'site'  => rawurlencode( $site_id ),
-				'query' => 'mailchimp',
-			)
-		);
+		$connect_url = '/wp-admin/options-writing.php';
 		return array(
 			'code'        => $this->is_connected() ? 'connected' : 'not_connected',
 			'connect_url' => $connect_url,
@@ -136,6 +162,65 @@ class WPCOM_REST_API_V2_Endpoint_Mailchimp extends WP_REST_Controller {
 		$request = Client::wpcom_json_api_request_as_blog( $path );
 		$body    = wp_remote_retrieve_body( $request );
 		return json_decode( $body );
+	}
+
+	/**
+	 * Get the Mailchimp connection settings.
+	 *
+	 * @return mixed
+	 */
+	public function get_mailchimp_settings() {
+		$site_id = Connection_Manager::get_site_id();
+		if ( is_wp_error( $site_id ) ) {
+			return new WP_Error(
+				'unavailable_site_id',
+				__( 'Sorry, something is wrong with your Jetpack connection.', 'jetpack' ),
+				403
+			);
+		}
+
+		$settings = array();
+
+		if ( ( new Host() )->is_wpcom_simple() ) {
+			require_lib( 'mailchimp' );
+			$api                   = new MailchimpApi( $site_id, get_current_user_id() );
+			$settings              = $api::get_settings( $site_id );
+			$settings['audiences'] = $api->get_lists();
+		} else {
+			$path     = sprintf( '/sites/%d/mailchimp/settings', $site_id );
+			$response = Client::wpcom_json_api_request_as_user( $path, '1.1', array(), null, 'rest' );
+			if ( ! is_wp_error( $response ) ) {
+				$settings = json_decode( wp_remote_retrieve_body( $response ), true );
+			}
+
+			$path     = sprintf( '/sites/%d/mailchimp/lists', $site_id );
+			$response = Client::wpcom_json_api_request_as_user( $path, '1.1', array(), null, 'rest' );
+			if ( ! is_wp_error( $response ) ) {
+				$settings['audiences'] = json_decode( wp_remote_retrieve_body( $response ), true );
+			}
+		}
+
+		return $settings;
+	}
+
+	/**
+	 * Save the Mailchimp audience that block subscribers join.
+	 *
+	 * @since 16.3
+	 *
+	 * @param WP_REST_Request $request The request.
+	 * @return array|WP_Error
+	 */
+	public function update_mailchimp_settings( $request ) {
+		require_once JETPACK__PLUGIN_DIR . '_inc/lib/class-jetpack-mailchimp-helper.php';
+
+		$audience = $request['follower_list_id'];
+		$result   = Jetpack_Mailchimp_Helper::save_audience( $audience );
+		if ( is_wp_error( $result ) ) {
+			return new WP_Error( $result->get_error_code(), $result->get_error_message(), array( 'status' => 400 ) );
+		}
+
+		return array( 'follower_list_id' => $audience );
 	}
 }
 

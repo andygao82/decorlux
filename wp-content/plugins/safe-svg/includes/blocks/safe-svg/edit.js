@@ -1,12 +1,23 @@
 /* eslint-disable no-unused-vars */
 /**
+ * External dependencies
+ */
+import PropTypes from 'prop-types';
+import classnames from 'classnames';
+
+/**
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
 import {
 	Placeholder,
 	PanelBody,
+	Dropdown,
+	Notice,
+	ToolbarButton,
+	TextControl,
 } from '@wordpress/components';
+import { link } from '@wordpress/icons';
 import {
 	useBlockProps,
 	BlockControls,
@@ -14,10 +25,42 @@ import {
 	InspectorControls,
 	__experimentalImageSizeControl as ImageSizeControl,
 	MediaReplaceFlow,
-	MediaPlaceholder
+	MediaPlaceholder,
+	LinkControl,
+	getColorClassName,
 } from '@wordpress/block-editor';
-import PropTypes from 'prop-types';
-import { ReactSVG } from 'react-svg'
+
+/**
+ * Internal dependencies
+ */
+import InlineSvg from './inline-svg';
+import useSanitizedSvg from './use-sanitized-svg';
+
+/**
+ * Explain why an SVG could not be shown.
+ *
+ * @param {string} code The error code from the REST response.
+ * @return {string} A message for the block editor.
+ */
+const errorMessage = (code) => {
+	switch (code) {
+		case 'rest_forbidden':
+		case 'safe_svg_invalid_attachment':
+		case 'safe_svg_not_svg':
+		case 'safe_svg_unreadable':
+			return __(
+				'This SVG is not available to you. Pick another from the media library.',
+				'safe-svg'
+			);
+		case 'safe_svg_sanitize_failed':
+			return __(
+				'This SVG could not be sanitized, so it has not been displayed.',
+				'safe-svg'
+			);
+		default:
+			return __('This SVG could not be loaded. Please try again.', 'safe-svg');
+	}
+};
 
 /**
  * Edit component.
@@ -25,18 +68,16 @@ import { ReactSVG } from 'react-svg'
  *
  * @param {Object}   props                      The block props.
  * @param {Object}   props.attributes           Block attributes.
- * @param {Object}   props.attributes.svgURL    SVG URL.
+ * @param {Object}   props.attributes.svgURL    SVG URL. Legacy: stored for back compat, never read.
  * @param {boolean}  props.attributes.alignment Alignment of the SVG.
  * @param {string}   props.className            Class name for the block.
  * @param {Function} props.setAttributes        Sets the value for block attributes.
  * @return {Function} Render the edit screen
  */
-const SafeSvgBlockEdit = ( props ) => {
-	const { attributes, setAttributes } = props;
+const SafeSvgBlockEdit = ({ attributes, setAttributes }) => {
 
 	const {
 		contentPostType,
-		svgURL,
 		type,
 		imageID,
 		imageSizes,
@@ -44,16 +85,27 @@ const SafeSvgBlockEdit = ( props ) => {
 		imageWidth,
 		imageHeight,
 		dimensionWidth,
-		dimensionHeight
+		dimensionHeight,
+		textColor,
+		href,
+		linkTarget,
+		nofollow,
+		sponsored,
+		linkLabel,
 	} = attributes;
+
+	// Get the markup and URL from the attachment ID.
+	const { markup, url: mediaURL, error } = useSanitizedSvg(imageID);
+
 	const blockProps = useBlockProps(
 		{
-			className:` wp-block-safe-svg-svg-icon safe-svg-cover`,
+			className: 'wp-block-safe-svg-svg-icon safe-svg-cover',
 			style: {
 				textAlign: alignment,
 			}
 		}
 	);
+
 	const { className, style, ...containerBlockProps } = blockProps;
 
 	// Remove text alignment so we can apply to the parent container.
@@ -68,20 +120,20 @@ const SafeSvgBlockEdit = ( props ) => {
 	style.width = `${dimensionWidth}px`;
 	style.height = `${dimensionHeight}px`;
 
-	const ALLOWED_MEDIA_TYPES = [ 'image/svg+xml' ];
+	const ALLOWED_MEDIA_TYPES = ['image/svg+xml'];
 
 	const onSelectImage = media => {
-		if ( !media.sizes && !media.media_details?.sizes ) {
+		if (!media.sizes && !media.media_details?.sizes) {
 			return;
 		}
 
-		if( media.media_details ) {
+		if (media.media_details) {
 			media.sizes = media.media_details.sizes;
 		}
 
 		const newURL = media.sizes.full.url ?? media.sizes.full.source_url;
 
-		setAttributes( {
+		setAttributes({
 			imageSizes: {
 				full: media.sizes.full,
 				medium: media.sizes.medium,
@@ -94,17 +146,17 @@ const SafeSvgBlockEdit = ( props ) => {
 			imageID: media.id,
 			svgURL: newURL,
 			type: 'full',
-		} );
+		});
 	};
 
-	const onError = ( message ) => {
-		console.log( __(`Something went wrong, please try again. Message: ${message}`, 'safe-svg') );
+	const onError = (message) => {
+		console.log(__(`Something went wrong, please try again. Message: ${message}`, 'safe-svg'));
 	}
 
 	const onChange = (dimensionSizes) => {
-		if( !dimensionSizes.width && !dimensionSizes.height ) {
-			dimensionSizes.width = parseInt( imageSizes[type].width );
-			dimensionSizes.height = parseInt( imageSizes[type].height );
+		if (!dimensionSizes.width && !dimensionSizes.height) {
+			dimensionSizes.width = parseInt(imageSizes[type].width);
+			dimensionSizes.height = parseInt(imageSizes[type].height);
 		}
 		setAttributes({
 			dimensionWidth: dimensionSizes.width ?? dimensionWidth,
@@ -114,13 +166,13 @@ const SafeSvgBlockEdit = ( props ) => {
 
 	const onChangeImage = (newSizeSlug) => {
 		const newUrl = imageSizes[newSizeSlug].url ?? imageSizes[newSizeSlug].source_url;
-		if( ! newUrl ) {
+		if (!newUrl) {
 			return null;
 		}
-		let newWidth = parseInt( imageSizes[newSizeSlug].width );
-		let newHeight = parseInt( imageSizes[newSizeSlug].height );
-		if( 'full' !== newSizeSlug ) {
-			if(imageSizes[newSizeSlug].width >= imageSizes[newSizeSlug].height) {
+		let newWidth = parseInt(imageSizes[newSizeSlug].width);
+		let newHeight = parseInt(imageSizes[newSizeSlug].height);
+		if ('full' !== newSizeSlug) {
+			if (imageSizes[newSizeSlug].width >= imageSizes[newSizeSlug].height) {
 				newHeight = imageSizes[newSizeSlug].height * imageSizes['full'].height / imageSizes['full'].width;
 			} else {
 				newWidth = imageSizes[newSizeSlug].width * imageSizes['full'].width / imageSizes['full'].height;
@@ -137,85 +189,175 @@ const SafeSvgBlockEdit = ( props ) => {
 	}
 
 	const imageSizeOptions = [
-		{ value: 'full', label: 'Full Size' },
-		{ value: 'medium', label: 'Medium' },
-		{ value: 'thumbnail', label: 'Thumbnail' },
+		{
+			value: 'full', label: __('Full Size', 'safe-svg')
+		},
+		{
+			value: 'medium', label: __('Medium', 'safe-svg')
+		},
+		{
+			value: 'thumbnail', label: __('Thumbnail', 'safe-svg')
+		},
 	];
 
 	return (
 		<>
-			{svgURL &&
-				<><InspectorControls>
-					<PanelBody
-						title={__(
-							'Image settings',
-							'safe-svg'
-						)}
-					>
-						<ImageSizeControl
-							width={dimensionWidth}
-							height={dimensionHeight}
-							imageWidth={imageWidth}
-							imageHeight={imageHeight}
-							imageSizeOptions={imageSizeOptions}
-							slug={type}
-							onChange={onChange}
-							onChangeImage={onChangeImage} />
-					</PanelBody>
-				</InspectorControls><BlockControls>
+			{!!imageID &&
+				<>
+					<InspectorControls>
+						<PanelBody
+							title={__(
+								'Image settings',
+								'safe-svg'
+							)}
+						>
+							<ImageSizeControl
+								width={dimensionWidth}
+								height={dimensionHeight}
+								imageWidth={imageWidth}
+								imageHeight={imageHeight}
+								imageSizeOptions={imageSizeOptions}
+								slug={type}
+								onChange={onChange}
+								onChangeImage={onChangeImage} />
+						</PanelBody>
+					</InspectorControls>
+					<BlockControls>
 						<AlignmentToolbar
 							value={alignment}
 							onChange={(newVal) => setAttributes({ alignment: newVal })} />
-					</BlockControls><BlockControls>
+					</BlockControls>
+					<BlockControls>
 						<MediaReplaceFlow
 							mediaId={imageID}
-							mediaURL={svgURL}
+							mediaURL={mediaURL}
 							allowedTypes={ALLOWED_MEDIA_TYPES}
 							accept={ALLOWED_MEDIA_TYPES}
 							onSelect={onSelectImage}
 							onError={onError} />
-					</BlockControls></>
+						<Dropdown
+							className="safe-svg-link-dropdown"
+							renderToggle={({ isOpen, onToggle }) => (
+								<ToolbarButton
+									icon={link}
+									label={__('Link', 'safe-svg')}
+									onClick={onToggle}
+									aria-expanded={isOpen}
+								/>
+							)}
+							renderContent={({ onClose }) => (
+								<div className="block-editor-link-control">
+									<LinkControl
+										value={{
+											url: href,
+											opensInNewTab: linkTarget === '_blank',
+											nofollow: !!nofollow,
+											sponsored: !!sponsored,
+										}}
+										onChange={(linkSettings) => {
+											setAttributes({
+												href: linkSettings.url,
+												linkTarget: linkSettings.opensInNewTab ? '_blank' : '',
+												nofollow: !!linkSettings.nofollow,
+												sponsored: !!linkSettings.sponsored,
+											});
+										}}
+										onRemove={() => {
+											setAttributes({
+												href: '',
+												linkTarget: '',
+												nofollow: false,
+												sponsored: false,
+											});
+										}}
+										settings={[
+											{
+												id: 'opensInNewTab',
+												title: __(
+													'Open in new tab',
+													'safe-svg'
+												),
+											},
+											{
+												id: 'nofollow',
+												title: __(
+													'Add rel="nofollow"',
+													'safe-svg'
+												),
+											},
+											{
+												id: 'sponsored',
+												title: __(
+													'Add rel="sponsored"',
+													'safe-svg'
+												),
+											},
+										]}
+										onClose={onClose}
+									/>
+									<TextControl
+										label={__('Link Label (aria-label)', 'safe-svg')}
+										value={linkLabel}
+										onChange={(value) => setAttributes({ linkLabel: value })}
+										help={__('Provides an accessible label for screen readers.', 'safe-svg')}
+									/>
+								</div>
+							)}
+						/>
+					</BlockControls>
+				</>
 			}
 
-
-			{!svgURL &&
+			{!imageID &&
 				<MediaPlaceholder
 					onSelect={onSelectImage}
-					allowedTypes = {ALLOWED_MEDIA_TYPES}
+					allowedTypes={ALLOWED_MEDIA_TYPES}
 					accept={ALLOWED_MEDIA_TYPES}
 					value={imageID}
 					labels={{
-						title: __( 'Inline SVG', 'safe-svg' ),
-						instructions: __( 'Upload an SVG or pick one from your media library.', 'safe-svg' )
+						title: __('Inline SVG', 'safe-svg'),
+						instructions: __('Upload an SVG or pick one from your media library.', 'safe-svg')
 					}}
 				/>
 			}
 
-			{svgURL &&
-				<div { ...containerBlockProps }>
+			{!!imageID && !!error &&
+				<div {...containerBlockProps}>
+					<Notice status="warning" isDismissible={false}>
+						{errorMessage(error)}
+					</Notice>
+				</div>
+			}
+
+			{!!imageID && !error &&
+				<div {...containerBlockProps}>
 					<div
 						style={style}
-						className="safe-svg-inside"
+						className={classnames(
+							'safe-svg-inside',
+							getColorClassName('color', textColor) || ''
+						)}
 					>
-						<ReactSVG src={svgURL} beforeInjection={(svg) => {
-							svg.setAttribute( 'style', `width: ${dimensionWidth}px; height: ${dimensionHeight}px;` );
-						}} />
+						<InlineSvg
+							markup={markup}
+							width={dimensionWidth}
+							height={dimensionHeight} />
 					</div>
 				</div>
 			}
 
-			{ contentPostType && (
+			{contentPostType && (
 				<Placeholder
-					label={ __( 'SafeSvg', 'safe-svg' ) }
+					label={__('SafeSvg', 'safe-svg')}
 				>
 					<p>
-						{ __(
+						{__(
 							'Please select the SVG icon.',
 							'safe-svg'
-						) }
+						)}
 					</p>
 				</Placeholder>
-			) }
+			)}
 		</>
 	);
 };
@@ -230,6 +372,11 @@ SafeSvgBlockEdit.propTypes = {
 		dimensionWidth: PropTypes.number,
 		dimensionHeight: PropTypes.number,
 		imageSizes: PropTypes.object,
+		href: PropTypes.string,
+		linkTarget: PropTypes.string,
+		nofollow: PropTypes.bool,
+		sponsored: PropTypes.bool,
+		linkLabel: PropTypes.string,
 	}).isRequired,
 	className: PropTypes.string,
 	clientId: PropTypes.string,

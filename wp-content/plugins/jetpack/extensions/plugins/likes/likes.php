@@ -13,18 +13,24 @@ use Automattic\Jetpack\Status;
 use Automattic\Jetpack\Status\Host;
 use Jetpack_Gutenberg;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit( 0 );
+}
+
 /**
  * Register Likes plugin.
  *
  * @return void
  */
 function register_plugins() {
-	/*
-	 * The extension is available even when the module is not active,
-	 * so we can display a nudge to activate the module instead of the block.
-	 * However, since non-admins cannot activate modules, we do not display the empty block for them.
-	 */
-	if ( ! ( new Modules() )->is_active( 'likes' ) && ! current_user_can( 'jetpack_activate_modules' ) ) {
+	$modules = new Modules();
+
+	// The panel's per-post switch applies to Like buttons and Comment Likes alike.
+	$shows_switch = $modules->is_active( 'likes' ) || $modules->is_active( 'comment-likes' );
+
+	// Without it, the panel can only nudge to activate Likes. Skip that for users who can't,
+	// and on block themes, where the Like block in a template replaces the legacy module.
+	if ( ! $shows_switch && ( ! current_user_can( 'jetpack_activate_modules' ) || wp_is_block_theme() ) ) {
 		return;
 	}
 

@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'darylldoyle/safe-svg',
-        'pretty_version' => '2.3.1',
-        'version' => '2.3.1.0',
-        'reference' => '26e9d3e3df9e0cb18d68812eae0f905b873ce429',
+        'pretty_version' => '2.5.2',
+        'version' => '2.5.2.0',
+        'reference' => '21a0fc4ea0515513d7e099603eb738b576109568',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -11,18 +11,18 @@
     ),
     'versions' => array(
         'darylldoyle/safe-svg' => array(
-            'pretty_version' => '2.3.1',
-            'version' => '2.3.1.0',
-            'reference' => '26e9d3e3df9e0cb18d68812eae0f905b873ce429',
+            'pretty_version' => '2.5.2',
+            'version' => '2.5.2.0',
+            'reference' => '21a0fc4ea0515513d7e099603eb738b576109568',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
             'dev_requirement' => false,
         ),
         'enshrined/svg-sanitize' => array(
-            'pretty_version' => '0.19.0',
-            'version' => '0.19.0.0',
-            'reference' => 'e95cd17be68e45f523cbfb0fe50cdd891b0cf20e',
+            'pretty_version' => '1.1.0',
+            'version' => '1.1.0.0',
+            'reference' => '9ba9001493f5da737759303f13bd965ebdaa778c',
             'type' => 'library',
             'install_path' => __DIR__ . '/../enshrined/svg-sanitize',
             'aliases' => array(),

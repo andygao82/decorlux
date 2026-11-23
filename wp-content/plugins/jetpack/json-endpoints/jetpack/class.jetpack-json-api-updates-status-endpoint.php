@@ -37,7 +37,8 @@ class Jetpack_JSON_API_Updates_Status extends Jetpack_JSON_API_Endpoint {
 		$result = $update_data['counts'];
 
 		include ABSPATH . WPINC . '/version.php'; // $wp_version;
-		$result['wp_version'] = isset( $wp_version ) ? $wp_version : null; // phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UndefinedVariable
+		// @phan-suppress-next-line PhanImpossibleCondition -- $wp_version is defined in the included version.php file above
+		$result['wp_version'] = $wp_version ?? null; // phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UndefinedVariable
 
 		if ( ! empty( $result['wordpress'] ) ) {
 			$cur = get_preferred_from_update_core();

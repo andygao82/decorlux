@@ -1,6 +1,6 @@
 <?php
 /**
- * Module Name: Post by email
+ * Module Name: Post by Email
  * Module Description: Publish blog posts simply by sending an email to a custom address.
  * First Introduced: 2.0
  * Sort Order: 14
@@ -14,11 +14,17 @@
  * @package automattic/jetpack
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit( 0 );
+}
+
 /**
  * Require the PBE Class.
  */
 require_once __DIR__ . '/post-by-email/class-jetpack-post-by-email.php';
 
 add_action( 'jetpack_modules_loaded', array( 'Jetpack_Post_By_Email', 'init' ) );
+add_action( 'jetpack_unlinked_user', array( 'Jetpack_Post_By_Email', 'delete_address_copy' ) );
+add_action( 'deleted_user', array( 'Jetpack_Post_By_Email', 'delete_address_copy' ) );
 
 Jetpack::enable_module_configurable( __FILE__ );

@@ -1,5 +1,9 @@
 <?php // phpcs:ignore WordPress.Files.FileName.InvalidClassFileName
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit( 0 );
+}
+
 // phpcs:disable Universal.Files.SeparateFunctionsFromOO.Mixed -- TODO: Move classes to appropriately-named class files.
 
 add_action( 'widgets_init', 'jetpack_goodreads_widget_init' );
@@ -83,7 +87,7 @@ class WPCOM_Widget_Goodreads extends WP_Widget {
 		do_action( 'jetpack_stats_extra', 'widget_view', 'goodreads' );
 
 		/** This filter is documented in core/src/wp-includes/default-widgets.php */
-		$title = apply_filters( 'widget_title', isset( $instance['title'] ) ? $instance['title'] : '' );
+		$title = apply_filters( 'widget_title', $instance['title'] ?? '' );
 
 		if ( empty( $instance['user_id'] ) || 'invalid' === $instance['user_id'] ) {
 			if ( current_user_can( 'edit_theme_options' ) ) {
@@ -127,7 +131,7 @@ class WPCOM_Widget_Goodreads extends WP_Widget {
 		echo $args['before_widget'];  // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo $args['before_title'] . $title . $args['after_title']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
-		$goodreads_url = 'https://www.goodreads.com/review/custom_widget/' . rawurlencode( $instance['user_id'] ) . '.' . rawurlencode( $instance['title'] ) . ':%20' . rawurlencode( $instance['shelf'] ) . '?cover_position=&cover_size=small&num_books=5&order=d&shelf=' . rawurlencode( $instance['shelf'] ) . '&sort=date_added&widget_bg_transparent=&widget_id=' . rawurlencode( $this->goodreads_widget_id );
+		$goodreads_url = 'https://www.goodreads.com/review/custom_widget/' . rawurlencode( (string) $instance['user_id'] ) . '.' . rawurlencode( $instance['title'] ) . ':%20' . rawurlencode( $instance['shelf'] ) . '?cover_position=&cover_size=small&num_books=5&order=d&shelf=' . rawurlencode( $instance['shelf'] ) . '&sort=date_added&widget_bg_transparent=&widget_id=' . rawurlencode( $this->goodreads_widget_id );
 
 		echo '<div class="jetpack-goodreads-legacy-widget gr_custom_widget" id="gr_custom_widget_' . esc_attr( $this->goodreads_widget_id ) . '"></div>' . "\n";
 		echo '<script src="' . esc_url( $goodreads_url ) . '"></script>' . "\n"; // phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedScript
@@ -168,14 +172,14 @@ class WPCOM_Widget_Goodreads extends WP_Widget {
 	public function update( $new_instance, $old_instance ) {
 		$instance = $old_instance;
 
-		$instance['user_id'] = trim( wp_kses( stripslashes( $new_instance['user_id'] ), array() ) );
+		$instance['user_id'] = trim( wp_kses( stripslashes( $new_instance['user_id'] ?? '' ), array() ) );
 		if ( ! empty( $instance['user_id'] ) && ( ! isset( $old_instance['user_id'] ) || $instance['user_id'] !== $old_instance['user_id'] ) ) {
 			if ( ! $this->goodreads_user_id_exists( $instance['user_id'] ) ) {
 				$instance['user_id'] = 'invalid';
 			}
 		}
-		$instance['title'] = wp_kses( stripslashes( $new_instance['title'] ), array() );
-		$shelf             = wp_kses( stripslashes( $new_instance['shelf'] ), array() );
+		$instance['title'] = wp_kses( stripslashes( $new_instance['title'] ?? '' ), array() );
+		$shelf             = wp_kses( stripslashes( $new_instance['shelf'] ?? '' ), array() );
 		if ( array_key_exists( $shelf, $this->shelves ) ) {
 			$instance['shelf'] = $shelf;
 		}

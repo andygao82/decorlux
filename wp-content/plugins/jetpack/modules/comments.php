@@ -14,18 +14,25 @@
  */
 
 use Automattic\Jetpack\Assets;
+use Automattic\Jetpack\Comments\Comments;
 
-Assets::add_resource_hint(
-	array(
-		'//jetpack.wordpress.com',
-		'//s0.wp.com',
-		'//public-api.wordpress.com',
-		'//0.gravatar.com',
-		'//1.gravatar.com',
-		'//2.gravatar.com',
-	),
-	'dns-prefetch'
-);
+if ( ! defined( 'ABSPATH' ) ) {
+	exit( 0 );
+}
+
+if ( Comments::is_enabled() ) {
+	Comments::init();
+} else {
+	Assets::add_resource_hint(
+		array(
+			'//jetpack.wordpress.com',
+			'//s0.wp.com',
+			'//public-api.wordpress.com',
+			'//secure.gravatar.com',
+		),
+		'dns-prefetch'
+	);
+}
 
 /*
  * Add the main commenting system.

@@ -9,6 +9,10 @@ namespace Automattic\Jetpack\Sync\Modules;
 
 use Automattic\Jetpack\Sync\Settings;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit( 0 );
+}
+
 /**
  * Class to handle sync for terms.
  */
@@ -297,7 +301,11 @@ class Terms extends Module {
 	 * @return array|boolean False if not whitelisted, the original hook args otherwise.
 	 */
 	public function filter_blacklisted_taxonomies( $args ) {
-		$term = $args[0];
+		$term = $args[0] ?? null;
+
+		if ( ! $term instanceof \WP_Term ) {
+			return false;
+		}
 
 		if ( in_array( $term->taxonomy, Settings::get_setting( 'taxonomies_blacklist' ), true ) ) {
 			return false;

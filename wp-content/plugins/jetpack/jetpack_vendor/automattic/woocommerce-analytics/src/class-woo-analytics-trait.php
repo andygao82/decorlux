@@ -54,18 +54,12 @@ trait Woo_Analytics_Trait {
 	protected $additional_blocks_on_checkout_page;
 
 	/**
-	 *  Session ID.
+	 *  Locks Add to Cart Events Tracking in the current request avoiding duplications.
+	 *  i.e. If update_cart and add_to_cart actions happens in the same request.
 	 *
-	 *  @var string
+	 *  @var bool If true. Cart events are locked for the current request.
 	 */
-	protected $session_id;
-
-	/**
-	 *  Landing page where session started.
-	 *
-	 *  @var string
-	 */
-	protected $landing_page;
+	protected $lock_add_to_cart_events = false;
 
 	/**
 	 * Format Cart Items or Order Items to an array
@@ -96,7 +90,7 @@ trait Woo_Analytics_Trait {
 			$products[] = $data;
 		}
 
-		return wp_json_encode( $products );
+		return wp_json_encode( $products, JSON_UNESCAPED_SLASHES | JSON_HEX_TAG );
 	}
 
 	/**
@@ -178,6 +172,7 @@ trait Woo_Analytics_Trait {
 
 		$this->cart_checkout_templates_in_use = wp_is_block_theme()
 			&& class_exists( '\Automattic\WooCommerce\Blocks\Package' )
+			// @phan-suppress-current-line UnusedPluginSuppression @phan-suppress-next-line PhanUndeclaredClassMethod -- If the class exists (as of WooCommerce 8.5.0), the method exists. See also: https://github.com/phan/phan/issues/1204
 			&& version_compare( \Automattic\WooCommerce\Blocks\Package::get_version(), '10.6.0', '>=' );
 
 		// Cart/Checkout *pages* are in use if the templates are not in use. Return their content and do nothing else.
@@ -259,75 +254,88 @@ trait Woo_Analytics_Trait {
 	}
 
 	/**
-	 * Default event properties which should be included with all events.
+	 * Request-scoped — not for page output, see `get_page_common_properties()`.
+	 *
+	 * Default event properties for events the server fires itself on an uncached
+	 * request. See `WC_Analytics_Tracking::get_common_properties()`.
 	 *
 	 * @return array Array of standard event props.
 	 */
 	public function get_common_properties() {
-		// phpcs:disable Squiz.PHP.CommentedOutCode.Found
-		// Disabled the below temporarily to avoid caching issues.
-		// $session_data       = json_decode( sanitize_text_field( wp_unslash( $_COOKIE['woocommerceanalytics_session'] ?? '' ) ), true ) ?? array();
-		// $session_id         = sanitize_text_field( $session_data['session_id'] ?? $this->session_id );
-		// $landing_page       = sanitize_url( $session_data['landing_page'] ?? $this->landing_page );
-		// phpcs:enable Squiz.PHP.CommentedOutCode.Found
-		$site_info          = array(
-			'session_id'                         => null,
-			'blog_id'                            => Jetpack_Connection::get_site_id(),
-			'store_id'                           => defined( '\\WC_Install::STORE_ID_OPTION' ) ? get_option( \WC_Install::STORE_ID_OPTION ) : false,
-			'ui'                                 => $this->get_user_id(),
-			'url'                                => home_url(),
-			'landing_page'                       => null,
-			'woo_version'                        => WC()->version,
-			'wp_version'                         => get_bloginfo( 'version' ),
-			'store_admin'                        => in_array( array( 'administrator', 'shop_manager' ), wp_get_current_user()->roles, true ) ? 1 : 0,
-			'device'                             => wp_is_mobile() ? 'mobile' : 'desktop',
-			'template_used'                      => $this->cart_checkout_templates_in_use ? '1' : '0',
-			'additional_blocks_on_cart_page'     => $this->additional_blocks_on_cart_page,
-			'additional_blocks_on_checkout_page' => $this->additional_blocks_on_checkout_page,
-			'store_currency'                     => get_woocommerce_currency(),
-			'timezone'                           => wp_timezone_string(),
-			'is_guest'                           => $this->get_user_id() === null,
-			'order_value'                        => $this->get_cart_subtotal(),
-			'order_total'                        => $this->get_cart_total(),
-			'total_tax'                          => $this->get_cart_taxes(),
-			'total_discount'                     => $this->get_total_discounts(),
-			'total_shipping'                     => $this->get_cart_shipping_total(),
-			'products_count'                     => $this->get_cart_items_count(),
+		$common_properties = WC_Analytics_Tracking::get_common_properties();
+		/**
+		 * Allow defining custom event properties in WooCommerce Analytics.
+		 *
+		 * See `WC_Analytics_Tracking::get_properties()` for the full contract
+		 * around `$is_client_supplied`.
+		 *
+		 * @module woocommerce-analytics
+		 *
+		 * @since 12.5
+		 * @since 0.18.0 Added the `$is_client_supplied` parameter. This call site
+		 *               also began passing `$event_name`, which the hook already had.
+		 *
+		 * @param array  $properties Array of event props to be filtered.
+		 * @param string $event_name Event name. Empty string here: this call builds
+		 *                           common properties, not properties for a specific event.
+		 * @param bool   $is_client_supplied Whether the props came from an untrusted client.
+		 */
+		$properties = apply_filters(
+			'jetpack_woocommerce_analytics_event_props',
+			$common_properties,
+			'',
+			false
 		);
-		$cart_checkout_info = $this->get_cart_checkout_info();
-		return array_merge( $site_info, $cart_checkout_info );
+
+		return $properties;
 	}
 
 	/**
-	 * Render tracks event properties as string of JavaScript object props.
+	 * Default event properties for the client, excluding anything derived from
+	 * the current request.
 	 *
-	 * @param  array $properties Array of key/value pairs.
-	 * @return string String of the form "key1: value1, key2: value2, " (etc).
+	 * Used for the properties embedded in front-end page HTML, which is cached
+	 * and replayed to later visitors. See
+	 * `WC_Analytics_Tracking::get_page_common_properties()`.
+	 *
+	 * @since 0.16.7
+	 *
+	 * @return array Array of standard event props.
 	 */
-	private function render_properties_as_js( $properties ) {
-		$js_args_string = '';
-		foreach ( $properties as $key => $value ) {
-			if ( is_array( $value ) ) {
-				$js_args_string = $js_args_string . "'$key': " . wp_json_encode( $value ) . ',';
-			} else {
-				$js_args_string = $js_args_string . "'$key': '" . esc_js( $value ) . "', ";
+	public function get_page_common_properties() {
+		$common_properties = WC_Analytics_Tracking::get_page_common_properties();
+
+		/** This filter is documented in src/class-woo-analytics-trait.php */
+		return apply_filters(
+			'jetpack_woocommerce_analytics_event_props',
+			$common_properties,
+			'',
+			false
+		);
+	}
+
+	/**
+	 * Enqueue an event with optional product and custom properties.
+	 *
+	 * @param string       $event_name The name of the event to record.
+	 * @param array        $properties Optional array of (key => value) event properties.
+	 * @param integer|null $product_id The id of the product relating to the event.
+	 *
+	 * @return void
+	 */
+	public function enqueue_event( $event_name, $properties = array(), $product_id = null ) {
+		// Only set product details if we have a product id.
+		if ( $product_id ) {
+			$product = wc_get_product( $product_id );
+			if ( ! $product instanceof WC_Product ) {
+				return;
 			}
+			$product_details = $this->get_product_details( $product );
 		}
-		return $js_args_string;
-	}
 
-	/**
-	 * Record an event with optional product and custom properties.
-	 *
-	 * @param string  $event_name The name of the event to record.
-	 * @param array   $properties Optional array of (key => value) event properties.
-	 * @param integer $product_id The id of the product relating to the event.
-	 *
-	 * @return string|void
-	 */
-	public function record_event( $event_name, $properties = array(), $product_id = null ) {
-		$js = $this->process_event_properties( $event_name, $properties, $product_id );
-		wc_enqueue_js( "_wca.push({$js});" );
+		$event_properties = array_merge( $product_details ?? array(), $properties );
+
+		WC_Analytics_Tracking::add_event_to_queue( $event_name, $event_properties );
 	}
 
 	/**
@@ -347,7 +355,7 @@ trait Woo_Analytics_Trait {
 	}
 
 	/**
-	 * Gets product categories or varation attributes as a formatted concatenated string
+	 * Gets product categories or variation attributes as a formatted concatenated string
 	 *
 	 * @param object $product WC_Product.
 	 * @return string
@@ -364,7 +372,7 @@ trait Woo_Analytics_Trait {
 		} else {
 			$out        = array();
 			$categories = get_the_terms( $product->get_id(), 'product_cat' );
-			if ( $categories ) {
+			if ( is_array( $categories ) ) {
 				foreach ( $categories as $category ) {
 					$out[] = $category->name;
 				}
@@ -375,57 +383,9 @@ trait Woo_Analytics_Trait {
 	}
 
 	/**
-	 * Compose event properties.
-	 *
-	 * @param string  $event_name The name of the event to record.
-	 * @param array   $properties Optional array of (key => value) event properties.
-	 * @param integer $product_id Optional id of the product relating to the event.
-	 *
-	 * @return string|void
-	 */
-	public function process_event_properties( $event_name, $properties = array(), $product_id = null ) {
-
-		// Only set product details if we have a product id.
-		if ( $product_id ) {
-			$product = wc_get_product( $product_id );
-			if ( ! $product instanceof WC_Product ) {
-				return;
-			}
-			$product_details = $this->get_product_details( $product );
-		}
-
-		/**
-		 * Allow defining custom event properties in WooCommerce Analytics.
-		 *
-		 * @module woocommerce-analytics
-		 *
-		 * @since 12.5
-		 *
-		 * @param array $all_props Array of event props to be filtered.
-		 */
-		$all_props = apply_filters(
-			'jetpack_woocommerce_analytics_event_props',
-			array_merge(
-				$this->get_common_properties(), // We put this here to allow override of common props.
-				$properties
-			)
-		);
-
-		$js = "{'_en': '" . esc_js( $event_name ) . "'";
-
-		if ( isset( $product_details ) ) {
-				$all_props = array_merge( $all_props, $product_details );
-		}
-
-		$js .= ',' . $this->render_properties_as_js( $all_props ) . '}';
-
-		return $js;
-	}
-
-	/**
 	 * Get the current user id
 	 *
-	 * @return int
+	 * @return string|null
 	 */
 	public function get_user_id() {
 		if ( is_user_logged_in() ) {
@@ -562,16 +522,16 @@ trait Woo_Analytics_Trait {
 		return $info;
 	}
 
-		/**
-		 * Search a specific post for text content.
-		 *
-		 * Note: similar code is in a WooCommerce core PR:
-		 * https://github.com/woocommerce/woocommerce/pull/25932
-		 *
-		 * @param integer $post_id The id of the post to search.
-		 * @param string  $text    The text to search for.
-		 * @return integer 1 if post contains $text (otherwise 0).
-		 */
+	/**
+	 * Search a specific post for text content.
+	 *
+	 * Note: similar code is in a WooCommerce core PR:
+	 * https://github.com/woocommerce/woocommerce/pull/25932
+	 *
+	 * @param integer $post_id The id of the post to search.
+	 * @param string  $text    The text to search for.
+	 * @return integer 1 if post contains $text (otherwise 0).
+	 */
 	public function post_contains_text( $post_id, $text ) {
 		global $wpdb;
 
@@ -670,5 +630,114 @@ trait Woo_Analytics_Trait {
 			return 0;
 		}
 		return $cart->get_cart_contents_count();
+	}
+
+	/**
+	 * Retrieves the breadcrumb trail as an array of page titles.
+	 *
+	 * This function attempts to generate a hierarchical breadcrumb trail for the current page or post.
+	 * - For the front page, it returns "Home".
+	 * - For WooCommerce product, category, or tag pages, it uses the WooCommerce breadcrumb generator and prepends the shop page title if needed.
+	 * - For regular pages, it builds the breadcrumb from the page's ancestors, ordered from top-level to current.
+	 * - For all other cases, it returns the current page's title.
+	 *
+	 * Titles are capped before being returned; see `cap_page_string()`.
+	 *
+	 * @return array The breadcrumb trail as an array of titles.
+	 */
+	private function get_breadcrumb_titles() {
+		return array_map( array( $this, 'cap_page_string' ), $this->build_breadcrumb_titles() );
+	}
+
+	/**
+	 * Limit the length of a caller-influenced string bound for the page output.
+	 *
+	 * Breadcrumb titles come from `post_title`, which core does not bound, so this
+	 * is their only limit. The search term is already blanked by
+	 * `WP_Query::parse_query()` above 1600 bytes; capping it further keeps the
+	 * search pixel URL, which carries the term twice, from being rejected outright.
+	 *
+	 * Truncated values keep an ellipsis so they stay distinguishable downstream
+	 * from a value that genuinely ended at the limit.
+	 *
+	 * @since 0.16.7
+	 *
+	 * @param string $value The value bound for the page output.
+	 * @return string The value, truncated if it exceeded the limit.
+	 */
+	private function cap_page_string( $value ) {
+		$max_length = 200;
+
+		$value = (string) $value;
+
+		if ( mb_strlen( $value ) <= $max_length ) {
+			return $value;
+		}
+
+		return mb_substr( $value, 0, $max_length - 1 ) . '…';
+	}
+
+	/**
+	 * Build the uncapped breadcrumb trail. See `get_breadcrumb_titles()`.
+	 *
+	 * @return array The breadcrumb trail as an array of titles.
+	 */
+	private function build_breadcrumb_titles() {
+		if ( is_front_page() ) {
+			return array( __( 'Home', 'woocommerce-analytics' ) );
+		}
+
+		if ( class_exists( '\WC_Breadcrumb' ) ) {
+			$breadcrumb = new \WC_Breadcrumb();
+			$crumbs     = $breadcrumb->generate();
+			$titles     = wp_list_pluck( $crumbs, 0 );
+
+			if ( is_product() || is_product_category() || is_product_tag() ) {
+				$titles = $this->prepend_shop_page_title( $titles );
+			}
+
+			if ( ! empty( $titles ) ) {
+				return $titles;
+			}
+		}
+
+		// If it's a page, get the hierarchical title.
+		if ( is_page() ) {
+			$titles    = array();
+			$page_id   = get_queried_object_id();
+			$ancestors = get_post_ancestors( $page_id );
+			// Reverse the ancestors to get the top-level first.
+			$ancestors = array_reverse( $ancestors );
+
+			foreach ( $ancestors as $ancestor ) {
+				$titles[] = get_the_title( $ancestor );
+			}
+			$titles[] = get_the_title( $page_id );
+
+			return $titles;
+		}
+
+		return array( get_the_title() );
+	}
+
+	/**
+	 * Prepend the shop page title if it's not already present.
+	 *
+	 * @param array $titles The titles to prepend the shop page title to.
+	 * @return array The titles with the shop page title prepended.
+	 */
+	private function prepend_shop_page_title( array $titles ) {
+		$shop_page_id = wc_get_page_id( 'shop' );
+		if ( ! $shop_page_id ) {
+			return $titles;
+		}
+
+		$shop_page_title = get_the_title( $shop_page_id );
+
+		if ( ! $shop_page_title || ( ! empty( $titles ) && $titles[0] === $shop_page_title ) ) {
+			return $titles;
+		}
+
+		return array_merge( array( $shop_page_title ), $titles );
 	}
 }
