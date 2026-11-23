@@ -747,6 +747,20 @@ footer.site-footer {
 	}
 }
 
+/* Home banner using an uploaded image instead of the video: show the whole image, no cropping */
+.banner.home-banner--image {
+	& a,
+	& picture {
+		display: block;
+	}
+
+	& img {
+		display: block;
+		width: 100%;
+		height: auto;
+	}
+}
+
 .section {
 	margin-bottom: 60px;
 }

@@ -8,7 +8,28 @@ get_header();
 	if (have_rows('home')):
 		while (have_rows('home')) : the_row();
 ?>
-	<?php if (get_row_layout() == 'home_banner'): ?>
+	<?php
+		if (get_row_layout() == 'home_banner' && get_sub_field('banner_type') == 'image' && get_sub_field('banner_image')):
+			$banner_image        = get_sub_field('banner_image');
+			$banner_image_mobile = get_sub_field('banner_image_mobile');
+			$banner_link         = get_sub_field('banner_link');
+			$banner_alt          = $banner_image['alt'] ?: get_bloginfo('name');
+	?>
+		<div class="section banner home-banner home-banner--image">
+			<?php if ($banner_link): ?>
+				<a href="<?= esc_url($banner_link['url']) ?>"<?= $banner_link['target'] ? ' target="' . esc_attr($banner_link['target']) . '" rel="noopener"' : '' ?> aria-label="<?= esc_attr($banner_link['title'] ?: $banner_alt) ?>">
+			<?php endif; ?>
+				<picture>
+					<?php if ($banner_image_mobile): ?>
+						<source media="(max-width: 767px)" srcset="<?= esc_url($banner_image_mobile['url']) ?>">
+					<?php endif; ?>
+					<img src="<?= esc_url($banner_image['url']) ?>" width="<?= (int) $banner_image['width'] ?>" height="<?= (int) $banner_image['height'] ?>" alt="<?= esc_attr($banner_alt) ?>" fetchpriority="high">
+				</picture>
+			<?php if ($banner_link): ?>
+				</a>
+			<?php endif; ?>
+		</div>
+	<?php elseif (get_row_layout() == 'home_banner'): ?>
 		<div class="section banner home-banner">
 			<div class="banner-wrapper">
 				<div class="banner-content">
