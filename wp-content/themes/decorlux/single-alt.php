@@ -10,16 +10,34 @@ $categories = get_the_category();
 $product_top_banner_image = get_field('product_top_banner_image');
 $product_top_banner_heading = get_field('product_top_banner_content');
 ?>
-	<div class="banner section cat-<?php echo $categories[0]->cat_ID ?>"style="background-image: url('<?= esc_url($product_top_banner_image)?>')"></div>
+
+	<div class="banner section cat-<?php echo $categories[0]->cat_ID ?> <?php if (get_field('product_top_banner_video_id')) {?>video-banner<?php }?>" style="background-image: url('<?= esc_url($product_top_banner_image)?>')">
+	     <?php if (get_field('product_top_banner_video_id')) { ?>
+	        <?php if (get_field('product_top_banner_video_source') == "vimeo") { ?>
+    	        <iframe 
+    				src="https://player.vimeo.com/video/<?= get_field('product_top_banner_video_id')?>?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&amp;autoplay=1&amp;muted=1&amp;loop=1" 
+    				frameborder="0" 
+    				allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media" 
+    				title="DecorLux"
+    			></iframe>
+    		<?php } else { ?>
+    		<iframe 
+    		    src="https://www.youtube.com/embed/<?php echo get_field('product_top_banner_video_id')?>?autoplay=1&mute=1&loop=1" 
+    		    title="Decorlux" 
+    		    frameborder="0" 
+    		    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+    		    referrerpolicy="strict-origin-when-cross-origin" 
+    		    allowfullscreen
+    		    mute
+    		   ></iframe>
+    		<?php } ?>
+	    <?php } ?>
+	</div>
 	<div class="section page-category-top">
 		<div class="container">
 			<div class="row">
 				<div class="col">
 					<div class="inner-wrapper">
-						<a class="back-button" href="javascript:;" onclick="goBack()">
-							<span class="material-symbols-outlined icon">arrow_back_ios</span> 
-							<span>Back</span>
-						</a>
 						<div class="page-category-description fade-up">
 							<h1 class="post-title"><?php the_title() ?></h1>
 							<div class="archive-description">

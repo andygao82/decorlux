@@ -3,16 +3,24 @@
 get_header();
 
 ?>
+<?php $img_path = get_template_directory_uri('/'); ?>
 <?php
 	if (have_rows('home')):
 		while (have_rows('home')) : the_row();
 ?>
 	<?php if (get_row_layout() == 'home_banner'): ?>
-
 		<div class="section banner home-banner">
 			<div class="banner-wrapper">
+				<div class="banner-content">
+					<div class="banner-image-wrapper">
+						<img src="<?php echo $img_path ?>/images/logo-alt.png" alt="DecorLux Alt Logo">
+					</div>
+					<div class="banner-text-wrapper">
+						<?= get_sub_field('home_banner_content') ?>
+					</div>
+				</div>
 				<iframe 
-					src="https://player.vimeo.com/video/<?= get_sub_field('home_video')?>?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&amp;autoplay=1&amp;muted=1&amp;loop=1" 
+					src="https://player.vimeo.com/video/<?= get_sub_field('home_video')?>?background=1&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&amp;autoplay=1&amp;muted=1&amp;loop=1" 
 					frameborder="0" 
 					allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media" 
 					title="DecorLux"
@@ -57,7 +65,7 @@ get_header();
 					</div>
 				</div>
 				<div class="section-image-container">
-					<img class="fade-right" src="<?= get_sub_field('image') ?>" alt="<?= get_sub_field('heading') ?>">
+					<img class="fade-right" src="<?= get_sub_field('image') ?>" >
 				</div>
 			</div>
 		</div>
@@ -78,7 +86,7 @@ get_header();
 					</div>
 				</div>
 				<div class="section-image-container fade-left">
-					<img src="<?= get_sub_field('image') ?>" alt="<?= get_sub_field('heading') ?>">
+					<img src="<?= get_sub_field('image') ?>" >
 				</div>
 			</div>
 		</div>

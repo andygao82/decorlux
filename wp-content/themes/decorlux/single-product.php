@@ -11,17 +11,13 @@ if (have_rows('selecting_product')):
 ?>
 	<?php if (get_row_layout() == 'main_content'): ?>
 	<div class="banner section cat-<?php echo $categories[0]->cat_ID ?>" style="background-image: url('<?= get_sub_field('image')?>')">
-
+        
 	</div>
 	<div class="section page-category-top">
 		<div class="container">
 			<div class="row">
 				<div class="col">
 					<div class="inner-wrapper fade-up">
-						<a class="back-button" href="javascript:;" onclick="goBack()">
-							<span class="material-symbols-outlined icon">arrow_back_ios</span> 
-							<span>Back</span>
-						</a>
 						<div class="page-category-description">
 							<h1 class="post-title"><?php echo get_sub_field('product_top_banner_content') ?></h1>
 							<div class="archive-description">

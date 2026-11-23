@@ -15,19 +15,27 @@
 <head>
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="ahrefs-site-verification" content="bd405f6ce0496259d12bb0990ece84b21d70c421187f6605975f85c272ea72ab">
+
 	<link rel="profile" href="https://gmpg.org/xfn/11">
 	<link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,700&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=arrow_back_ios" />
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
+	<link
+		rel="stylesheet"
+		href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+	/>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 	<link rel="stylesheet" href="https://use.fontawesome.com/b41f34b2fc.css">
 	<?php wp_head(); ?>
 	<link rel="stylesheet" type="text/css" href="<?php echo get_template_directory_uri('/'); ?>/css/custom.css">
+	<script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
 	<script type="text/javascript" src="<?php echo get_template_directory_uri('/'); ?>/js/masonry.pkgd.min.js"></script>
 	<script type="text/javascript" src="<?php echo get_template_directory_uri('/'); ?>/js/inview.js"></script>
 	<script type="text/javascript" src="<?php echo get_template_directory_uri('/'); ?>/js/custom.js"></script>
+	<script src="https://analytics.ahrefs.com/analytics.js" data-key="OkGuAZHZL3GP2AP6fprCMw" async></script>
 </head>
 
 <body <?php body_class(); ?>>
@@ -41,7 +49,11 @@
 					<div class="wrapper">
 						<?php $img_path = get_template_directory_uri('/'); ?>
 						<a class="decorlux-logo" href="<?php echo esc_url( home_url( '/' ) ); ?>" >
-							<?php echo file_get_contents($img_path."/images/logo.svg"); ?>
+							<?php if (get_field('header_logo', 'option')) {?>
+								<img class="main-logo" src="<?php echo get_field('header_logo', 'option');?>" alt="DecorLux">
+							<?php } else { ?>
+								<?php echo file_get_contents($img_path."/images/logo.svg"); ?>
+							<?php } ?>
 						</a>
 						<div id="burger-icon">
 							<span class="burger-icon-bar burger-icon-first-bar"></span>

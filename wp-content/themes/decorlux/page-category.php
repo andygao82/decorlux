@@ -7,21 +7,37 @@
 			$featured_img_url = get_the_post_thumbnail_url(get_the_ID(),'full');
 			$categoryID = get_field('category_id');
 		?>
-	<?php if($featured_img_url){?>
-		<div class="section banner page-category-banner" style="background-image: url('<?= esc_url($featured_img_url)?>')">
-	<?php }else{ ?>
-		<div class="section banner page-category-banner">
-	<?php } ?>
-		</div>
+
+	<div 
+		class="section banner page-category-banner <?php if (get_field('page_top_banner_video_id')) {?>video-banner<?php }?>" 
+		style="background-image: url('<?= esc_url($featured_img_url)?>')"
+	>
+		<?php if (get_field('page_top_banner_video_id')) { ?>
+				<?php if (get_field('page_top_banner_video_source') == "Vimeo") { ?>
+				<iframe 
+					src="https://player.vimeo.com/video/<?= get_field('page_top_banner_video_id')?>?background=1&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&amp;autoplay=1&amp;muted=1&amp;loop=1" 
+					frameborder="0" 
+					allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media" 
+					title="DecorLux"
+				></iframe>
+			<?php } else { ?>
+			<iframe 
+					src="https://www.youtube.com/embed/<?php echo get_field('page_top_banner_video_id')?>?autoplay=1&mute=1&loop=1" 
+					title="Decorlux" 
+					frameborder="0" 
+					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+					referrerpolicy="strict-origin-when-cross-origin" 
+					allowfullscreen
+					mute
+				></iframe>
+			<?php } ?>
+		<?php } ?>
+	</div>
 	<div class="section page-category-top">
 		<div class="container">
 			<div class="row">
 				<div class="col">
 					<div class="inner-wrapper fade-up">
-						<a class="back-button" href="javascript:;" onclick="goBack()">
-							<span class="material-symbols-outlined icon">arrow_back_ios</span> 
-							<span>Back</span>
-						</a>
 						<div class="page-category-description">
 							<h1 class="post-title"><?php the_title() ?></h1>
 							<div class="archive-description">
@@ -34,49 +50,56 @@
 		</div>
 	</div>
 	<div class="section page-main">
-		<div class="page-main-container">
-			<ul class="page-main-container-wrapper">
-					<?php
-						global $post;
-						$myposts = get_posts( array(
-							'numberposts'      => -1,
-							'category'       => $categoryID
-						) );
-						if ( $myposts ) {
-							foreach ( $myposts as $index => $post ) :
-								setup_postdata( $post ); ?>
-								<li class="page-category-item page-category-item-<?php echo $index + 1; ?>">
-									<?php $_thumbnail = get_the_post_thumbnail() ?>
-									<a class="post-thumbnail image-wrapper <?php echo ($index % 2 === 0) ? 'fade-left' : 'fade-right'; ?>" href="<?php echo esc_url( get_permalink() )?>">
-										<?php if($_thumbnail){ ?>
-												<?= get_the_post_thumbnail()?>
-										<?php }else{?>
-												<img src="<?php echo get_template_directory_uri('/'); ?>/images/image_20.jpg" alt="Placeholder">
-										<?php } ?>
-									</a>
-									<div class="page-category-item-content <?php echo ($index % 2 === 0) ? 'fade-right' : 'fade-left'; ?>">
-										<div class="page-category-item-content-wrapper">
-											<h2 class="blog-title"><a href="<?php echo esc_url( get_permalink() )?>" rel="bookmark"><?php the_title() ?></a></h2>
-											<div class="blog-expert">
-												<?php $_excerpt = get_the_excerpt() ?>
-												<?php if($_excerpt){ ?>
-													<?php the_excerpt(); ?>
-												<?php }else{?>
-													Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-													tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam
-												<?php } ?>
-											</div><!-- .entry-content -->
-											<?php $img_path = get_template_directory_uri('/'); ?>
-											<a class="button" href="<?php echo esc_url( get_permalink() )?>">More</a>
-										</div>
-									</div>
-								</li>
-							<?php
-							endforeach;
-							wp_reset_postdata();
-						}
-					?>
-			</ul>
+		<div class="container">
+				<div class="row">
+					<div class="col">
+						<div class="page-main-container">
+							<ul class="page-main-container-wrapper">
+									<?php
+										global $post;
+										$myposts = get_posts( array(
+											'numberposts'      => -1,
+											'category'       => $categoryID
+										) );
+										if ( $myposts ) {
+											foreach ( $myposts as $index => $post ) :
+												setup_postdata( $post ); ?>
+												<li class="page-category-item page-category-item-<?php echo $index + 1; ?>">
+													<?php $_thumbnail = get_the_post_thumbnail() ?>
+													<a class="post-thumbnail image-wrapper <?php echo ($index % 2 === 0) ? 'fade-left' : 'fade-right'; ?>" href="<?php echo esc_url( get_permalink() )?>">
+														<?php if($_thumbnail){ ?>
+																<?= get_the_post_thumbnail()?>
+														<?php }else{?>
+																<img src="<?php echo get_template_directory_uri('/'); ?>/images/image_20.jpg" alt="Placeholder">
+														<?php } ?>
+													</a>
+													<div class="page-category-item-content <?php echo ($index % 2 === 0) ? 'fade-right' : 'fade-left'; ?>">
+														<div class="page-category-item-content-wrapper">
+															<h2 class="blog-title"><a href="<?php echo esc_url( get_permalink() )?>" rel="bookmark"><?php the_title() ?></a></h2>
+															<div class="blog-expert">
+																<?php $_excerpt = get_the_excerpt() ?>
+																<?php if($_excerpt){ ?>
+																	<?php the_excerpt(); ?>
+																<?php }else{?>
+																	Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+																	tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam
+																<?php } ?>
+															</div><!-- .entry-content -->
+															<?php $img_path = get_template_directory_uri('/'); ?>
+															<a class="button" href="<?php echo esc_url( get_permalink() )?>">Read More</a>
+														</div>
+													</div>
+												</li>
+											<?php
+											endforeach;
+											wp_reset_postdata();
+										}
+									?>
+							</ul>
+						</div>
+					</div>
+				</div>
 		</div>
+	
 	</div>
 <?php get_footer(); ?>

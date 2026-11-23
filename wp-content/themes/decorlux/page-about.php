@@ -53,7 +53,7 @@ get_header();
 								</div>
 							</div>
 							<div class="section-image-container fade-left">
-								<img src="<?= get_sub_field('image') ?>" alt="<?= get_sub_field('heading') ?>">
+								<img src="<?= get_sub_field('image') ?>">
 							</div>
 						</div>
 					</div>
