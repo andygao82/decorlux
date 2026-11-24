@@ -30,11 +30,18 @@
 	<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 	<link rel="stylesheet" href="https://use.fontawesome.com/b41f34b2fc.css">
 	<?php wp_head(); ?>
-	<link rel="stylesheet" type="text/css" href="<?php echo get_template_directory_uri('/'); ?>/css/custom.css">
+	<?php
+		// Cache-busting: append each theme file's last-modified time so browsers fetch the new version after a deploy
+		$theme_asset = function ($path) {
+			$file = get_template_directory() . $path;
+			return get_template_directory_uri() . $path . (file_exists($file) ? '?ver=' . filemtime($file) : '');
+		};
+	?>
+	<link rel="stylesheet" type="text/css" href="<?php echo esc_url($theme_asset('/css/custom.css')); ?>">
 	<script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
-	<script type="text/javascript" src="<?php echo get_template_directory_uri('/'); ?>/js/masonry.pkgd.min.js"></script>
-	<script type="text/javascript" src="<?php echo get_template_directory_uri('/'); ?>/js/inview.js"></script>
-	<script type="text/javascript" src="<?php echo get_template_directory_uri('/'); ?>/js/custom.js"></script>
+	<script type="text/javascript" src="<?php echo esc_url($theme_asset('/js/masonry.pkgd.min.js')); ?>"></script>
+	<script type="text/javascript" src="<?php echo esc_url($theme_asset('/js/inview.js')); ?>"></script>
+	<script type="text/javascript" src="<?php echo esc_url($theme_asset('/js/custom.js')); ?>"></script>
 	<script src="https://analytics.ahrefs.com/analytics.js" data-key="OkGuAZHZL3GP2AP6fprCMw" async></script>
 </head>
 

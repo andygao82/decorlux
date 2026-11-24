@@ -7,8 +7,10 @@ wp-content/*
 !wp-content/mu-plugins/
 !wp-content/plugins/
 !wp-content/themes/
-!wp-content/uploads/
 wp-content/themes/decorlux/node_modules/
+
+# media uploads live in WordPress, not in git (files tracked before this rule stay tracked)
+wp-content/uploads/
 
 # ignore these plugins
 wp-content/plugins/hello.php
@@ -23,6 +25,11 @@ node_modules/
 *.log
 *.sql
 *.sqlite
+error_log
+php_errorlog
+
+# ignore OS files
+.DS_Store
 
 # ignore wp-config.php
 wp-config.php
